@@ -1,0 +1,14 @@
+---
+// Design reminder: Archivo de Piedra Viva — consent is presented as a concise field note, not as a disruptive overlay.
+interface Props { lang: "es" | "en"; }
+const isSpanish = Astro.props.lang === "es";
+const copy = isSpanish
+  ? { text: "Usamos cookies necesarias y, con su permiso, analíticas para comprender el uso de esta guía.", settings: "Ver ajustes", reject: "Rechazar", accept: "Aceptar analíticas" }
+  : { text: "We use necessary cookies and, with your permission, analytics cookies to understand use of this guide.", settings: "View settings", reject: "Reject", accept: "Accept analytics" };
+const settings = isSpanish ? "/cookies/" : "/en/cookies/";
+---
+
+<aside class="cookie-banner" data-cookie-banner aria-label={isSpanish ? "Aviso de cookies" : "Cookie notice"}>
+  <p>{copy.text} <a href={settings}>{copy.settings}</a></p>
+  <div class="cookie-actions"><button class="text-button" type="button" data-cookie-action="reject">{copy.reject}</button><button class="seal-button" type="button" data-cookie-action="accept">{copy.accept}</button></div>
+</aside>

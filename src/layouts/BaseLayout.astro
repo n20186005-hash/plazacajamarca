@@ -1,0 +1,80 @@
+---
+// Design reminder: Archivo de Piedra Viva — editorial heritage, limestone warmth, terracotta signals, and quiet documentary motion.
+import "../styles/global.css";
+
+interface Props {
+  title: string;
+  description: string;
+  lang: "es" | "en";
+  alternatePath: string;
+  structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
+}
+
+const { title, description, lang, alternatePath, structuredData } = Astro.props;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
+const alternate = Astro.site ? new URL(alternatePath, Astro.site).href : alternatePath;
+const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, "\\u003c") : undefined;
+---
+
+<!doctype html>
+<html lang={lang}>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#B84F2B" />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-16.svg" sizes="16x16" type="image/svg+xml" />
+    <link rel="icon" href="/favicon-32.svg" sizes="32x32" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.svg" sizes="180x180" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternate} />
+    <title>{title}</title>
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    {canonical && <meta property="og:image" content={new URL("/images/cajamarca-plaza-night-wasaberta_2b2eefe4.jpg", Astro.site).href} />}
+    <meta name="twitter:card" content="summary_large_image" />
+    {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd}></script>}
+  </head>
+  <body>
+    <slot />
+    <script is:inline>
+      (() => {
+        const consentKey = "cajamarca-cookie-preferences";
+        const read = () => {
+          try { return JSON.parse(localStorage.getItem(consentKey) || "null"); } catch { return null; }
+        };
+        const loadAnalytics = () => {
+          if (document.querySelector("script[data-ga4]")) return;
+          const tag = document.createElement("script");
+          tag.async = true;
+          tag.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
+          tag.dataset.ga4 = "true";
+          document.head.appendChild(tag);
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){ window.dataLayer.push(arguments); }
+          gtag("js", new Date());
+          gtag("config", "G-HXM22WWPKP", { anonymize_ip: true });
+        };
+        const consent = read();
+        if (consent?.analytics) loadAnalytics();
+        document.querySelectorAll("[data-cookie-action]").forEach((button) => {
+          button.addEventListener("click", () => {
+            const action = button.dataset.cookieAction;
+            const next = action === "reject"
+              ? { necessary: true, analytics: false, preferences: false, marketing: false }
+              : { necessary: true, analytics: true, preferences: true, marketing: false };
+            localStorage.setItem(consentKey, JSON.stringify(next));
+            if (next.analytics) loadAnalytics();
+            document.querySelector("[data-cookie-banner]")?.remove();
+          });
+        });
+      })();
+    </script>
+  </body>
+</html>

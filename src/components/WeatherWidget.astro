@@ -1,0 +1,112 @@
+---
+// Design reminder: Archivo de Piedra Viva — weather remains a precise field note, with the next three days presented as a compact observation ledger.
+interface Props { lang: "es" | "en"; }
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const copy = isSpanish
+  ? { eyebrow: "Condiciones actuales", title: "Tiempo en la plaza", loading: "Consultando condiciones actuales…", unavailable: "No se pudo consultar el tiempo ahora.", retry: "Actualizar", temperature: "Temperatura", feels: "Sensación", wind: "Viento", rain: "Precipitación", timestamp: "Modelo meteorológico · hora local de Cajamarca", source: "Fuente: Open-Meteo", forecastEyebrow: "Planificar la caminata", forecastTitle: "Próximos tres días", forecastLoading: "Preparando el pronóstico…", high: "máx.", low: "mín.", rainChance: "lluvia", visitTip: "Sugerencia de visita", clear: "Despejado", mostlyClear: "Mayormente despejado", partlyCloudy: "Parcialmente nublado", overcast: "Cubierto", fog: "Niebla", drizzle: "Llovizna", rainLabel: "Lluvia", snow: "Nieve", showers: "Chubascos", thunder: "Tormenta", dryTip: "Una mañana despejada o el final de la tarde suelen ser las franjas más cómodas para caminar.", dampTip: "Considere llevar protección ligera para la lluvia y ajustar el recorrido si aparecen chubascos.", coolTip: "Las mañanas pueden sentirse frescas por la altitud; una capa ligera ayuda al iniciar el paseo." }
+  : { eyebrow: "Current conditions", title: "Weather at the square", loading: "Checking current conditions…", unavailable: "Weather could not be loaded right now.", retry: "Refresh", temperature: "Temperature", feels: "Feels like", wind: "Wind", rain: "Precipitation", timestamp: "Weather model · Cajamarca local time", source: "Source: Open-Meteo", forecastEyebrow: "Plan the walk", forecastTitle: "Next three days", forecastLoading: "Preparing the forecast…", high: "high", low: "low", rainChance: "rain", visitTip: "Visit note", clear: "Clear", mostlyClear: "Mostly clear", partlyCloudy: "Partly cloudy", overcast: "Overcast", fog: "Fog", drizzle: "Drizzle", rainLabel: "Rain", snow: "Snow", showers: "Showers", thunder: "Thunderstorm", dryTip: "A clear morning or late afternoon is usually the most comfortable time for a walk.", dampTip: "Consider light rain protection and adjust your walk if showers develop.", coolTip: "Mornings may feel cool at this elevation; a light layer helps when beginning the walk." };
+---
+
+<section class="weather-section" aria-labelledby="weather-title" data-weather-widget data-lang={lang} aria-busy="true">
+  <div class="weather-copy"><p class="eyebrow">{copy.eyebrow}</p><h2 id="weather-title">{copy.title}</h2><span class="weather-arcade" aria-hidden="true"><i></i><i></i><i></i></span><p class="weather-status" data-weather-status aria-live="polite">{copy.loading}</p><a href="https://open-meteo.com/" target="_blank" rel="noreferrer">{copy.source} ↗</a></div>
+  <div class="weather-reading" data-weather-reading hidden>
+    <div class="weather-primary"><span class="weather-glyph" data-weather-glyph aria-hidden="true">○</span><div><strong data-weather-condition>—</strong><span data-weather-time>—</span></div></div>
+    <dl class="weather-metrics"><div><dt>{copy.temperature}</dt><dd><span data-weather-temp>—</span><small>°C</small></dd></div><div><dt>{copy.feels}</dt><dd><span data-weather-feels>—</span><small>°C</small></dd></div><div><dt>{copy.wind}</dt><dd><span data-weather-wind>—</span><small>km/h</small></dd></div><div><dt>{copy.rain}</dt><dd><span data-weather-rain>—</span><small>mm</small></dd></div></dl>
+  </div>
+  <button class="weather-refresh" type="button" data-weather-refresh><span aria-hidden="true">↻</span><span>{copy.retry}</span></button>
+  <div class="weather-forecast" data-weather-forecast hidden aria-live="polite"><div class="forecast-heading"><div><p class="eyebrow">{copy.forecastEyebrow}</p><h3>{copy.forecastTitle}</h3></div><p data-weather-tip><strong>{copy.visitTip}.</strong> {copy.forecastLoading}</p></div><div class="forecast-days" data-weather-days></div></div>
+</section>
+
+<script is:inline>
+  (() => {
+    const labels = {
+      es: { clear: "Despejado", mostlyClear: "Mayormente despejado", partlyCloudy: "Parcialmente nublado", overcast: "Cubierto", fog: "Niebla", drizzle: "Llovizna", rainLabel: "Lluvia", snow: "Nieve", showers: "Chubascos", thunder: "Tormenta", unavailable: "No se pudo consultar el tiempo ahora.", loading: "Consultando condiciones actuales…", timestamp: "Modelo meteorológico · hora local de Cajamarca", high: "máx.", low: "mín.", rainChance: "lluvia", visitTip: "Sugerencia de visita", dryTip: "Una mañana despejada o el final de la tarde suelen ser las franjas más cómodas para caminar.", dampTip: "Considere llevar protección ligera para la lluvia y ajustar el recorrido si aparecen chubascos.", coolTip: "Las mañanas pueden sentirse frescas por la altitud; una capa ligera ayuda al iniciar el paseo." },
+      en: { clear: "Clear", mostlyClear: "Mostly clear", partlyCloudy: "Partly cloudy", overcast: "Overcast", fog: "Fog", drizzle: "Drizzle", rainLabel: "Rain", snow: "Snow", showers: "Showers", thunder: "Thunderstorm", unavailable: "Weather could not be loaded right now.", loading: "Checking current conditions…", timestamp: "Weather model · Cajamarca local time", high: "high", low: "low", rainChance: "rain", visitTip: "Visit note", dryTip: "A clear morning or late afternoon is usually the most comfortable time for a walk.", dampTip: "Consider light rain protection and adjust your walk if showers develop.", coolTip: "Mornings may feel cool at this elevation; a light layer helps when beginning the walk." }
+    };
+    const weatherCode = (code, words) => {
+      if (code === 0) return [words.clear, "☼"];
+      if (code <= 2) return [words.mostlyClear, "◔"];
+      if (code === 3) return [words.partlyCloudy, "☁"];
+      if (code <= 48) return [words.fog, "≋"];
+      if (code <= 57) return [words.drizzle, "∶"];
+      if (code <= 67) return [words.rainLabel, "☂"];
+      if (code <= 77) return [words.snow, "✳"];
+      if (code <= 82) return [words.showers, "☂"];
+      return [words.thunder, "ϟ"];
+    };
+    const dateLabel = (date, lang) => new Intl.DateTimeFormat(lang === "es" ? "es-PE" : "en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "America/Lima" }).format(new Date(`${date}T12:00:00-05:00`));
+    document.querySelectorAll("[data-weather-widget]").forEach((widget) => {
+      const lang = widget.dataset.lang === "en" ? "en" : "es";
+      const text = labels[lang];
+      const status = widget.querySelector("[data-weather-status]");
+      const reading = widget.querySelector("[data-weather-reading]");
+      const forecast = widget.querySelector("[data-weather-forecast]");
+      const days = widget.querySelector("[data-weather-days]");
+      const tip = widget.querySelector("[data-weather-tip]");
+      const refresh = widget.querySelector("[data-weather-refresh]");
+      const renderCurrent = (current) => {
+        const [condition, glyph] = weatherCode(current.weather_code, text);
+        widget.querySelector("[data-weather-condition]").textContent = condition;
+        widget.querySelector("[data-weather-glyph]").textContent = glyph;
+        widget.querySelector("[data-weather-temp]").textContent = Math.round(current.temperature_2m);
+        widget.querySelector("[data-weather-feels]").textContent = Math.round(current.apparent_temperature);
+        widget.querySelector("[data-weather-wind]").textContent = Math.round(current.wind_speed_10m);
+        widget.querySelector("[data-weather-rain]").textContent = Number(current.precipitation).toFixed(1);
+        widget.querySelector("[data-weather-time]").textContent = `${text.timestamp} · ${current.time.replace("T", " · ")}`;
+        reading.hidden = false;
+      };
+      const renderForecast = (daily) => {
+        const dates = daily.time?.slice(0, 3) || [];
+        const maxes = daily.temperature_2m_max || [];
+        const mins = daily.temperature_2m_min || [];
+        const rains = daily.precipitation_probability_max || [];
+        const codes = daily.weather_code || [];
+        if (!dates.length) return;
+        days.innerHTML = dates.map((date, index) => {
+          const [condition, glyph] = weatherCode(codes[index], text);
+          return `<article class="forecast-day"><p>${dateLabel(date, lang)}</p><span aria-hidden="true">${glyph}</span><strong>${condition}</strong><dl><div><dt>${text.high}</dt><dd>${Math.round(maxes[index])}°</dd></div><div><dt>${text.low}</dt><dd>${Math.round(mins[index])}°</dd></div><div><dt>${text.rainChance}</dt><dd>${Math.round(rains[index] || 0)}%</dd></div></dl></article>`;
+        }).join("");
+        const highestRain = Math.max(...rains.map((value) => Number(value || 0)));
+        const hasWetWeather = codes.some((code) => Number(code) >= 51);
+        const lowestTemp = Math.min(...mins.map((value) => Number(value)));
+        const message = highestRain >= 45 || hasWetWeather ? text.dampTip : lowestTemp < 8 ? text.coolTip : text.dryTip;
+        tip.innerHTML = `<strong>${text.visitTip}.</strong> ${message}`;
+        forecast.hidden = false;
+      };
+      const load = async () => {
+        widget.setAttribute("aria-busy", "true");
+        status.hidden = false;
+        status.textContent = text.loading;
+        refresh.disabled = true;
+        try {
+          const response = await fetch("/api/weather", { headers: { Accept: "application/json" } });
+          if (!response.ok) throw new Error("weather request failed");
+          const payload = await response.json();
+          if (!payload.current || !payload.daily) throw new Error("missing weather data");
+          renderCurrent(payload.current);
+          renderForecast(payload.daily);
+          status.hidden = true;
+        } catch (error) {
+          reading.hidden = true;
+          forecast.hidden = true;
+          status.hidden = false;
+          status.textContent = text.unavailable;
+        } finally {
+          widget.setAttribute("aria-busy", "false");
+          refresh.disabled = false;
+        }
+      };
+      refresh.addEventListener("click", load);
+      load();
+    });
+  })();
+</script>
+
+<style>
+  .weather-section { display: grid; grid-template-columns: minmax(250px, .72fr) minmax(440px, 1.28fr) auto; gap: 38px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 42px 38px 0; border-bottom: 1px solid var(--line); }
+  .weather-copy { position: relative; }.weather-copy .eyebrow { margin-bottom: 8px; }.weather-copy h2 { margin: 0; color: var(--blue); font-family: var(--serif); font-size: clamp(33px, 3.2vw, 46px); font-weight: 600; letter-spacing: -.045em; line-height: .9; }.weather-status { min-height: 1.4em; margin: 10px 0 2px; color: var(--muted); font-size: 13px; }.weather-copy > a { color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }.weather-arcade { display: flex; gap: 3px; position: absolute; top: 4px; right: 0; align-items: end; height: 23px; opacity: .8; }.weather-arcade i { display: block; width: 10px; height: 16px; border: 1px solid var(--terracotta); border-bottom: 0; border-radius: 10px 10px 0 0; }
+  .weather-reading { display: grid; grid-template-columns: minmax(190px, .68fr) 1.32fr; align-items: center; min-width: 0; }.weather-primary { display: flex; align-items: center; gap: 15px; padding-right: 25px; }.weather-glyph { display: grid; width: 55px; height: 55px; place-items: center; border: 1px solid var(--terracotta); border-radius: 50%; color: var(--terracotta-dark); font-family: var(--serif); font-size: 34px; line-height: 1; }.weather-primary strong { display: block; color: var(--ink); font-family: var(--serif); font-size: 25px; font-weight: 600; line-height: 1; }.weather-primary span:last-child { display: block; max-width: 180px; margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.35; }.weather-metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-left: 1px solid var(--line); }.weather-metrics div { min-width: 0; padding: 2px 11px 2px 17px; border-right: 1px solid var(--line); }.weather-metrics div:last-child { border: 0; }.weather-metrics dt,.forecast-day dt { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }.weather-metrics dd { margin: 3px 0 0; color: var(--blue); font-family: var(--serif); font-size: 27px; font-weight: 700; letter-spacing: -.04em; line-height: 1; white-space: nowrap; }.weather-metrics small { margin-left: 1px; color: var(--terracotta-dark); font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0; }.weather-refresh { display: inline-flex; align-items: center; gap: 6px; padding: 9px 0 9px 13px; border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--terracotta-dark); cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: color .18s var(--ease), transform .18s var(--ease); }.weather-refresh:hover { color: var(--blue); transform: translateY(-1px); }.weather-refresh:active { transform: scale(.97); }.weather-refresh:disabled { cursor: wait; opacity: .55; }.weather-refresh:disabled span:first-child { animation: spin .7s linear infinite; }
+  .weather-forecast { grid-column: 1 / -1; width: 100%; margin-top: 36px; padding: 25px 0 0; border-top: 1px solid var(--line); }.forecast-heading { display: grid; grid-template-columns: minmax(220px, .65fr) minmax(320px, 1.35fr); gap: 28px; align-items: end; }.forecast-heading .eyebrow { margin: 0 0 5px; }.forecast-heading h3 { margin: 0; color: var(--blue); font-family: var(--serif); font-size: 28px; font-weight: 600; letter-spacing: -.04em; line-height: 1; }.forecast-heading > p { max-width: 560px; margin: 0; padding-left: 20px; border-left: 2px solid var(--terracotta); color: var(--muted); font-size: 13px; line-height: 1.45; }.forecast-heading strong { color: var(--ink); }.forecast-days { display: grid; grid-template-columns: repeat(3, 1fr); margin-top: 22px; }.forecast-day { display: grid; grid-template-columns: 43px 1fr; grid-template-rows: auto auto auto; column-gap: 11px; padding: 22px 24px 23px 0; border-top: 1px solid var(--line); border-right: 1px solid var(--line); }.forecast-day + .forecast-day { padding-left: 24px; }.forecast-day:last-child { border-right: 0; }.forecast-day > p { grid-column: 1 / -1; margin: 0 0 17px; color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }.forecast-day > span { display: grid; grid-row: 2 / span 2; width: 39px; height: 39px; place-items: center; border: 1px solid var(--terracotta); border-radius: 50%; color: var(--terracotta-dark); font-family: var(--serif); font-size: 23px; }.forecast-day > strong { align-self: center; color: var(--ink); font-family: var(--serif); font-size: 21px; font-weight: 600; line-height: 1; }.forecast-day dl { display: flex; gap: 15px; margin: 8px 0 0; }.forecast-day dd { margin: 2px 0 0; color: var(--blue); font-family: var(--serif); font-size: 18px; font-weight: 700; line-height: 1; }
+  @keyframes spin { to { transform: rotate(1turn); } } @media (max-width: 1000px) { .weather-section { grid-template-columns: 1fr auto; gap: 25px; }.weather-reading,.weather-forecast { grid-column: 1 / -1; }.forecast-heading { grid-template-columns: 1fr; gap: 15px; }.forecast-heading > p { padding-left: 15px; } } @media (max-width: 620px) { .weather-section { display: block; padding: 36px 25px 0; }.weather-reading { display: block; margin-top: 25px; }.weather-primary { padding: 0 0 20px; }.weather-metrics { border-top: 1px solid var(--line); border-left: 0; }.weather-metrics div { padding: 13px 8px 4px 0; }.weather-refresh { position: absolute; right: 25px; margin-top: -38px; border-left: 0; padding-left: 0; }.weather-arcade { right: 64px; }.weather-forecast { margin-top: 32px; }.forecast-days { grid-template-columns: 1fr; }.forecast-day,.forecast-day + .forecast-day { padding: 20px 0; border-right: 0; }.forecast-day:last-child { padding-bottom: 25px; }.forecast-heading > p { max-width: none; } }
+</style>

@@ -1,0 +1,7 @@
+---
+// Design reminder: Archivo de Piedra Viva — direct, standalone English legal pages with a separate language route.
+import LegalDocument from "../../components/LegalDocument.astro";
+export function getStaticPaths() { return ["privacy", "terms", "cookies"].map((legal) => ({ params: { legal } })); }
+const legal = Astro.params.legal as "privacy" | "terms" | "cookies";
+---
+<LegalDocument lang="en" kind={legal} />
