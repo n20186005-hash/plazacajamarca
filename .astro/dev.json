@@ -1,0 +1,18 @@
+{
+	"pid": 24972,
+	"port": 3000,
+	"url": "http://localhost:3000",
+	"urls": {
+		"local": [
+			"http://localhost:3000/"
+		],
+		"network": [
+			"http://192.168.0.148:3000/"
+		],
+		"networkInterfaceNames": [
+			"以太网"
+		]
+	},
+	"background": false,
+	"startedAt": "2026-08-27T11:39:06.629Z"
+}
