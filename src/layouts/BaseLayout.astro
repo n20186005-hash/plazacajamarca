@@ -34,11 +34,17 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, "\\
     <link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternate} />
     <title>{title}</title>
     <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Plaza de Armas de Cajamarca · Guía independiente" />
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
     {canonical && <meta property="og:image" content={new URL("/images/cajamarca-plaza-night-wasaberta.jpg", Astro.site).href} />}
+    <meta property="og:image:alt" content={lang === "es" ? "Plaza de Armas de Cajamarca - Vista principal en Cajamarca, Perú" : "Plaza de Armas de Cajamarca - Main view in Cajamarca, Peru"} />
     <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    {canonical && <meta name="twitter:image" content={new URL("/images/cajamarca-plaza-night-wasaberta.jpg", Astro.site).href} />}
+    <meta name="twitter:image:alt" content={lang === "es" ? "Plaza de Armas de Cajamarca - Vista principal en Cajamarca, Perú" : "Plaza de Armas de Cajamarca - Main view in Cajamarca, Peru"} />
     {jsonLd && <script is:inline type="application/ld+json" set:html={jsonLd}></script>}
   </head>
   <body>
