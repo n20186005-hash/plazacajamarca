@@ -1,0 +1,62 @@
+---
+// Design reminder: Archivo de Piedra Viva — a science-and-responsibility panel. Neutral health and
+// environmental guidance only; no businesses, no official warnings fabricated.
+interface Props { lang: "es" | "en"; }
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const copy = isSpanish
+  ? {
+      kicker: "Ciencia y convivencia",
+      title: "Altitud, naturaleza y visita responsable",
+      intro: "Una guía de la plaza también es una guía del lugar: su altura, sus aguas y su entorno piden algunas precauciones simples. La información es orientativa, no reemplaza el aviso oficial ni el consejo médico.",
+      items: [
+        ["Altitud y salud", "Cajamarca está a 2.722 m. Al llegar desde el nivel del mar, camine despacio las primeras horas, beba agua y evite el esfuerzo intenso el primer día. Si tiene condiciones médicas, consulte antes de viajar."],
+        ["Aguas termales", "Los Baños del Inca son manantiales de origen geotérmico. Use las instalaciones habilitadas, respete los horarios y no ingrese si hay avisos locales en contra."],
+        ["Naturaleza y fauna", "En el Cerro Santa Apolonia y los alrededores conviven aves andinas y vegetación nativa. No alimente animales ni saque plantas; manténgase en los senderos señalizados."],
+        ["Cero residuos y respeto", "Lleve su basura y deposite lo que no pueda cargar en los puntos habilitados. En las iglesias, baje la voz durante las ceremonias y elija ropa adecuada para el recinto."],
+        ["Seguridad y convivencia", "La plaza es un espacio público vivo: dé prioridad a quienes caminan, cuide el empedrado desnivelado y prefiera rutas iluminadas al anochecer. Confirme condiciones locales el mismo día."]
+      ]
+    }
+  : {
+      kicker: "Science & coexistence",
+      title: "Altitude, nature and a responsible visit",
+      intro: "A guide to the square is also a guide to the place: its elevation, its waters and its surroundings call for a few simple precautions. This is orientation only; it does not replace the official alert or medical advice.",
+      items: [
+        ["Altitude & health", "Cajamarca sits at 2,722 m. Arriving from sea level, walk slowly for the first hours, drink water and avoid intense effort on day one. If you have a medical condition, check before travelling."],
+        ["Thermal waters", "Baños del Inca are geothermal springs. Use the enabled facilities, respect opening times, and do not enter if local notices advise against it."],
+        ["Nature & wildlife", "Santa Apolonia Hill and the surroundings host Andean birds and native vegetation. Do not feed animals or take plants; stay on the marked paths."],
+        ["Zero waste & respect", "Carry your litter and use the provided bins for what you cannot take with you. In churches, lower your voice during ceremonies and dress appropriately for the space."],
+        ["Safety & coexistence", "The square is a living public space: give way to people walking, mind the uneven paving, and prefer lit routes after dark. Confirm local conditions on the day."]
+      ]
+    };
+---
+<section class="responsibility-section" aria-labelledby="resp-title">
+  <div class="resp-intro">
+    <p class="eyebrow">{copy.kicker}</p>
+    <h2 id="resp-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+  <div class="resp-grid">
+    {copy.items.map(([title, text], i) => (
+      <article class="resp-item"><span class="resp-index">{String(i + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{text}</p></article>
+    ))}
+  </div>
+</section>
+
+<style>
+  .responsibility-section { background: var(--blue); color: #fffaf0; padding: 112px max(38px, 8vw); }
+  .resp-intro .eyebrow { color: #ebae87; }
+  .resp-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 18px; }
+  .resp-intro p { color: #ecdfd0; font-size: 17px; max-width: 660px; }
+  .resp-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 52px; border-top: 1px solid rgba(255, 250, 240, .35); }
+  .resp-item { padding: 28px 30px 32px; border-right: 1px solid rgba(255, 250, 240, .35); border-bottom: 1px solid rgba(255, 250, 240, .35); }
+  .resp-item:nth-child(3n) { border-right: 0; }
+  .resp-index { color: #ebae87; font-family: var(--serif); font-size: 28px; font-weight: 700; }
+  .resp-item h3 { margin: 10px 0 8px; font-family: var(--serif); font-size: 26px; font-weight: 600; }
+  .resp-item p { color: #ecdfd0; font-size: 15px; line-height: 1.55; margin: 0; }
+  @media (max-width: 900px) {
+    .responsibility-section { padding: 80px 27px; }
+    .resp-grid { grid-template-columns: 1fr; }
+    .resp-item { border-right: 0; }
+  }
+</style>

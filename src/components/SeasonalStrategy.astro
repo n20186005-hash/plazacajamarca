@@ -1,0 +1,71 @@
+---
+// Design reminder: Archivo de Piedra Viva — a seasonal table based on Cajamarca's highland climate
+// pattern (two marked seasons). No foreign agencies are cited; the pattern is described qualitatively.
+interface Props { lang: "es" | "en"; }
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const copy = isSpanish
+  ? {
+      kicker: "Cuándo ir",
+      title: "Estrategia de visita por temporada",
+      intro: "Cajamarca tiene clima de sierra: días templados por la altura y noches frías, con una estación seca y otra lluviosa. La tabla resume el patrón general; confirma el parte local antes de salir.",
+      note: "Basado en el patrón climático de la sierra de Cajamarca (promedios multianuales). No sustituye el aviso meteorológico oficial.",
+      cols: ["Temporada", "Cielo y lluvia", "Para caminar y fotografiar", "Lleva", "Precaución"],
+      rows: [
+        ["Dic – Feb", "Verano austral con sol y algunas tardes lluvias; carnaval en febrero.", "Buena luz y plaza viva; lleva impermeable para chubascos.", "Impermeable, calzado seco, una prenda de abrigo.", "Lluvia vespertina; pavimento resbalizo tras la lluvia."],
+        ["Mar – May", "Las lluvias bajan; campo verde y aire limpio.", "Paisaje fresco y cielos despejados para fotos.", "Capa ligera, protector solar.", "Tramos de tierra húmedos en los alrededores."],
+        ["Jun – Sep", "Estación seca: sol, cielos claros y noches frías.", "La mejor luz y estabilidad para fotografiar fachadas.", "Abrigo térmico, gorro y guantes livianos.", "Heladas nocturnas; mañanas muy frías al amanecer."],
+        ["Oct – Nov", "Transición: la lluvia regresa de a poco.", "Buen equilibrio de sol y nubes.", "Impermeable plegable, ropa en capas.", "Cambios rápidos de tiempo en la tarde."]
+      ]
+    }
+  : {
+      kicker: "When to go",
+      title: "Seasonal visiting strategy",
+      intro: "Cajamarca has a highland climate: mild days from the elevation and cold nights, with a dry season and a rainy season. The table summarises the general pattern; confirm the local forecast before you leave.",
+      note: "Based on Cajamarca's highland climate pattern (multi-year averages). It does not replace the official weather alert.",
+      cols: ["Season", "Sky & rain", "For walking & photos", "Bring", "Caution"],
+      rows: [
+        ["Dec – Feb", "Austral summer with sun and some afternoon rain; carnival in February.", "Good light and a lively square; carry rainwear for showers.", "Raincoat, dry footwear, a warm layer.", "Evening rain; paving is slippery after rain."],
+        ["Mar – May", "Rain eases; green countryside and clear air.", "Fresh scenery and clear skies for photos.", "Light layer, sun protection.", "Damp dirt stretches on the outskirts."],
+        ["Jun – Sep", "Dry season: sun, clear skies and cold nights.", "Best light and stability for photographing facades.", "Thermal wear, hat and light gloves.", "Night frosts; very cold dawns."],
+        ["Oct – Nov", "Transition: rain returns gradually.", "A fair mix of sun and cloud.", "Packable raincoat, layered clothing.", "Quick afternoon changes in weather."]
+      ]
+    };
+---
+<section class="season-section" aria-labelledby="season-title">
+  <div class="season-intro">
+    <p class="eyebrow">{copy.kicker}</p>
+    <h2 id="season-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+  <div class="season-table-wrap">
+    <table class="season-table">
+      <thead><tr>{copy.cols.map((c) => <th>{c}</th>)}</tr></thead>
+      <tbody>
+        {copy.rows.map((r) => (
+          <tr>
+            <th scope="row">{r[0]}</th>
+            {r.slice(1).map((cell) => <td>{cell}</td>)}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  </div>
+  <p class="season-note">{copy.note}</p>
+</section>
+
+<style>
+  .season-section { max-width: 1280px; margin: 0 auto; padding: 118px 38px; border-top: 1px solid var(--line); }
+  .season-intro .eyebrow { color: var(--terracotta-dark); }
+  .season-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 18px; }
+  .season-intro p { color: #514b42; font-size: 17px; max-width: 640px; }
+  .season-table-wrap { margin-top: 44px; overflow-x: auto; border: 1px solid var(--line); background: var(--paper); }
+  .season-table { width: 100%; border-collapse: collapse; min-width: 760px; }
+  .season-table th, .season-table td { text-align: left; vertical-align: top; padding: 18px 20px; border-bottom: 1px solid var(--line); font-size: 14px; line-height: 1.5; }
+  .season-table thead th { background: var(--stone); color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; }
+  .season-table tbody th[scope="row"] { color: var(--blue); font-family: var(--serif); font-size: 20px; font-weight: 700; letter-spacing: -.02em; white-space: nowrap; }
+  .season-table tbody tr:last-child th, .season-table tbody tr:last-child td { border-bottom: 0; }
+  .season-table td { color: #4e493f; }
+  .season-note { margin: 22px 0 0; color: var(--muted); font-size: 12px; }
+  @media (max-width: 900px) { .season-section { padding: 84px 27px; } }
+</style>

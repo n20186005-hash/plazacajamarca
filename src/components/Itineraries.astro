@@ -1,0 +1,81 @@
+---
+// Design reminder: Archivo de Piedra Viva — routes by visitor type and by length. Only types of
+// service are named, never specific businesses; distances are framed by walking time, not metres.
+interface Props { lang: "es" | "en"; }
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const copy = isSpanish
+  ? {
+      kicker: "Cómo recorrerla",
+      title: "Rutas sugeridas para la plaza",
+      intro: "Tres enfoques según el grupo y el ritmo, más dos recorridos estándar. La plaza es el punto de partida; los hitos cercanos se alcanzan a pie en pocos minutos.",
+      audiencesKicker: "Por tipo de visitante",
+      audiences: [
+        ["Familias con niños", "Una vuelta corta y llana alrededor de la fuente, con pausas en los bancos y una merienda en alguna cafetería del entorno. Evite subidas largas y mantenga a los menores cerca del centro pavimentado."],
+        ["Fotografía y naturaleza", "Llegue al atardecer para la luz dorada sobre las fachadas y la fuente iluminada; suba luego al Cerro Santa Apolonia para la panorámica de la ciudad. Los Baños del Inca dan vapor y reflejos temprano."],
+        ["Bajo esfuerzo / accesible", "Recorra el perímetro empedrado principal, donde el piso es más regular; visite por la mañana, cuando hay menos gente y mejor luz. Descanse en las plazuelas laterales."]
+      ],
+      routesKicker: "Recorridos estándar",
+      half: { title: "Medio día (2–3 h)", items: ["Plaza y pileta octogonal", "Catedral de Cajamarca (fachada)", "Iglesia de San Francisco", "Café o merienda en el entorno", "Cuarto del Rescate"] },
+      full: { title: "Día completo (5–6 h)", items: ["Lo anterior, con calma", "Cerro Santa Apolonia (mirador)", "Baños del Inca (aguas termales)", "Museo de arte religioso (San Francisco)", "Paseo por el centro histórico al anochecer"] }
+    }
+  : {
+      kicker: "How to walk it",
+      title: "Suggested routes for the square",
+      intro: "Three approaches by group and pace, plus two standard walks. The square is the starting point; nearby landmarks are a few minutes' walk away.",
+      audiencesKicker: "By type of visitor",
+      audiences: [
+        ["Families with children", "A short, flat loop around the fountain, with rests on the benches and a snack at a café nearby. Avoid long climbs and keep children near the paved centre."],
+        ["Photography & nature", "Arrive at dusk for golden light on the facades and the lit fountain; then climb Santa Apolonia Hill for the city panorama. Baños del Inca offers steam and reflections early."],
+        ["Low effort / accessible", "Walk the main paved perimeter, where the surface is more even; go in the morning, when it is less crowded and the light is better. Rest in the side plazuelas."]
+      ],
+      routesKicker: "Standard walks",
+      half: { title: "Half day (2–3 h)", items: ["Square and octagonal basin", "Cajamarca Cathedral (facade)", "San Francisco Church", "Coffee or snack nearby", "Ransom Room"] },
+      full: { title: "Full day (5–6 h)", items: ["The above, at ease", "Santa Apolonia Hill (viewpoint)", "Baños del Inca (thermal waters)", "Religious art museum (San Francisco)", "Walk the historic centre at dusk"] }
+    };
+---
+<section class="routes-section" aria-labelledby="routes-title">
+  <div class="routes-intro">
+    <p class="eyebrow">{copy.kicker}</p>
+    <h2 id="routes-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+  <div class="routes-grid">
+    <div class="audiences">
+      <p class="routes-sub">{copy.audiencesKicker}</p>
+      <div class="audience-list">
+        {copy.audiences.map(([title, text], i) => (
+          <article class="audience"><span class="audience-index">{String(i + 1).padStart(2, "0")}</span><h3>{title}</h3><p>{text}</p></article>
+        ))}
+      </div>
+    </div>
+    <div class="standard">
+      <p class="routes-sub">{copy.routesKicker}</p>
+      <article class="route-card"><h3>{copy.half.title}</h3><ul>{copy.half.items.map((it) => <li>{it}</li>)}</ul></article>
+      <article class="route-card route-alt"><h3>{copy.full.title}</h3><ul>{copy.full.items.map((it) => <li>{it}</li>)}</ul></article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .routes-section { max-width: 1280px; margin: 0 auto; padding: 118px 38px; border-top: 1px solid var(--line); }
+  .routes-intro .eyebrow { color: var(--terracotta-dark); }
+  .routes-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 18px; }
+  .routes-intro p { color: #514b42; font-size: 17px; max-width: 640px; }
+  .routes-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; margin-top: 46px; }
+  .routes-sub { color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; margin: 0 0 18px; }
+  .audience-list { display: grid; gap: 18px; }
+  .audience { background: var(--stone); padding: 22px 24px; border-left: 3px solid var(--terracotta); }
+  .audience-index { color: var(--terracotta-dark); font-family: var(--serif); font-size: 24px; font-weight: 700; }
+  .audience h3 { margin: 6px 0 8px; font-family: var(--serif); font-size: 25px; font-weight: 600; }
+  .audience p { color: #4e493f; font-size: 15px; margin: 0; }
+  .standard { display: grid; gap: 18px; align-content: start; }
+  .route-card { background: var(--paper); border: 1px solid var(--line); padding: 24px 26px; border-top: 3px solid var(--blue); }
+  .route-card.route-alt { border-top-color: var(--terracotta); }
+  .route-card h3 { margin: 0 0 12px; font-family: var(--serif); font-size: 24px; font-weight: 600; }
+  .route-card ul { margin: 0; padding-left: 18px; color: #4e493f; font-size: 15px; line-height: 1.7; }
+  @media (max-width: 900px) {
+    .routes-section { padding: 84px 27px; }
+    .routes-grid { grid-template-columns: 1fr; gap: 38px; }
+  }
+</style>

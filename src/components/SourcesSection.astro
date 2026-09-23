@@ -1,0 +1,77 @@
+---
+// Design reminder: Archivo de Piedra Viva — a transparent references panel that strengthens E-E-A-T without commercial positioning.
+interface Props { lang: "es" | "en"; }
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const copy = isSpanish
+  ? {
+      kicker: "Fuentes y verificación",
+      title: "Fuentes consultadas",
+      intro: "Esta guía independiente contrasta su información con fuentes públicas verificables. No contiene recomendaciones comerciales ni reseñas reproducidas.",
+      entries: [
+        ["MINCETUR · Inventario Turístico del Perú", "Ficha 2432 — tipología, acceso y datos de la plaza", "http://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=2432"],
+        ["PromPerú · Y tú qué planes", "Plaza de Armas Cajamarca — ficha oficial de destino", "https://www.ytuqueplanes.com/destinos/cajamarca/ciudad-de-cajamarca/plaza-de-armas-cajamarca"],
+        ["Wikimedia Commons", "Fotografía nocturna de la plaza — Wasaberta (CC BY-SA 4.0)", "https://commons.wikimedia.org/wiki/File:Plaza_de_cajamarca.jpg"],
+        ["Wikimedia Commons", "Vista diurna de la plaza — Josefito123 (CC BY-SA 4.0)", "https://commons.wikimedia.org/wiki/File:20250712_110718_Cajamarca.jpg"],
+        ["Google Maps", "Ubicación y ruta de la Plaza de Armas de Cajamarca", "https://maps.app.goo.gl/ESWMHyuaU6USorAt6"]
+      ]
+    }
+  : {
+      kicker: "Sources & verification",
+      title: "Sources consulted",
+      intro: "This independent guide cross-checks its information against verifiable public sources. It contains no commercial recommendations and reproduces no reviews.",
+      entries: [
+        ["MINCETUR · Peru Tourism Inventory", "Record 2432 — typology, access and plaza data", "http://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=2432"],
+        ["PromPerú · Y tú qué planes", "Plaza de Armas Cajamarca — official destination record", "https://www.ytuqueplanes.com/destinos/cajamarca/ciudad-de-cajamarca/plaza-de-armas-cajamarca"],
+        ["Wikimedia Commons", "Night photograph of the square — Wasaberta (CC BY-SA 4.0)", "https://commons.wikimedia.org/wiki/File:Plaza_de_cajamarca.jpg"],
+        ["Wikimedia Commons", "Daytime view of the square — Josefito123 (CC BY-SA 4.0)", "https://commons.wikimedia.org/wiki/File:20250712_110718_Cajamarca.jpg"],
+        ["Google Maps", "Location and route of Plaza de Armas de Cajamarca", "https://maps.app.goo.gl/ESWMHyuaU6USorAt6"]
+      ]
+    };
+---
+<section class="sources-section" id="fuentes" aria-labelledby="sources-title">
+  <div class="sources-intro">
+    <p class="eyebrow">{copy.kicker}</p>
+    <h2 id="sources-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
+  </div>
+  <ul class="sources-list">
+    {copy.entries.map(([publisher, title, url]) => (
+      <li>
+        <span class="publisher">{publisher}</span>
+        <a href={url} target="_blank" rel="noopener noreferrer">{title} <span aria-hidden="true">↗</span></a>
+      </li>
+    ))}
+  </ul>
+</section>
+
+<style>
+  .sources-section {
+    display: grid;
+    grid-template-columns: .85fr 1.15fr;
+    gap: 80px;
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 120px 38px;
+    border-top: 1px solid var(--line);
+    background: var(--paper);
+  }
+  .sources-intro .eyebrow { color: var(--terracotta-dark); }
+  .sources-intro h2 {
+    font-family: var(--serif);
+    font-size: clamp(43px, 4.5vw, 72px);
+    font-weight: 600;
+    letter-spacing: -.055em;
+    line-height: .9;
+    margin: 14px 0 0;
+  }
+  .sources-intro p { margin-top: 22px; color: #514b42; font-size: 16px; max-width: 420px; }
+  .sources-list { list-style: none; margin: 0; padding: 0; border-top: 1px solid var(--line); }
+  .sources-list li { display: grid; gap: 4px; padding: 24px 0; border-bottom: 1px solid var(--line); }
+  .sources-list .publisher { color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+  .sources-list a { color: var(--ink); font-family: var(--serif); font-size: 26px; font-weight: 600; text-decoration: none; }
+  .sources-list a:hover { color: var(--terracotta); }
+  @media (max-width: 900px) {
+    .sources-section { grid-template-columns: 1fr; gap: 36px; padding: 84px 27px; }
+  }
+</style>

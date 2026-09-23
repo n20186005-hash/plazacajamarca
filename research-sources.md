@@ -8,7 +8,7 @@
 | Contexto histórico | Lugar asociado a la captura del inca Atahualpa por Francisco Pizarro. | PromPerú, ficha turística oficial. |
 | Rasgo espacial | La plaza conserva una planta cuadrada y una pileta octogonal de piedra del siglo XVII. | PromPerú, ficha turística oficial. |
 | Ubicación cartográfica | Cajamarca 06001, Perú; -7.156461742848036, -78.5198635730413. | Enlace y mapa incrustado proporcionados por el usuario. |
-| Calificación | 4.6 sobre 5, con 29.263 valoraciones. | Dato de Google Maps proporcionado por el usuario; se identifica como una referencia de plataforma y no se reproducen reseñas. |
+| Calificación | 4.6 sobre 5, con 29.304 valoraciones. | Dato de Google Maps proporcionado por el usuario; se identifica como una referencia de plataforma y no se reproducen reseñas. |
 | Acceso y condiciones | Recurso de ingreso libre, citado como accesible las 24 horas. | Ficha oficial del Inventario Turístico de MINCETUR; el sitio añade la recomendación de comprobar condiciones locales antes de la visita. |
 | Tipología y altitud | Manifestación cultural, lugar histórico, plaza; 2.722 m de altitud. | Ficha oficial del Inventario Turístico de MINCETUR. |
 | Tamaño | Superficie neta de 12.139 m²; calles perimétricas: 9.234 m². | Ficha oficial del Inventario Turístico de MINCETUR. |

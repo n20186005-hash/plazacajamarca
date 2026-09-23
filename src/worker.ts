@@ -3,7 +3,7 @@ type AssetBinding = { fetch(request: Request): Promise<Response> };
 type Env = { ASSETS: AssetBinding };
 type EdgeCache = { match(request: Request): Promise<Response | undefined>; put(request: Request, response: Response): Promise<void> };
 
-const WEATHER_URL = "https://api.open-meteo.com/v1/forecast?latitude=-7.156461742848036&longitude=-78.5198635730413&current=temperature_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,sunrise,sunset&forecast_days=3&timezone=America%2FLima";
+const WEATHER_URL = "https://api.open-meteo.com/v1/forecast?latitude=-7.156461742848036&longitude=-78.5198635730413&current=temperature_2m,relative_humidity_2m,apparent_temperature,precipitation,weather_code,wind_speed_10m,is_day&daily=weather_code,temperature_2m_max,temperature_2m_min,precipitation_probability_max,uv_index_max,sunrise,sunset&forecast_days=7&timezone=America%2FLima";
 
 async function weatherResponse(request: Request): Promise<Response> {
   const cacheKey = new Request(new URL("/api/weather", request.url).toString());

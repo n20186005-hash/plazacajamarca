@@ -1,133 +1,367 @@
 ---
-// Design reminder: Archivo de Piedra Viva — weather remains a precise field note, with the next three days presented as a compact observation ledger.
+// Design reminder: Archivo de Piedra Viva — a quiet, neutral weather panel. The visitor only cares
+// "will it rain / what to wear". The data source is never surfaced. Risk notes are DERIVED from the
+// forecast (thunderstorm / heavy rain / strong wind / fog), never presented as official alerts.
 interface Props { lang: "es" | "en"; }
 const { lang } = Astro.props;
 const isSpanish = lang === "es";
 const copy = isSpanish
-  ? { eyebrow: "Condiciones actuales", title: "Tiempo en la plaza", loading: "Consultando condiciones actuales…", unavailable: "No se pudo consultar el tiempo ahora.", retry: "Actualizar", temperature: "Temperatura", feels: "Sensación", wind: "Viento", rain: "Precipitación", timestamp: "Modelo meteorológico · hora local de Cajamarca", source: "Fuente: Open-Meteo", forecastEyebrow: "Planificar la caminata", forecastTitle: "Próximos tres días", forecastLoading: "Preparando el pronóstico…", high: "máx.", low: "mín.", rainChance: "lluvia", visitTip: "Sugerencia de visita", clear: "Despejado", mostlyClear: "Mayormente despejado", partlyCloudy: "Parcialmente nublado", overcast: "Cubierto", fog: "Niebla", drizzle: "Llovizna", rainLabel: "Lluvia", snow: "Nieve", showers: "Chubascos", thunder: "Tormenta", dryTip: "Una mañana despejada o el final de la tarde suelen ser las franjas más cómodas para caminar.", dampTip: "Considere llevar protección ligera para la lluvia y ajustar el recorrido si aparecen chubascos.", coolTip: "Las mañanas pueden sentirse frescas por la altitud; una capa ligera ayuda al iniciar el paseo." }
-  : { eyebrow: "Current conditions", title: "Weather at the square", loading: "Checking current conditions…", unavailable: "Weather could not be loaded right now.", retry: "Refresh", temperature: "Temperature", feels: "Feels like", wind: "Wind", rain: "Precipitation", timestamp: "Weather model · Cajamarca local time", source: "Source: Open-Meteo", forecastEyebrow: "Plan the walk", forecastTitle: "Next three days", forecastLoading: "Preparing the forecast…", high: "high", low: "low", rainChance: "rain", visitTip: "Visit note", clear: "Clear", mostlyClear: "Mostly clear", partlyCloudy: "Partly cloudy", overcast: "Overcast", fog: "Fog", drizzle: "Drizzle", rainLabel: "Rain", snow: "Snow", showers: "Showers", thunder: "Thunderstorm", dryTip: "A clear morning or late afternoon is usually the most comfortable time for a walk.", dampTip: "Consider light rain protection and adjust your walk if showers develop.", coolTip: "Mornings may feel cool at this elevation; a light layer helps when beginning the walk." };
+  ? {
+      kicker: "Cielo de Cajamarca ahora",
+      title: "Clima en la plaza",
+      intro: "Condiciones actuales y pronóstico a 7 días para la Plaza de Armas de Cajamarca, a 2.722 m de altitud. El pronóstico se actualiza con frecuencia.",
+      now: "Ahora",
+      feels: "Sensación",
+      wind: "Viento",
+      humidity: "Humedad",
+      rain: "Prob. lluvia",
+      uv: "UV",
+      advice: "Consejo para tu visita",
+      updated: "Actualizado",
+      loading: "Consultando el clima…",
+      unavailable: "El pronóstico no está disponible en este momento.",
+      retry: "Reintentar",
+      riskLabel: "Riesgo",
+      outfitLabel: "Cómo vestir",
+      playLabel: "Qué hacer",
+      itemsLabel: "Lleva"
+    }
+  : {
+      kicker: "Cajamarca sky right now",
+      title: "Weather at the square",
+      intro: "Current conditions and a 7-day forecast for Plaza de Armas de Cajamarca, at 2,722 m elevation. The forecast refreshes often.",
+      now: "Now",
+      feels: "Feels like",
+      wind: "Wind",
+      humidity: "Humidity",
+      rain: "Rain chance",
+      uv: "UV",
+      advice: "Tip for your visit",
+      updated: "Updated",
+      loading: "Checking the weather…",
+      unavailable: "The forecast is not available right now.",
+      retry: "Retry",
+      riskLabel: "Risk",
+      outfitLabel: "What to wear",
+      playLabel: "What to do",
+      itemsLabel: "Bring"
+    };
 ---
-
-<section class="weather-section" aria-labelledby="weather-title" data-weather-widget data-lang={lang} aria-busy="true">
-  <div class="weather-copy"><p class="eyebrow">{copy.eyebrow}</p><h2 id="weather-title">{copy.title}</h2><span class="weather-arcade" aria-hidden="true"><i></i><i></i><i></i></span><p class="weather-status" data-weather-status aria-live="polite">{copy.loading}</p><a href="https://open-meteo.com/" target="_blank" rel="noreferrer">{copy.source} ↗</a></div>
-  <div class="weather-reading" data-weather-reading hidden>
-    <div class="weather-primary"><span class="weather-glyph" data-weather-glyph aria-hidden="true">○</span><div><strong data-weather-condition>—</strong><span data-weather-time>—</span></div></div>
-    <dl class="weather-metrics"><div><dt>{copy.temperature}</dt><dd><span data-weather-temp>—</span><small>°C</small></dd></div><div><dt>{copy.feels}</dt><dd><span data-weather-feels>—</span><small>°C</small></dd></div><div><dt>{copy.wind}</dt><dd><span data-weather-wind>—</span><small>km/h</small></dd></div><div><dt>{copy.rain}</dt><dd><span data-weather-rain>—</span><small>mm</small></dd></div></dl>
+<section class="weather-section" id="clima" aria-labelledby="weather-title">
+  <div class="weather-intro">
+    <p class="eyebrow">{copy.kicker}</p>
+    <h2 id="weather-title">{copy.title}</h2>
+    <p>{copy.intro}</p>
   </div>
-  <button class="weather-refresh" type="button" data-weather-refresh><span aria-hidden="true">↻</span><span>{copy.retry}</span></button>
-  <div class="weather-forecast" data-weather-forecast hidden aria-live="polite"><div class="forecast-heading"><div><p class="eyebrow">{copy.forecastEyebrow}</p><h3>{copy.forecastTitle}</h3></div><p data-weather-tip data-forecast-ledger-label={isSpanish ? "NOTA" : "NOTE"}><strong>{copy.visitTip}.</strong> {copy.forecastLoading}</p></div><div class="forecast-days" data-weather-days></div></div>
+  <div class="weather-panel" data-weather data-lang={lang}>
+    <div class="weather-status" data-weather-status>{copy.loading}</div>
+    <div class="weather-body" data-weather-body hidden>
+      <div class="current" data-current></div>
+      <ul class="forecast" data-forecast></ul>
+      <div class="advice" data-advice>
+        <p class="advice-risk" data-risk hidden></p>
+        <div class="advice-block" data-block-outfit hidden><h4 data-outfit-label></h4><ul data-outfit></ul></div>
+        <div class="advice-block" data-block-play hidden><h4 data-play-label></h4><ul data-play></ul></div>
+        <div class="advice-block" data-block-items hidden><h4 data-items-label></h4><ul data-items></ul></div>
+      </div>
+      <p class="updated" data-updated></p>
+    </div>
+  </div>
 </section>
 
-<script is:inline>
-  (() => {
-    const labels = {
-      es: { clear: "Despejado", mostlyClear: "Mayormente despejado", partlyCloudy: "Parcialmente nublado", overcast: "Cubierto", fog: "Niebla", drizzle: "Llovizna", rainLabel: "Lluvia", snow: "Nieve", showers: "Chubascos", thunder: "Tormenta", unavailable: "No se pudo consultar el tiempo ahora.", loading: "Consultando condiciones actuales…", timestamp: "Modelo meteorológico · hora local de Cajamarca", high: "máx.", low: "mín.", rainChance: "lluvia", visitTip: "Sugerencia de visita", dryTip: "Una mañana despejada o el final de la tarde suelen ser las franjas más cómodas para caminar.", dampTip: "Considere llevar protección ligera para la lluvia y ajustar el recorrido si aparecen chubascos.", coolTip: "Las mañanas pueden sentirse frescas por la altitud; una capa ligera ayuda al iniciar el paseo." },
-      en: { clear: "Clear", mostlyClear: "Mostly clear", partlyCloudy: "Partly cloudy", overcast: "Overcast", fog: "Fog", drizzle: "Drizzle", rainLabel: "Rain", snow: "Snow", showers: "Showers", thunder: "Thunderstorm", unavailable: "Weather could not be loaded right now.", loading: "Checking current conditions…", timestamp: "Weather model · Cajamarca local time", high: "high", low: "low", rainChance: "rain", visitTip: "Visit note", dryTip: "A clear morning or late afternoon is usually the most comfortable time for a walk.", dampTip: "Consider light rain protection and adjust your walk if showers develop.", coolTip: "Mornings may feel cool at this elevation; a light layer helps when beginning the walk." }
+<style>
+  .weather-section { display: grid; grid-template-columns: .82fr 1.18fr; gap: 60px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 118px 38px; border-top: 1px solid var(--line); }
+  .weather-intro .eyebrow { color: var(--terracotta-dark); }
+  .weather-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 0; }
+  .weather-intro p { margin-top: 22px; color: #514b42; font-size: 16px; max-width: 420px; }
+  .weather-panel { background: var(--stone); border-top: 3px solid var(--terracotta); padding: 34px 36px; box-shadow: 0 14px 42px rgba(65, 52, 38, .08); }
+  .weather-status { color: var(--muted); font-size: 15px; }
+  .current { display: grid; grid-template-columns: auto 1fr; gap: 18px 24px; align-items: center; }
+  .current .icon { font-size: 54px; line-height: 1; }
+  .current .temp { font-family: var(--serif); font-size: 58px; font-weight: 600; letter-spacing: -.04em; line-height: .9; }
+  .current .cond { font-size: 16px; color: var(--ink); }
+  .current .meta { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); gap: 14px 18px; margin-top: 8px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .current .meta div { font-size: 11px; color: var(--muted); line-height: 1.3; }
+  .current .meta strong { display: block; color: var(--blue); font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-top: 3px; }
+  .forecast { list-style: none; margin: 26px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(82px, 1fr)); gap: 12px; }
+  .forecast li { text-align: center; }
+  .forecast .day { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta-dark); }
+  .forecast .ficon { font-size: 26px; margin: 8px 0 4px; }
+  .forecast .ftemp { font-family: var(--serif); font-size: 17px; font-weight: 600; }
+  .forecast .frain { font-size: 11px; color: var(--muted); }
+  .advice { margin: 24px 0 0; display: grid; gap: 12px; }
+  .advice-risk { margin: 0; padding: 14px 16px; background: #5c1a13; color: #ffe9e3; font-size: 15px; line-height: 1.5; font-weight: 600; }
+  .advice-risk::before { content: "⚠ " attr(data-label) " — "; font-weight: 700; }
+  .advice-block { background: rgba(184, 79, 43, .07); border-left: 3px solid var(--terracotta); padding: 14px 16px; }
+  .advice-block h4 { margin: 0 0 8px; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--terracotta-dark); }
+  .advice-block ul { margin: 0; padding-left: 18px; color: var(--ink); font-size: 14px; line-height: 1.55; }
+  .updated { margin: 16px 0 0; color: var(--muted); font-size: 11px; }
+  .retry { margin-top: 14px; }
+  .retry button { border: 0; background: var(--terracotta); color: #fffaf0; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; transition: background .16s var(--ease); }
+  .retry button:hover { background: var(--terracotta-dark); }
+  @media (max-width: 900px) { .weather-section { grid-template-columns: 1fr; gap: 30px; padding: 84px 27px; } }
+</style>
+
+<script>
+  const panels = document.querySelectorAll<HTMLElement>("[data-weather]");
+  if (panels.length) {
+    const wmo: Record<number, { es: string; en: string; icon: string }> = {
+      0: { es: "Despejado", en: "Clear", icon: "☀️" },
+      1: { es: "Mayormente despejado", en: "Mainly clear", icon: "🌤️" },
+      2: { es: "Parcialmente nublado", en: "Partly cloudy", icon: "⛅" },
+      3: { es: "Nublado", en: "Overcast", icon: "☁️" },
+      45: { es: "Niebla", en: "Fog", icon: "🌫️" },
+      48: { es: "Niebla engelante", en: "Rime fog", icon: "🌫️" },
+      51: { es: "Llovizna débil", en: "Light drizzle", icon: "🌦️" },
+      53: { es: "Llovizna", en: "Drizzle", icon: "🌦️" },
+      55: { es: "Llovizna intensa", en: "Dense drizzle", icon: "🌦️" },
+      56: { es: "Llovizna helada", en: "Freezing drizzle", icon: "🌧️" },
+      57: { es: "Llovizna helada", en: "Freezing drizzle", icon: "🌧️" },
+      61: { es: "Lluvia débil", en: "Light rain", icon: "🌦️" },
+      63: { es: "Lluvia", en: "Rain", icon: "🌧️" },
+      65: { es: "Lluvia intensa", en: "Heavy rain", icon: "🌧️" },
+      66: { es: "Lluvia helada", en: "Freezing rain", icon: "🌧️" },
+      67: { es: "Lluvia helada", en: "Freezing rain", icon: "🌧️" },
+      71: { es: "Nieve débil", en: "Light snow", icon: "🌨️" },
+      73: { es: "Nieve", en: "Snow", icon: "🌨️" },
+      75: { es: "Nieve intensa", en: "Heavy snow", icon: "🌨️" },
+      77: { es: "Granizo menudo", en: "Snow grains", icon: "🌨️" },
+      80: { es: "Chubascos", en: "Showers", icon: "🌦️" },
+      81: { es: "Chubascos", en: "Showers", icon: "🌧️" },
+      82: { es: "Chubascos fuertes", en: "Violent showers", icon: "⛈️" },
+      85: { es: "Chubascos de nieve", en: "Snow showers", icon: "🌨️" },
+      86: { es: "Chubascos de nieve", en: "Snow showers", icon: "🌨️" },
+      95: { es: "Tormenta", en: "Thunderstorm", icon: "⛈️" },
+      96: { es: "Tormenta con granizo", en: "Thunderstorm w/ hail", icon: "⛈️" },
+      99: { es: "Tormenta con granizo", en: "Thunderstorm w/ hail", icon: "⛈️" }
     };
-    const weatherCode = (code, words) => {
-      if (code === 0) return [words.clear, "☼"];
-      if (code <= 2) return [words.mostlyClear, "◔"];
-      if (code === 3) return [words.partlyCloudy, "☁"];
-      if (code <= 48) return [words.fog, "≋"];
-      if (code <= 57) return [words.drizzle, "∶"];
-      if (code <= 67) return [words.rainLabel, "☂"];
-      if (code <= 77) return [words.snow, "✳"];
-      if (code <= 82) return [words.showers, "☂"];
-      return [words.thunder, "ϟ"];
+    const label = (code: number, l: "es" | "en") => wmo[code]?.[l] ?? (l === "es" ? "Cielo variable" : "Variable sky");
+    const icon = (code: number) => wmo[code]?.icon ?? "🌥️";
+
+    const beaufort = (kmh = 0) => {
+      const s = [1, 5, 11, 19, 28, 38, 49, 61, 74, 88, 102, 117];
+      let b = 0;
+      while (b < s.length && kmh > s[b]) b++;
+      return b;
     };
-    const dateLabel = (date, lang) => new Intl.DateTimeFormat(lang === "es" ? "es-PE" : "en-GB", { weekday: "short", day: "numeric", month: "short", timeZone: "America/Lima" }).format(new Date(`${date}T12:00:00-05:00`));
-    document.querySelectorAll("[data-weather-widget]").forEach((widget) => {
-      const lang = widget.dataset.lang === "en" ? "en" : "es";
-      const text = labels[lang];
-      const status = widget.querySelector("[data-weather-status]");
-      const reading = widget.querySelector("[data-weather-reading]");
-      const forecast = widget.querySelector("[data-weather-forecast]");
-      const days = widget.querySelector("[data-weather-days]");
-      const tip = widget.querySelector("[data-weather-tip]");
-      const refresh = widget.querySelector("[data-weather-refresh]");
-      const renderCurrent = (current) => {
-        const [condition, glyph] = weatherCode(current.weather_code, text);
-        widget.querySelector("[data-weather-condition]").textContent = condition;
-        widget.querySelector("[data-weather-glyph]").textContent = glyph;
-        widget.querySelector("[data-weather-temp]").textContent = Math.round(current.temperature_2m);
-        widget.querySelector("[data-weather-feels]").textContent = Math.round(current.apparent_temperature);
-        widget.querySelector("[data-weather-wind]").textContent = Math.round(current.wind_speed_10m);
-        widget.querySelector("[data-weather-rain]").textContent = Number(current.precipitation).toFixed(1);
-        widget.querySelector("[data-weather-time]").textContent = `${text.timestamp} · ${current.time.replace("T", " · ")}`;
-        reading.hidden = false;
+    const rainType = (code: number): "none" | "light" | "mod" | "heavy" | "snow" | "fog" | "thunder" => {
+      if ([45, 48].includes(code)) return "fog";
+      if ([95, 96, 99].includes(code)) return "thunder";
+      if ([65, 82].includes(code)) return "heavy";
+      if ([63, 66, 67, 71, 73, 75, 77, 81, 85, 86].includes(code)) return code >= 71 ? "snow" : "mod";
+      if ([51, 53, 55, 56, 57, 61, 80].includes(code)) return "light";
+      return "none";
+    };
+
+    panels.forEach((panel) => {
+      const lang = panel.dataset.lang === "en" ? "en" : "es";
+      const statusEl = panel.querySelector<HTMLElement>("[data-weather-status]")!;
+      const bodyEl = panel.querySelector<HTMLElement>("[data-weather-body]")!;
+      const currentEl = panel.querySelector<HTMLElement>("[data-current]")!;
+      const forecastEl = panel.querySelector<HTMLElement>("[data-forecast]")!;
+      const riskEl = panel.querySelector<HTMLElement>("[data-risk]")!;
+      const outfitWrap = panel.querySelector<HTMLElement>("[data-block-outfit]")!;
+      const playWrap = panel.querySelector<HTMLElement>("[data-block-play]")!;
+      const itemsWrap = panel.querySelector<HTMLElement>("[data-block-items]")!;
+      const outfitEl = panel.querySelector<HTMLElement>("[data-outfit]")!;
+      const playEl = panel.querySelector<HTMLElement>("[data-play]")!;
+      const itemsEl = panel.querySelector<HTMLElement>("[data-items]")!;
+      const updatedEl = panel.querySelector<HTMLElement>("[data-updated]")!;
+
+      const T = (es: string, en: string) => (lang === "es" ? es : en);
+      const loadingText = T("Consultando el clima…", "Checking the weather…");
+      const unavailableText = T("El pronóstico no está disponible en este momento.", "The forecast is not available right now.");
+      const retryText = T("Reintentar", "Retry");
+      const windWord = T("Fuerza", "Force");
+      const nowText = T("Ahora", "Now");
+      const feelsText = T("Sensación", "Feels like");
+      const windText = T("Viento", "Wind");
+      const humidityText = T("Humedad", "Humidity");
+      const rainText = T("Prob. lluvia", "Rain chance");
+      const uvText = T("UV", "UV");
+      const updatedText = T("Actualizado", "Updated");
+
+      const dayName = (iso: string, i: number) => {
+        if (i === 0) return T("Hoy", "Today");
+        if (i === 1) return T("Mañana", "Tomorrow");
+        const d = new Date(iso + "T00:00:00");
+        return d.toLocaleDateString(lang === "es" ? "es-PE" : "en-US", { weekday: "short", timeZone: "America/Lima" });
       };
-      const renderForecast = (daily) => {
-        const dates = daily.time?.slice(0, 3) || [];
-        const maxes = daily.temperature_2m_max || [];
-        const mins = daily.temperature_2m_min || [];
-        const rains = daily.precipitation_probability_max || [];
-        const codes = daily.weather_code || [];
-        if (!dates.length) return;
-        days.innerHTML = dates.map((date, index) => {
-          const [condition, glyph] = weatherCode(codes[index], text);
-          return `<article class="forecast-day"><p>${dateLabel(date, lang)}</p><span aria-hidden="true">${glyph}</span><strong>${condition}</strong><dl><div><dt>${text.high}</dt><dd>${Math.round(maxes[index])}°</dd></div><div><dt>${text.low}</dt><dd>${Math.round(mins[index])}°</dd></div><div><dt>${text.rainChance}</dt><dd>${Math.round(rains[index] || 0)}%</dd></div></dl></article>`;
-        }).join("");
-        const highestRain = Math.max(...rains.map((value) => Number(value || 0)));
-        const hasWetWeather = codes.some((code) => Number(code) >= 51);
-        const lowestTemp = Math.min(...mins.map((value) => Number(value)));
-        const message = highestRain >= 45 || hasWetWeather ? text.dampTip : lowestTemp < 8 ? text.coolTip : text.dryTip;
-        tip.innerHTML = `<strong>${text.visitTip}.</strong> ${message}`;
-        forecast.hidden = false;
+      const windKmh = (v?: number) => (v == null ? "—" : `${Math.round(v)} km/h`);
+      const pct = (v?: number) => (v == null ? "—" : `${Math.round(v)}%`);
+
+      // Phrase library keyed by stable ids, resolved per language.
+      const P: Record<string, string> = {
+        pProb: T("Probable lluvia: lleva paraguas o impermeable.", "Rain likely: bring an umbrella or raincoat."),
+        pPlay: T("Prioriza espacios cubiertos; deja los planes al aire libre con flexibilidad.", "Prefer covered spots; keep outdoor plans flexible."),
+        pItems: T("Paraguas / impermeable", "Umbrella / raincoat"),
+        lightPlay: T("Las zonas abiertas se disfrutan menos; camina con cuidado, el piso puede estar resbaloso.", "Open areas are less pleasant; walk carefully, pavements may be slippery."),
+        lightItems: T("Paraguas plegable", "Foldable umbrella"),
+        snowItems: T("Calzado antideslizante y abrigo", "Non-slip shoes and warm layer"),
+        heavyRisk: T("Lluvia fuerte: evita quebradas y zonas bajas; el teleférico o paseos en bote pueden suspenderse.", "Heavy rain: avoid ravines and low ground; cable car or boat rides may stop."),
+        heavyItems: T("Impermeable; mejor evita el paraguas de mango largo (viento).", "Raincoat; avoid long umbrellas (wind)."),
+        thunderRisk: T("Riesgo de rayos: no subas cerros ni te resguardes bajo árboles; las actividades acuáticas suelen cerrar.", "Lightning risk: no climbing, no shelter under trees; water activities likely close."),
+        hotOutfit: T("Hace calor: evita salir al mediodía.", "Hot: avoid going out at midday."),
+        hotPlay: T("Acorta el tiempo al aire libre.", "Shorten outdoor time."),
+        hotItems: T("Protector solar, bastante agua, algo para el calor", "Sun protection, plenty of water, heat relief"),
+        uvOutfit: T("UV fuerte: protégete la piel.", "Strong UV: protect your skin."),
+        uvItems: T("Bloqueador, lentes de sol, gorra", "Sunscreen, sunglasses, sun hat"),
+        diffOutfit: T("Gran diferencia día/noche: lleva una prenda para abrigarte y quitarte.", "Big day-night swing: bring a layer you can add or remove."),
+        coldOutfit: T("Hace frío: abrígate bien.", "Cold: dress warmly."),
+        coldItems: T("Abrigo grueso, bufanda", "Warm coat, scarf"),
+        feelOutfit: T("A la altura se siente frío: viste en capas térmicas.", "At altitude it feels cold: wear warm layers."),
+        windOutfit: T("Viento notable.", "Breezy."),
+        windPlay: T("El viento puede afectar actividades en zonas altas o abiertas.", "Wind may affect high or open-air activities."),
+        windItems: T("La gorra se puede volar; evita faldas anchas.", "Hats may blow off; avoid loose long skirts."),
+        windRisk: T("Viento fuerte: aléjate de carteles y bordes altos; las actividades al aire libre suelen cerrar.", "Strong wind: stay from signs and edges; outdoor activities likely close."),
+        clearOutfit: T("Buen clima para salir.", "Fine weather to go out."),
+        clearPlay: T("Ideal para ver amaneceres y atardeceres.", "Great for sunrise and sunset views."),
+        clearItems: T("No olvides el protector solar.", "Remember sun protection."),
+        partPlay: T("Luz suave, muy buena para fotografiar.", "Soft light, great for photos."),
+        overPlay: T("Sin sol fuerte, bueno para caminar rato.", "No harsh sun, good for long walks."),
+        fogRisk: T("Poca visibilidad: no es buen momento para miradores lejanos; lleva mascarilla si la hay.", "Poor visibility: not good for distant viewpoints; bring a mask if needed."),
+        calmOutfit: T("Tiempo estable: viaja con tu rutina.", "Settled weather: travel as usual."),
+        calmPlay: T("Buen momento para recorrer la plaza y alrededores.", "Good time to walk the square and nearby spots.")
       };
-      const load = async () => {
-        widget.setAttribute("aria-busy", "true");
-        status.hidden = false;
-        status.textContent = text.loading;
-        refresh.disabled = true;
+
+      const adviceFor = (d: any) => {
+        const cur = d.current ?? {};
+        const daily = d.daily ?? {};
+        const code = cur.weather_code ?? 3;
+        const tMax = (daily.temperature_2m_max ?? [])[0];
+        const tMin = (daily.temperature_2m_min ?? [])[0];
+        const tApp = cur.apparent_temperature;
+        const prob = (daily.precipitation_probability_max ?? [])[0];
+        const uv = (daily.uv_index_max ?? [])[0];
+        const wind = cur.wind_speed_10m ?? 0;
+        const b = beaufort(wind);
+        const rt = rainType(code);
+
+        const risk = new Set<string>();
+        const outfit = new Set<string>();
+        const play = new Set<string>();
+        const items = new Set<string>();
+
+        // 1) Derived risk (highest priority, weather-based — never an official alert)
+        if (rt === "thunder") risk.add(P.thunderRisk);
+        if (rt === "heavy") risk.add(P.heavyRisk);
+        if (rt === "fog") risk.add(P.fogRisk);
+        if (b >= 7) risk.add(P.windRisk);
+
+        // 2) Travel outfit
+        if (tMax != null && tMax <= 12) { outfit.add(P.coldOutfit); items.add(P.coldItems); }
+        else if (tApp != null && tApp < 13) outfit.add(P.feelOutfit);
+        if (tMax != null && tMin != null && tMax - tMin > 8) outfit.add(P.diffOutfit);
+        if (tMax != null && tMax >= 32) outfit.add(P.hotOutfit);
+        if (uv != null && uv >= 5) outfit.add(P.uvOutfit);
+        if (b >= 5 && b <= 6) outfit.add(P.windOutfit);
+        if (rt === "none" && code === 0 && outfit.size === 0) outfit.add(P.clearOutfit);
+
+        // 3) Play plan
+        if (prob != null && prob >= 60) play.add(P.pPlay);
+        if (rt === "light") play.add(P.lightPlay);
+        if (code === 0) play.add(P.clearPlay);
+        else if (code === 1 || code === 2) play.add(P.partPlay);
+        else if (code === 3) play.add(P.overPlay);
+        if (tMax != null && tMax >= 32) play.add(P.hotPlay);
+        if (b >= 5 && b <= 6) play.add(P.windPlay);
+        if (play.size === 0) play.add(P.calmPlay);
+
+        // 4) Items to bring
+        if (prob != null && prob >= 60) items.add(P.pItems);
+        if (rt === "light") items.add(P.lightItems);
+        if (rt === "heavy") items.add(P.heavyItems);
+        if (rt === "snow") items.add(P.snowItems);
+        if (uv != null && uv >= 5) items.add(P.uvItems);
+        if (tMax != null && tMax >= 32) items.add(P.hotItems);
+        if (tMax != null && tMax <= 12) items.add(P.coldItems);
+        if (b >= 5 && b <= 6) items.add(P.windItems);
+        if (code === 0) items.add(P.clearItems);
+
+        // Fallback so the panel is never empty when calm
+        if (outfit.size === 0) outfit.add(P.calmOutfit);
+
+        return { risk: [...risk], outfit: [...outfit], play: [...play], items: [...items] };
+      };
+
+      const render = (d: any) => {
+        statusEl.hidden = true;
+        bodyEl.hidden = false;
+        const cur = d.current ?? {};
+        const code = cur.weather_code ?? 3;
+        const b = beaufort(cur.wind_speed_10m);
+        const uv = (d.daily?.uv_index_max ?? [])[0];
+        const meta = [
+          [feelsText, cur.apparent_temperature != null ? Math.round(cur.apparent_temperature) + "°" : "—"],
+          [windText, `${windWord} ${b} · ${windKmh(cur.wind_speed_10m)}`],
+          [humidityText, pct(cur.relative_humidity_2m)],
+          [rainText, pct((d.daily?.precipitation_probability_max ?? [])[0])],
+          [uvText, uv != null ? Math.round(uv) : "—"]
+        ];
+        currentEl.innerHTML =
+          `<div class="icon">${icon(code)}</div>` +
+          `<div><div class="temp">${cur.temperature_2m != null ? Math.round(cur.temperature_2m) + "°" : "—"}</div>` +
+          `<div class="cond">${label(code, lang)}</div></div>` +
+          `<div class="meta">${meta.map(([k, v]) => `<div>${k}<strong>${v}</strong></div>`).join("")}</div>`;
+
+        const times: string[] = d.daily?.time ?? [];
+        forecastEl.innerHTML = times
+          .map((iso, i) => {
+            const c = (d.daily.weather_code ?? [])[i] ?? 3;
+            const hi = (d.daily.temperature_2m_max ?? [])[i];
+            const lo = (d.daily.temperature_2m_min ?? [])[i];
+            const rp = (d.daily.precipitation_probability_max ?? [])[i];
+            return (
+              `<li><div class="day">${dayName(iso, i)}</div>` +
+              `<div class="ficon">${icon(c)}</div>` +
+              `<div class="ftemp">${hi != null ? Math.round(hi) + "°" : "—"}${lo != null ? " / " + Math.round(lo) + "°" : ""}</div>` +
+              `<div class="frain">${pct(rp)}</div></li>`
+            );
+          })
+          .join("");
+
+        const a = adviceFor(d);
+        const fill = (wrap: HTMLElement, list: HTMLElement, arr: string[]) => {
+          if (arr.length) { wrap.hidden = false; list.innerHTML = arr.map((t) => `<li>${t}</li>`).join(""); }
+          else wrap.hidden = true;
+        };
+        riskEl.dataset.label = copy.riskLabel;
+        if (a.risk.length) { riskEl.hidden = false; riskEl.textContent = a.risk.join(" "); }
+        else riskEl.hidden = true;
+        (panel.querySelector("[data-outfit-label]") as HTMLElement).textContent = copy.outfitLabel;
+        (panel.querySelector("[data-play-label]") as HTMLElement).textContent = copy.playLabel;
+        (panel.querySelector("[data-items-label]") as HTMLElement).textContent = copy.itemsLabel;
+        fill(outfitWrap, outfitEl, a.outfit);
+        fill(playWrap, playEl, a.play);
+        fill(itemsWrap, itemsEl, a.items);
+
+        const t = (d.current?.time ?? "").replace("T", " ").slice(0, 16);
+        updatedEl.textContent = `${updatedText}: ${t} (America/Lima)`;
+      };
+
+      const showError = () => {
+        statusEl.hidden = false;
+        statusEl.innerHTML = `${unavailableText} <span class="retry"><button type="button" data-retry>${retryText}</button></span>`;
+        bodyEl.hidden = true;
+        statusEl.querySelector("[data-retry]")?.addEventListener("click", load);
+      };
+
+      async function load() {
+        statusEl.hidden = false;
+        statusEl.textContent = loadingText;
+        bodyEl.hidden = true;
         try {
-          const response = await fetch("/api/weather", { headers: { Accept: "application/json" } });
-          if (!response.ok) throw new Error("weather request failed");
-          const payload = await response.json();
-          if (!payload.current || !payload.daily) throw new Error("missing weather data");
-          renderCurrent(payload.current);
-          renderForecast(payload.daily);
-          status.hidden = true;
-        } catch (error) {
-          reading.hidden = true;
-          forecast.hidden = true;
-          status.hidden = false;
-          status.textContent = text.unavailable;
-        } finally {
-          widget.setAttribute("aria-busy", "false");
-          refresh.disabled = false;
+          const res = await fetch("/api/weather");
+          if (!res.ok) throw new Error("bad");
+          const d = await res.json();
+          if (d.error) throw new Error("err");
+          render(d);
+        } catch {
+          showError();
         }
-      };
-      refresh.addEventListener("click", load);
+      }
+
       load();
     });
-  })();
+  }
 </script>
-
-<style>
-  .weather-section { display: grid; grid-template-columns: minmax(250px, .72fr) minmax(440px, 1.28fr) auto; gap: 38px; align-items: start; max-width: 1280px; margin: 0 auto; padding: 54px 38px 42px; background: linear-gradient(180deg, var(--stone) 0%, #fffaf0 100%); border-bottom: 1px solid var(--line); }
-  .weather-copy { position: relative; padding-top: 6px; }.weather-copy .eyebrow { margin-bottom: 8px; }.weather-copy h2 { margin: 0; color: var(--blue); font-family: var(--serif); font-size: clamp(33px, 3.2vw, 46px); font-weight: 600; letter-spacing: -.045em; line-height: .9; }.weather-status { min-height: 1.4em; margin: 10px 0 2px; color: var(--muted); font-size: 13px; }.weather-copy > a { color: var(--terracotta-dark); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-decoration: none; text-transform: uppercase; }.weather-arcade { display: flex; gap: 3px; position: absolute; top: 10px; right: 0; align-items: end; height: 23px; opacity: .8; }.weather-arcade i { display: block; width: 10px; height: 16px; border: 1px solid var(--terracotta); border-bottom: 0; border-radius: 10px 10px 0 0; }
-  .weather-reading { display: grid; grid-template-columns: minmax(190px, .68fr) 1.32fr; align-items: center; min-width: 0; padding: 20px 22px; background: #fffaf0; border: 1px solid var(--line); border-radius: 4px; box-shadow: 0 10px 32px rgba(65,52,38,.06); }.weather-primary { display: flex; align-items: center; gap: 15px; padding-right: 22px; padding-top: 2px; padding-bottom: 2px; }.weather-glyph { display: grid; width: 55px; height: 55px; place-items: center; border: 1px solid var(--terracotta); border-radius: 50%; color: var(--terracotta-dark); font-family: var(--serif); font-size: 34px; line-height: 1; background: rgba(184,79,43,.05); }.weather-primary strong { display: block; color: var(--ink); font-family: var(--serif); font-size: 25px; font-weight: 600; line-height: 1; }.weather-primary span:last-child { display: block; max-width: 210px; margin-top: 7px; color: var(--muted); font-size: 10px; line-height: 1.4; }.weather-metrics { display: grid; grid-template-columns: repeat(4, 1fr); margin: 0; border-left: 1px solid var(--line); padding-left: 20px; }.weather-metrics div { min-width: 0; padding: 4px 4px 4px 12px; border-right: 1px solid var(--line); }.weather-metrics div:last-child { border: 0; }.weather-metrics dt,.forecast-day dt { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .09em; text-transform: uppercase; }.weather-metrics dd { margin: 4px 0 0; color: var(--blue); font-family: var(--serif); font-size: 27px; font-weight: 700; letter-spacing: -.04em; line-height: 1; white-space: nowrap; }.weather-metrics small { margin-left: 1px; color: var(--terracotta-dark); font-family: var(--sans); font-size: 10px; font-weight: 700; letter-spacing: 0; }.weather-refresh { display: inline-flex; align-items: center; gap: 6px; padding: 9px 0 9px 13px; border: 0; border-left: 1px solid var(--line); background: transparent; color: var(--terracotta-dark); cursor: pointer; font-size: 10px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; transition: color .18s var(--ease), transform .18s var(--ease); margin-top: 18px; }.weather-refresh:hover { color: var(--blue); transform: translateY(-1px); }.weather-refresh:active { transform: scale(.97); }.weather-refresh:disabled { cursor: wait; opacity: .55; }.weather-refresh:disabled span:first-child { animation: spin .7s linear infinite; }
-  .weather-forecast { grid-column: 1 / -1; width: 100%; margin-top: 44px; padding: 32px 32px 4px; border-radius: 6px; background: #fffaf0; border: 1px solid var(--line); box-shadow: 0 8px 30px rgba(65,52,38,.06); }
-  .forecast-heading { display: flex; align-items: flex-start; justify-content: space-between; gap: 28px; flex-wrap: wrap; }
-  .forecast-heading > div { padding-left: 12px; border-left: 3px solid var(--terracotta); }
-  .forecast-heading .eyebrow { display: inline-flex; align-items: center; gap: 6px; margin: 0 0 6px; padding: 3px 10px; border-radius: 999px; background: rgba(184,79,43,.08); color: var(--terracotta-dark); font-size: 10px; font-weight: 700; letter-spacing: .06em; text-transform: uppercase; }
-  .forecast-heading h3 { margin: 0; color: var(--blue); font-family: var(--serif); font-size: 28px; font-weight: 600; letter-spacing: -.03em; line-height: 1; }
-  .forecast-heading > p { position: relative; max-width: 520px; margin: 0; padding: 14px 18px 14px 46px; border-radius: 6px; background: rgba(184,79,43,.05); border: 1px solid rgba(184,79,43,.15); color: #4c463c; font-size: 13px; line-height: 1.55; }
-  .forecast-heading > p::before { content: attr(data-forecast-ledger-label); position: absolute; left: 14px; top: 14px; display: inline-grid; place-items: center; min-width: 26px; height: 18px; padding: 0 6px; border-radius: 3px; background: var(--terracotta); color: #fffaf0; font-family: var(--sans); font-size: 9px; font-weight: 800; letter-spacing: .1em; }
-  .forecast-heading strong { color: var(--ink); font-weight: 700; }
-  .forecast-days { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; margin-top: 28px; padding-bottom: 28px; }
-  .forecast-day { position: relative; display: flex; flex-direction: column; gap: 14px; padding: 22px 22px 18px; border-radius: 6px; background: #fff; border: 1px solid var(--line); transition: transform .2s var(--ease), box-shadow .2s var(--ease); }
-  .forecast-day:hover { transform: translateY(-3px); box-shadow: 0 14px 36px rgba(63,80,110,.1); border-color: rgba(184,79,43,.25); }
-  .forecast-day > p { margin: 0; color: var(--muted); font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  .forecast-day > span { display: grid; width: 44px; height: 44px; place-items: center; border-radius: 50%; background: rgba(184,79,43,.06); border: 1px solid rgba(184,79,43,.2); color: var(--terracotta-dark); font-family: var(--serif); font-size: 22px; }
-  .forecast-day > strong { color: var(--ink); font-family: var(--serif); font-size: 18px; font-weight: 600; letter-spacing: -.02em; line-height: 1.2; }
-  .forecast-day dl { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin: 8px 0 0; padding: 14px 0 0; border-top: 1px solid var(--line); }
-  .forecast-day dl > div { display: flex; flex-direction: column; gap: 4px; padding: 0 12px; }
-  .forecast-day dl > div + div { border-left: 1px solid var(--line); }
-  .forecast-day dt { color: var(--muted); font-size: 9px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; }
-  .forecast-day dd { margin: 0; font-family: var(--serif); font-size: 22px; font-weight: 700; letter-spacing: -.03em; line-height: 1; }
-  .forecast-day dl > div:nth-child(1) dd { color: var(--terracotta-dark); }
-  .forecast-day dl > div:nth-child(2) dd { color: var(--blue); }
-  .forecast-day dl > div:nth-child(3) dd { color: #3b7689; }
-  @keyframes spin { to { transform: rotate(1turn); } } @media (max-width: 1000px) { .weather-section { grid-template-columns: 1fr auto; gap: 25px; padding: 48px 28px 36px; }.weather-reading,.weather-forecast { grid-column: 1 / -1; }.weather-forecast { margin-top: 34px; padding: 26px 24px 4px; }.forecast-heading { flex-direction: column; gap: 18px; }.forecast-heading > div { padding-left: 12px; }.forecast-heading > p { padding: 14px 18px 14px 46px; }.forecast-heading > p::before { left: 14px; top: 14px; } } @media (max-width: 620px) { .weather-section { display: block; padding: 36px 25px 28px; }.weather-reading { display: block; margin-top: 25px; padding: 18px 16px; }.weather-primary { padding: 0 0 16px; }.weather-metrics { border-top: 1px solid var(--line); border-left: 0; padding-left: 0; padding-top: 14px; margin-top: 16px; }.weather-metrics div { padding: 6px 8px 4px 0; }.weather-refresh { position: absolute; right: 25px; margin-top: -38px; border-left: 0; padding-left: 0; }.weather-arcade { right: 64px; }.weather-forecast { margin-top: 32px; padding: 22px 18px 4px; }.forecast-heading { gap: 16px; }.forecast-heading > p { padding: 14px 16px 14px 46px; max-width: none; }.forecast-heading > p::before { left: 14px; top: 14px; }.forecast-days { grid-template-columns: 1fr; gap: 14px; padding-bottom: 22px; }.forecast-day { padding: 18px 18px 16px; }.forecast-day > span { width: 40px; height: 40px; font-size: 20px; }.forecast-day > strong { font-size: 17px; }.forecast-day dd { font-size: 20px; } }
-</style>
