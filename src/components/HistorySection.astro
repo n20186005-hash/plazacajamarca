@@ -1,6 +1,6 @@
 ---
 // Design reminder: Archivo de Piedra Viva — depth without invention. Facts are anchored to public
-// sources; the popular legend is explicitly framed as oral tradition, not a verified claim.
+// sources; the fountain interpretation avoids undocumented symbolic claims.
 interface Props { lang: "es" | "en"; }
 const { lang } = Astro.props;
 const isSpanish = lang === "es";
@@ -11,10 +11,10 @@ const copy = isSpanish
       p1: "La Plaza de Armas de Cajamarca se asienta en el valle septentrional de los Andes peruanos, a 2.722 m de altitud, donde el trazado inca y el trazado colonial se superponen. Antes de la llegada española, el espacio ya era un nudo de encuentro del mundo andino; después, se convirtió en el centro cívico y religioso de la ciudad que creció a su alrededor.",
       p2: "En noviembre de 1532, en las inmediaciones de este espacio ocurrió el encuentro entre las fuerzas de Francisco Pizarro y el inca Atahualpa, un hecho que redefine la historia del Perú. La tradición local vincula a la plaza con el llamado Cuarto del Rescate, donde —según las crónicas— se reunió oro y plata para pagar la libertad del inca. Esa sala queda a pocos minutos a pie y forma parte del mismo recorrido de memoria.",
       p3: "El borde de la plaza lo definen templos de los siglos XVII al XIX: la Catedral de Cajamarca, frente a la fuente, y la Iglesia de San Francisco, con su acervo de arte religioso colonial. En el centro permanece la pileta octogonal de piedra, que las fuentes públicas sitúan a fines del siglo XVII y que fue declarada Monumento Histórico en 1972.",
-      legendKicker: "Relato popular",
+      legendKicker: "Mirar la piedra",
       legendTitle: "La fuente de ocho lados",
-      legend: "La pileta octagonal ha inspirado relatos que se transmiten de generación en generación en Cajamarca: se dice que sus ocho caras evocan las ocho esquinas del antiguo trazado andino, o que el agua que brota al centro recuerda la unión de los cuatro ríos de la cuenca. No es una versión documentada, sino una forma cariñosa de leer la plaza; la guía la comparte como tradición oral, no como dato histórico.",
-      note: "Tratamiento editorial: los hechos se contrastan con MINCETUR y PromPerú; el relato se presenta como leyenda local."
+      legend: "Observá la forma octogonal y los niveles de la pileta desde distintos puntos. PromPerú la describe como una fuente de piedra del siglo XVII; no se atribuye aquí un significado simbólico sin documentación.",
+      note: "Tratamiento editorial: los hechos se contrastan con MINCETUR y PromPerú; no se atribuye un significado simbólico sin documentación."
     }
   : {
       kicker: "Andean context",
@@ -22,10 +22,10 @@ const copy = isSpanish
       p1: "Plaza de Armas de Cajamarca sits in the northern Andean valley of Peru, at 2,722 m elevation, where Inca and colonial layouts overlap. Before the Spanish arrival, this ground was already a meeting point of the Andean world; afterwards it became the civic and religious heart of the city that grew around it.",
       p2: "In November 1532, near this space, the forces of Francisco Pizarro met the Inca Atahualpa — an encounter that redefines the history of Peru. Local tradition links the square to the so-called Ransom Room (Cuarto del Rescate), where — according to the chronicles — gold and silver were gathered to pay for the Inca’s freedom. That room is a few minutes’ walk away and belongs to the same memory route.",
       p3: "The square’s edge is defined by churches from the 17th to 19th centuries: Cajamarca Cathedral, facing the fountain, and San Francisco Church, with its collection of colonial religious art. At the centre stands the octagonal stone basin that public sources date to the late 17th century and that a 1972 resolution declared a Historic Monument.",
-      legendKicker: "Popular tale",
+      legendKicker: "Looking at the stone",
       legendTitle: "The fountain with eight sides",
-      legend: "The octagonal basin has inspired stories passed down through generations in Cajamarca: it is said its eight faces evoke the eight corners of the old Andean layout, or that the water rising at its centre recalls the union of the valley’s four rivers. This is not a documented account but an affectionate way of reading the square; the guide shares it as oral tradition, not as historical fact.",
-      note: "Editorial note: facts are cross-checked with MINCETUR and PromPerú; the tale is presented as a local legend."
+      legend: "Look at the fountain’s octagonal shape and tiers from different viewpoints. PromPerú describes a 17th-century stone fountain; this guide does not assign an undocumented symbolic meaning to its sides.",
+      note: "Editorial note: facts are cross-checked with MINCETUR and PromPerú; no undocumented legend is asserted."
     };
 ---
 <section class="heritage-section" aria-labelledby="heritage-title">

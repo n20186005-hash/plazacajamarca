@@ -11,4 +11,5 @@ const settings = isSpanish ? "/cookies/" : "/en/cookies/";
 <aside class="cookie-banner" data-cookie-banner aria-label={isSpanish ? "Aviso de cookies" : "Cookie notice"}>
   <p>{copy.text} <a href={settings}>{copy.settings}</a></p>
   <div class="cookie-actions"><button class="text-button" type="button" data-cookie-action="reject">{copy.reject}</button><button class="seal-button" type="button" data-cookie-action="accept">{copy.accept}</button></div>
+  <p data-cookie-status aria-live="polite"></p>
 </aside>

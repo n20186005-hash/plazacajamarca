@@ -7,10 +7,11 @@ interface Props {
   description: string;
   lang: "es" | "en";
   alternatePath: string;
+  noindex?: boolean;
   structuredData?: Record<string, unknown> | Array<Record<string, unknown>>;
 }
 
-const { title, description, lang, alternatePath, structuredData } = Astro.props;
+const { title, description, lang, alternatePath, structuredData, noindex = false } = Astro.props;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site).href : undefined;
 const alternate = Astro.site ? new URL(alternatePath, Astro.site).href : alternatePath;
 const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, "\\u003c") : undefined;
@@ -32,8 +33,10 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, "\\
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,600&family=Source+Sans+3:wght@400;500;600;700&display=swap" rel="stylesheet" />
     {canonical && <link rel="canonical" href={canonical} />}
+    {noindex && <meta name="robots" content="noindex,follow" />}
+    {canonical && <link rel="alternate" hreflang={lang} href={canonical} />}
     <link rel="alternate" hreflang={lang === "es" ? "en" : "es"} href={alternate} />
-    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL("/", Astro.site).href} />}
+    {Astro.site && <link rel="alternate" hreflang="x-default" href={new URL(lang === "es" ? Astro.url.pathname : alternatePath, Astro.site).href} />}
     <title>{title}</title>
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content="Plaza de Armas de Cajamarca · Guía independiente" />
@@ -51,39 +54,7 @@ const jsonLd = structuredData ? JSON.stringify(structuredData).replace(/</g, "\\
   </head>
   <body>
     <slot />
-    <script is:inline>
-      (() => {
-        const consentKey = "cajamarca-cookie-preferences";
-        const read = () => {
-          try { return JSON.parse(localStorage.getItem(consentKey) || "null"); } catch { return null; }
-        };
-        const loadAnalytics = () => {
-          if (document.querySelector("script[data-ga4]")) return;
-          const tag = document.createElement("script");
-          tag.async = true;
-          tag.src = "https://www.googletagmanager.com/gtag/js?id=G-HXM22WWPKP";
-          tag.dataset.ga4 = "true";
-          document.head.appendChild(tag);
-          window.dataLayer = window.dataLayer || [];
-          function gtag(){ window.dataLayer.push(arguments); }
-          gtag("js", new Date());
-          gtag("config", "G-HXM22WWPKP", { anonymize_ip: true });
-        };
-        const consent = read();
-        if (consent?.analytics) loadAnalytics();
-        document.querySelectorAll("[data-cookie-action]").forEach((button) => {
-          button.addEventListener("click", () => {
-            const action = button.dataset.cookieAction;
-            const next = action === "reject"
-              ? { necessary: true, analytics: false, preferences: false, marketing: false }
-              : { necessary: true, analytics: true, preferences: true, marketing: false };
-            localStorage.setItem(consentKey, JSON.stringify(next));
-            if (next.analytics) loadAnalytics();
-            document.querySelector("[data-cookie-banner]")?.remove();
-          });
-        });
-      })();
-    </script>
+    <script is:inline src="/analytics.js"></script>
     <script is:inline>
       if ("serviceWorker" in navigator) {
         window.addEventListener("load", () => {

@@ -6,9 +6,11 @@ mark kept inside the 80% safe zone.
 """
 from PIL import Image
 import os
+from pathlib import Path
 
-SRC = r"h:/GitHub/plazacajamarca/public/images/cajamarca-arcade-mark.png"
-OUT = r"h:/GitHub/plazacajamarca/public/icons"
+ROOT = Path(__file__).resolve().parents[1]
+SRC = ROOT / "public/images/cajamarca-arcade-mark.png"
+OUT = ROOT / "public/icons"
 TERRACOTTA = (184, 79, 43, 255)  # #B84F2B
 
 os.makedirs(OUT, exist_ok=True)

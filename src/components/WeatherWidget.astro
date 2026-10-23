@@ -1,6 +1,6 @@
 ---
 // Design reminder: Archivo de Piedra Viva — a quiet, neutral weather panel. The visitor only cares
-// "will it rain / what to wear". The data source is never surfaced. Risk notes are DERIVED from the
+// "will it rain / what to wear". Source/model limits are disclosed. Risk notes are DERIVED from the
 // forecast (thunderstorm / heavy rain / strong wind / fog), never presented as official alerts.
 interface Props { lang: "es" | "en"; }
 const { lang } = Astro.props;
@@ -9,7 +9,7 @@ const copy = isSpanish
   ? {
       kicker: "Cielo de Cajamarca ahora",
       title: "Clima en la plaza",
-      intro: "Condiciones actuales y pronóstico a 7 días para la Plaza de Armas de Cajamarca, a 2.722 m de altitud. El pronóstico se actualiza con frecuencia.",
+      intro: "Condiciones actuales y pronóstico a 7 días para la Plaza de Armas de Cajamarca, a 2.722 m de altitud. Es una estimación de modelo, no una observación en la plaza ni una alerta oficial.",
       now: "Ahora",
       feels: "Sensación",
       wind: "Viento",
@@ -29,7 +29,7 @@ const copy = isSpanish
   : {
       kicker: "Cajamarca sky right now",
       title: "Weather at the square",
-      intro: "Current conditions and a 7-day forecast for Plaza de Armas de Cajamarca, at 2,722 m elevation. The forecast refreshes often.",
+      intro: "Current conditions and a 7-day forecast for Plaza de Armas de Cajamarca, at 2,722 m elevation. It is a model estimate, not an on-site observation or official warning.",
       now: "Now",
       feels: "Feels like",
       wind: "Wind",
@@ -51,9 +51,9 @@ const copy = isSpanish
   <div class="weather-intro">
     <p class="eyebrow">{copy.kicker}</p>
     <h2 id="weather-title">{copy.title}</h2>
-    <p>{copy.intro}</p>
+    <p>{copy.intro}</p><p><a href="https://open-meteo.com/">Open-Meteo</a> · <a href="https://creativecommons.org/licenses/by/4.0/">CC BY 4.0</a></p>
   </div>
-  <div class="weather-panel" data-weather data-lang={lang}>
+  <div class="weather-panel" data-weather data-lang={lang} data-labels={JSON.stringify(copy)}>
     <div class="weather-status" data-weather-status>{copy.loading}</div>
     <div class="weather-body" data-weather-body hidden>
       <div class="current" data-current></div>
@@ -69,40 +69,42 @@ const copy = isSpanish
   </div>
 </section>
 
-<style>
+<style is:global>
   .weather-section { display: grid; grid-template-columns: .82fr 1.18fr; gap: 60px; align-items: center; max-width: 1280px; margin: 0 auto; padding: 118px 38px; border-top: 1px solid var(--line); }
-  .weather-intro .eyebrow { color: var(--terracotta-dark); }
-  .weather-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 0; }
-  .weather-intro p { margin-top: 22px; color: #514b42; font-size: 16px; max-width: 420px; }
-  .weather-panel { background: var(--stone); border-top: 3px solid var(--terracotta); padding: 34px 36px; box-shadow: 0 14px 42px rgba(65, 52, 38, .08); }
-  .weather-status { color: var(--muted); font-size: 15px; }
-  .current { display: grid; grid-template-columns: auto 1fr; gap: 18px 24px; align-items: center; }
-  .current .icon { font-size: 54px; line-height: 1; }
-  .current .temp { font-family: var(--serif); font-size: 58px; font-weight: 600; letter-spacing: -.04em; line-height: .9; }
-  .current .cond { font-size: 16px; color: var(--ink); }
-  .current .meta { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); gap: 14px 18px; margin-top: 8px; border-top: 1px solid var(--line); padding-top: 18px; }
-  .current .meta div { font-size: 11px; color: var(--muted); line-height: 1.3; }
-  .current .meta strong { display: block; color: var(--blue); font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-top: 3px; }
-  .forecast { list-style: none; margin: 26px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(82px, 1fr)); gap: 12px; }
-  .forecast li { text-align: center; }
-  .forecast .day { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta-dark); }
-  .forecast .ficon { font-size: 26px; margin: 8px 0 4px; }
-  .forecast .ftemp { font-family: var(--serif); font-size: 17px; font-weight: 600; }
-  .forecast .frain { font-size: 11px; color: var(--muted); }
-  .advice { margin: 24px 0 0; display: grid; gap: 12px; }
-  .advice-risk { margin: 0; padding: 14px 16px; background: #5c1a13; color: #ffe9e3; font-size: 15px; line-height: 1.5; font-weight: 600; }
-  .advice-risk::before { content: "⚠ " attr(data-label) " — "; font-weight: 700; }
-  .advice-block { background: rgba(184, 79, 43, .07); border-left: 3px solid var(--terracotta); padding: 14px 16px; }
-  .advice-block h4 { margin: 0 0 8px; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--terracotta-dark); }
-  .advice-block ul { margin: 0; padding-left: 18px; color: var(--ink); font-size: 14px; line-height: 1.55; }
-  .updated { margin: 16px 0 0; color: var(--muted); font-size: 11px; }
-  .retry { margin-top: 14px; }
-  .retry button { border: 0; background: var(--terracotta); color: #fffaf0; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; transition: background .16s var(--ease); }
-  .retry button:hover { background: var(--terracotta-dark); }
+  .weather-section .weather-intro .eyebrow { color: var(--terracotta-dark); }
+  .weather-section .weather-intro h2 { font-family: var(--serif); font-size: clamp(43px, 4.5vw, 68px); font-weight: 600; letter-spacing: -.055em; line-height: .9; margin: 14px 0 0; }
+  .weather-section .weather-intro p { margin-top: 22px; color: #514b42; font-size: 16px; max-width: 420px; }
+  .weather-section .weather-panel { background: var(--stone); border-top: 3px solid var(--terracotta); padding: 34px 36px; box-shadow: 0 14px 42px rgba(65, 52, 38, .08); }
+  .weather-section .weather-status { color: var(--muted); font-size: 15px; }
+  .weather-section .current { display: grid; grid-template-columns: auto 1fr; gap: 18px 24px; align-items: center; }
+  .weather-section .current .icon { font-size: 54px; line-height: 1; }
+  .weather-section .current .temp { font-family: var(--serif); font-size: 58px; font-weight: 600; letter-spacing: -.04em; line-height: .9; }
+  .weather-section .current .cond { font-size: 16px; color: var(--ink); }
+  .weather-section .current .meta { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(auto-fit, minmax(78px, 1fr)); gap: 14px 18px; margin-top: 8px; border-top: 1px solid var(--line); padding-top: 18px; }
+  .weather-section .current .meta div { font-size: 11px; color: var(--muted); line-height: 1.3; }
+  .weather-section .current .meta strong { display: block; color: var(--blue); font-family: var(--serif); font-size: 19px; font-weight: 700; letter-spacing: -.02em; margin-top: 3px; }
+  .weather-section .forecast { list-style: none; margin: 26px 0 0; padding: 22px 0 0; border-top: 1px solid var(--line); display: grid; grid-template-columns: repeat(auto-fit, minmax(82px, 1fr)); gap: 12px; }
+  .weather-section .forecast li { text-align: center; }
+  .weather-section .forecast .day { font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--terracotta-dark); }
+  .weather-section .forecast .ficon { font-size: 26px; margin: 8px 0 4px; }
+  .weather-section .forecast .ftemp { font-family: var(--serif); font-size: 17px; font-weight: 600; }
+  .weather-section .forecast .frain { font-size: 11px; color: var(--muted); }
+  .weather-section .advice { margin: 24px 0 0; display: grid; gap: 12px; }
+  .weather-section .advice-risk { margin: 0; padding: 14px 16px; background: #5c1a13; color: #ffe9e3; font-size: 15px; line-height: 1.5; font-weight: 600; }
+  .weather-section .advice-risk::before { content: "⚠ " attr(data-label) " — "; font-weight: 700; }
+  .weather-section .advice-block { background: rgba(184, 79, 43, .07); border-left: 3px solid var(--terracotta); padding: 14px 16px; }
+  .weather-section .advice-block h4 { margin: 0 0 8px; font-size: 10px; font-weight: 700; letter-spacing: .13em; text-transform: uppercase; color: var(--terracotta-dark); }
+  .weather-section .advice-block ul { margin: 0; padding-left: 18px; color: var(--ink); font-size: 14px; line-height: 1.55; }
+  .weather-section .updated { margin: 16px 0 0; color: var(--muted); font-size: 11px; }
+  .weather-section .retry { margin-top: 14px; }
+  .weather-section .retry button { border: 0; background: var(--terracotta); color: #fffaf0; font-size: 11px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; padding: 10px 14px; cursor: pointer; transition: background .16s var(--ease); }
+  .weather-section .retry button:hover { background: var(--terracotta-dark); }
   @media (max-width: 900px) { .weather-section { grid-template-columns: 1fr; gap: 30px; padding: 84px 27px; } }
+  .weather-section [hidden] {display:none!important;}
 </style>
 
 <script>
+  import { validateWeather } from "../lib/weather";
   const panels = document.querySelectorAll<HTMLElement>("[data-weather]");
   if (panels.length) {
     const wmo: Record<number, { es: string; en: string; icon: string }> = {
@@ -154,6 +156,7 @@ const copy = isSpanish
     };
 
     panels.forEach((panel) => {
+      const copy = JSON.parse(panel.dataset.labels || "{}");
       const lang = panel.dataset.lang === "en" ? "en" : "es";
       const statusEl = panel.querySelector<HTMLElement>("[data-weather-status]")!;
       const bodyEl = panel.querySelector<HTMLElement>("[data-weather-body]")!;
@@ -173,7 +176,6 @@ const copy = isSpanish
       const unavailableText = T("El pronóstico no está disponible en este momento.", "The forecast is not available right now.");
       const retryText = T("Reintentar", "Retry");
       const windWord = T("Fuerza", "Force");
-      const nowText = T("Ahora", "Now");
       const feelsText = T("Sensación", "Feels like");
       const windText = T("Viento", "Wind");
       const humidityText = T("Humedad", "Humidity");
@@ -184,7 +186,7 @@ const copy = isSpanish
       const dayName = (iso: string, i: number) => {
         if (i === 0) return T("Hoy", "Today");
         if (i === 1) return T("Mañana", "Tomorrow");
-        const d = new Date(iso + "T00:00:00");
+        const d = new Date(iso + "T12:00:00-05:00");
         return d.toLocaleDateString(lang === "es" ? "es-PE" : "en-US", { weekday: "short", timeZone: "America/Lima" });
       };
       const windKmh = (v?: number) => (v == null ? "—" : `${Math.round(v)} km/h`);
@@ -285,6 +287,7 @@ const copy = isSpanish
       };
 
       const render = (d: any) => {
+        validateWeather(d);
         statusEl.hidden = true;
         bodyEl.hidden = false;
         const cur = d.current ?? {};
@@ -351,7 +354,7 @@ const copy = isSpanish
         statusEl.textContent = loadingText;
         bodyEl.hidden = true;
         try {
-          const res = await fetch("/api/weather");
+          const res = await fetch("/api/weather", {signal:AbortSignal.timeout(10000),cache:"no-store"});
           if (!res.ok) throw new Error("bad");
           const d = await res.json();
           if (d.error) throw new Error("err");

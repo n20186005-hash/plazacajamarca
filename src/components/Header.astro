@@ -19,10 +19,10 @@ const labels = isSpanish
       <span class="brand-copy"><strong>Plaza de Armas</strong><small>{labels.guide}</small></span>
     </a>
     <nav class="main-nav" aria-label={labels.menu}>
-      <a href="#historia">{labels.nav}</a>
-      <a href="#visita">{labels.practical}</a>
-      <a href="#mapa">{labels.map}</a>
-      <a href="#preguntas">{labels.faq}</a>
+      <a href={`${homePath}#historia`}>{labels.nav}</a>
+      <a href={`${homePath}#visita`}>{labels.practical}</a>
+      <a href={`${homePath}#mapa`}>{labels.map}</a>
+      <a href={`${homePath}#preguntas`}>{labels.faq}</a>
     </nav>
     <a class="language-link" href={alternatePath} lang={isSpanish ? "en" : "es"}>{labels.language}<span aria-hidden="true">↗</span></a>
   </div>
