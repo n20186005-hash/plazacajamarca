@@ -1,0 +1,281 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import Header from "./Header.astro";
+import Footer from "./Footer.astro";
+import CookieBanner from "./CookieBanner.astro";
+import { getTopic, GROUPS, topicUrl, type GroupKey } from "../data/topics";
+
+interface Props {
+  slug: string;
+  lang: "es" | "en";
+}
+const { slug, lang } = Astro.props;
+const topic = getTopic(slug)!;
+const isSpanish = lang === "es";
+const c = isSpanish ? topic.es : topic.en;
+const root = isSpanish ? "/" : "/en/";
+const alternatePath = topicUrl(topic, isSpanish ? "en" : "es");
+
+const homeLabel = isSpanish ? "Inicio" : "Home";
+const guidesLabel = isSpanish ? "Guías temáticas" : "Thematic guides";
+const relatedLabel = isSpanish ? "Temas relacionados" : "Related guides";
+const updatedLabel = isSpanish ? "Última actualización" : "Last updated";
+const faqLabel = isSpanish ? "Preguntas frecuentes" : "Frequently asked questions";
+const noteLabel = isSpanish
+  ? "Guía turística independiente y sin publicidad; no es un sitio oficial."
+  : "Independent, ad-free travel guide; not an official site.";
+
+const related = (topic.related || []).map(getTopic).filter(Boolean);
+
+const pageUrl = Astro.site ? new URL(topicUrl(topic, lang), Astro.site).href : topicUrl(topic, lang);
+const homeUrl = Astro.site ? new URL(root, Astro.site).href : root;
+const guidesUrl = Astro.site
+  ? new URL(root + "#guias-tematicas", Astro.site).href
+  : root + "#guias-tematicas";
+
+const breadcrumb = {
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  itemListElement: [
+    { "@type": "ListItem", position: 1, name: homeLabel, item: homeUrl },
+    { "@type": "ListItem", position: 2, name: guidesLabel, item: guidesUrl },
+    { "@type": "ListItem", position: 3, name: c.h1, item: pageUrl },
+  ],
+};
+
+const faqData = {
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: c.faqs.map((f) => ({
+    "@type": "Question",
+    name: f.question,
+    acceptedAnswer: { "@type": "Answer", text: f.answer },
+  })),
+};
+
+const webPage = {
+  "@context": "https://schema.org",
+  "@type": "WebPage",
+  name: c.h1,
+  description: c.metaDescription,
+  inLanguage: isSpanish ? "es-PE" : "en",
+  url: pageUrl,
+  about: { "@type": "Place", name: "Plaza de Armas de Cajamarca" },
+  isPartOf: { "@type": "WebSite", name: "Plaza de Armas de Cajamarca — Guía del centro histórico" },
+};
+
+const structuredData = [webPage, breadcrumb, faqData];
+---
+
+<BaseLayout
+  title={c.metaTitle}
+  description={c.metaDescription}
+  lang={lang}
+  alternatePath={alternatePath}
+  structuredData={structuredData}
+>
+  <Header lang={lang} alternatePath={alternatePath} homePath={root} />
+  <main class="topic-main">
+    <nav class="topic-breadcrumb" aria-label={isSpanish ? "Ruta de navegación" : "Breadcrumb"}>
+      <a href={root}>{homeLabel}</a>
+      <span aria-hidden="true">/</span>
+      <a href={root + "#guias-tematicas"}>{guidesLabel}</a>
+      <span aria-hidden="true">/</span>
+      <span>{c.h1}</span>
+    </nav>
+
+    <section class="topic-hero">
+      <p class="topic-kicker">{GROUPS[topic.group as GroupKey][lang]}</p>
+      <h1>{c.h1}</h1>
+      <p class="topic-lead">{c.lead}</p>
+    </section>
+
+    {c.sections.map((s) => (
+      <section class="topic-section">
+        <h2>{s.heading}</h2>
+        {s.paragraphs.map((p) => <p>{p}</p>)}
+        {s.bullets && (
+          <ul>
+            {s.bullets.map((b) => <li>{b}</li>)}
+          </ul>
+        )}
+      </section>
+    ))}
+
+    <section class="topic-faq" aria-labelledby="faq-title">
+      <h2 id="faq-title">{faqLabel}</h2>
+      {c.faqs.map((f) => (
+        <details class="topic-faq-item">
+          <summary>{f.question}</summary>
+          <p>{f.answer}</p>
+        </details>
+      ))}
+    </section>
+
+    {related.length > 0 && (
+      <section class="topic-related" aria-labelledby="related-title">
+        <h2 id="related-title">{relatedLabel}</h2>
+        <ul class="topic-related-list">
+          {related.map((r) => (
+            <li><a href={topicUrl(r!, lang)}>{isSpanish ? r!.es.h1 : r!.en.h1}</a></li>
+          ))}
+        </ul>
+      </section>
+    )}
+
+    <p class="topic-updated">{updatedLabel}: {c.updated}</p>
+    <p class="topic-note">{noteLabel}</p>
+  </main>
+  <Footer lang={lang} homePath={root} />
+  <CookieBanner lang={lang} />
+</BaseLayout>
+
+<style>
+  .topic-main {
+    max-width: 760px;
+    margin: 0 auto;
+    padding: 24px 20px 64px;
+    color: #2c2018;
+  }
+  .topic-breadcrumb {
+    font-size: 13px;
+    color: #8a7a63;
+    margin-bottom: 26px;
+  }
+  .topic-breadcrumb a {
+    color: #8a7a63;
+    text-decoration: none;
+  }
+  .topic-breadcrumb a:hover {
+    color: #cf5a2e;
+    text-decoration: underline;
+  }
+  .topic-breadcrumb span {
+    margin: 0 7px;
+  }
+  .topic-hero {
+    border-bottom: 1px solid #e7ddcd;
+    padding-bottom: 24px;
+    margin-bottom: 8px;
+  }
+  .topic-kicker {
+    margin: 0 0 10px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cf5a2e;
+    font-weight: 700;
+  }
+  .topic-hero h1 {
+    margin: 0 0 14px;
+    font-size: clamp(28px, 5vw, 38px);
+    line-height: 1.15;
+    color: #241a12;
+  }
+  .topic-lead {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.55;
+    color: #4d3c2c;
+  }
+  .topic-section {
+    margin: 34px 0;
+  }
+  .topic-section h2 {
+    font-size: 22px;
+    line-height: 1.25;
+    color: #241a12;
+    margin: 0 0 12px;
+    padding-left: 12px;
+    border-left: 4px solid #cf5a2e;
+  }
+  .topic-section p {
+    font-size: 16px;
+    line-height: 1.7;
+    margin: 0 0 14px;
+    color: #3a2c20;
+  }
+  .topic-section ul {
+    margin: 4px 0 14px;
+    padding-left: 22px;
+  }
+  .topic-section li {
+    font-size: 16px;
+    line-height: 1.6;
+    margin-bottom: 6px;
+    color: #3a2c20;
+  }
+  .topic-faq {
+    margin: 40px 0;
+  }
+  .topic-faq h2 {
+    font-size: 22px;
+    color: #241a12;
+    margin: 0 0 14px;
+    padding-left: 12px;
+    border-left: 4px solid #cf5a2e;
+  }
+  .topic-faq-item {
+    border: 1px solid #e7ddcd;
+    border-radius: 10px;
+    padding: 4px 16px;
+    margin-bottom: 10px;
+    background: #fbf7f0;
+  }
+  .topic-faq-item summary {
+    cursor: pointer;
+    font-weight: 600;
+    color: #2c2018;
+    padding: 12px 0;
+    list-style: disclosure-closed;
+  }
+  .topic-faq-item p {
+    margin: 0 0 14px;
+    font-size: 15px;
+    line-height: 1.65;
+    color: #3a2c20;
+  }
+  .topic-related {
+    margin: 40px 0;
+    padding: 22px;
+    background: #f3ece1;
+    border-radius: 12px;
+  }
+  .topic-related h2 {
+    font-size: 19px;
+    color: #241a12;
+    margin: 0 0 12px;
+  }
+  .topic-related-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    gap: 10px;
+  }
+  .topic-related-list a {
+    display: block;
+    padding: 10px 14px;
+    background: #fffdf9;
+    border: 1px solid #e7ddcd;
+    border-radius: 8px;
+    color: #2c2018;
+    text-decoration: none;
+    font-weight: 600;
+  }
+  .topic-related-list a:hover {
+    border-color: #cf5a2e;
+    color: #cf5a2e;
+  }
+  .topic-updated {
+    font-size: 13px;
+    color: #8a7a63;
+    margin: 30px 0 4px;
+  }
+  .topic-note {
+    font-size: 13px;
+    color: #8a7a63;
+    font-style: italic;
+    margin: 0;
+  }
+</style>

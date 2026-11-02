@@ -1,0 +1,93 @@
+---
+import { TOPICS, GROUPS, topicUrl, type GroupKey } from "../data/topics";
+
+interface Props {
+  lang: "es" | "en";
+}
+const { lang } = Astro.props;
+const isSpanish = lang === "es";
+const groups = Object.keys(GROUPS) as GroupKey[];
+---
+
+<section id="guias-tematicas" class="topic-links" aria-labelledby="tl-title">
+  <p class="eyebrow">{isSpanish ? "Guías temáticas" : "Thematic guides"}</p>
+  <h2 id="tl-title">{isSpanish ? "Guías para planificar la visita" : "Guides to plan your visit"}</h2>
+  <p class="topic-links-intro">
+    {isSpanish
+      ? "Caminatas, historia y comida alrededor de la Plaza de Armas, organizadas por tema."
+      : "Walks, history and food around Plaza de Armas, organised by topic."}
+  </p>
+  {groups.map((g) => {
+    const items = TOPICS.filter((t) => t.group === g);
+    if (items.length === 0) return null;
+    return (
+      <div class="tl-group">
+        <h3>{GROUPS[g][lang]}</h3>
+        <ul>
+          {items.map((t) => (
+            <li><a href={topicUrl(t, lang)}>{isSpanish ? t.es.h1 : t.en.h1}</a></li>
+          ))}
+        </ul>
+      </div>
+    );
+  })}
+</section>
+
+<style>
+  .topic-links {
+    max-width: 920px;
+    margin: 0 auto;
+    padding: 8px 20px 24px;
+  }
+  .topic-links .eyebrow {
+    margin: 0 0 6px;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: #cf5a2e;
+    font-weight: 700;
+  }
+  .topic-links h2 {
+    margin: 0 0 6px;
+    font-size: clamp(24px, 4vw, 30px);
+    color: #241a12;
+  }
+  .topic-links-intro {
+    margin: 0 0 18px;
+    color: #5a4736;
+    font-size: 15px;
+  }
+  .tl-group {
+    margin: 0 0 18px;
+  }
+  .tl-group h3 {
+    margin: 0 0 8px;
+    font-size: 16px;
+    color: #8a6f53;
+    border-bottom: 1px solid #e7ddcd;
+    padding-bottom: 4px;
+  }
+  .tl-group ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 10px;
+  }
+  .tl-group li a {
+    display: block;
+    padding: 10px 14px;
+    background: #fbf7f0;
+    border: 1px solid #e7ddcd;
+    border-radius: 8px;
+    color: #2c2018;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 600;
+  }
+  .tl-group li a:hover {
+    border-color: #cf5a2e;
+    color: #cf5a2e;
+  }
+</style>
