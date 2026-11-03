@@ -25,3 +25,14 @@ test('both museum guides have matching canonicals, visible sources, local links 
   for(const [,url] of html.matchAll(/href="(\/[^"?#]*)(?:[?#][^"]*)?"/g)) assert.ok(fs.existsSync('dist'+url)||fs.existsSync('dist'+url+'index.html'),url);
  }
 });
+
+ test('seasonal correction names the institution and distinguishes qualitative advice from rainfall data', () => {
+ for (const locale of ['', 'en/']) {
+  const html=read(locale);
+  const section=html.match(/<section class="season-section"[\s\S]*?<\/section>/)?.[0];
+  assert.ok(section);
+  assert.ok(section.includes('Comisión de Promoción del Perú para la Exportación y el Turismo'));
+  assert.ok(section.includes('5187391-directorio-iperu-oficinas-y-puntos-de-atencion'));
+  assert.ok(section.includes(locale ? 'not a Cajamarca province rainfall index' : 'no de un índice de precipitaciones de la provincia de Cajamarca'));
+ }
+});
