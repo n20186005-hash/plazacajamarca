@@ -32,6 +32,9 @@ test('both museum guides have matching canonicals, visible sources, local links 
   const section=html.match(/<section class="season-section"[\s\S]*?<\/section>/)?.[0];
   assert.ok(section);
   assert.ok(section.includes('Comisión de Promoción del Perú para la Exportación y el Turismo'));
+  assert.ok(section.includes('Cristhian Cruz Julcamoro'));
+  assert.ok(section.includes('Dirección de Coordinación de Oficinas Regionales'));
+  assert.ok(!section.includes('ccruz@'));
   assert.ok(section.includes('5187391-directorio-iperu-oficinas-y-puntos-de-atencion'));
   assert.ok(section.includes(locale ? 'not a Cajamarca province rainfall index' : 'no de un índice de precipitaciones de la provincia de Cajamarca'));
  }
