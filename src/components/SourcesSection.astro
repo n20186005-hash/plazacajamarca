@@ -34,6 +34,9 @@ const copy = isSpanish
     <p class="eyebrow">{copy.kicker}</p>
     <h2 id="sources-title">{copy.title}</h2>
     <p>{copy.intro}</p>
+    <p>{isSpanish
+      ? "IPERÚ Cajamarca aportó sugerencias sobre las lluvias de diciembre a febrero, los nombres de los atractivos y la incorporación de Belén y Museo Puga. La redacción y la responsabilidad editorial corresponden a esta guía independiente; no supone certificación ni aprobación oficial."
+      : "IPERÚ Cajamarca provided suggestions on December–February rainfall, attraction names and the inclusion of Belén and Museo Puga. This independent guide remains responsible for its wording and editorial decisions; this does not constitute official certification or approval."}</p>
   </div>
   <ul class="sources-list">
     {copy.entries.map(([publisher, title, url]) => (

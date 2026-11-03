@@ -123,6 +123,13 @@ const structuredData = [webPage, breadcrumb, faqData];
       </section>
     )}
 
+    {(topic.sources?.length || topic.editorialNote) && (
+      <section class="topic-section" aria-labelledby="topic-sources-title">
+        <h2 id="topic-sources-title">{isSpanish ? "Fuentes y criterio editorial" : "Sources and editorial approach"}</h2>
+        {topic.editorialNote && <p>{topic.editorialNote[lang]}</p>}
+        {topic.sources && <ul>{topic.sources.map((source) => <li><a href={source.url} target="_blank" rel="noopener noreferrer">{source.label}</a></li>)}</ul>}
+      </section>
+    )}
     <p class="topic-updated">{updatedLabel}: {c.updated}</p>
     <p class="topic-note">{noteLabel}</p>
   </main>

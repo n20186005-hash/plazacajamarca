@@ -6,7 +6,7 @@ Independent Spanish and English visitor guide at https://plazacajamarca.com/.
 
 Astro 7 generates static pages. The existing native `src/worker.ts` serves assets and `/api/weather`. Wrangler’s production project is `plazacajamarca`; all requests enter the Worker so HTTPS redirects also cover static assets. Known page aliases preserve queries; unknown and explicit error routes return localized nonempty 404 pages. Spanish’s canonical error asset is `/404`, avoiding the binding’s `/404.html` redirect.
 
-The project pins Node 22.13.0 and pnpm 10.15.1. Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm build`, `node --test tests/*.test.mjs`, and `WRANGLER_SEND_METRICS=false pnpm exec wrangler deploy --dry-run`. Deployments are separate from these local checks.
+The project pins Node 22.13.0 and pnpm 10.15.1. Run `pnpm install --frozen-lockfile`, `pnpm check`, `pnpm build`, `node --experimental-strip-types --test tests/*.test.mjs`, and `WRANGLER_SEND_METRICS=false pnpm exec wrangler deploy --dry-run`. Deployments are separate from these local checks.
 
 Existing routes are `/`, `/en/`, and privacy, terms and cookies pages under each locale. Every page has topic-matching language alternates and x-default, absolute canonical metadata, and working same-origin assets. Gallery, offline support, existing Analytics banner/settings and weather retry remain available.
 

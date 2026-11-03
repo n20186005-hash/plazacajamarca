@@ -1,6 +1,6 @@
 ---
 // Design reminder: Archivo de Piedra Viva — a seasonal table based on Cajamarca's highland climate
-// pattern (two marked seasons). No foreign agencies are cited; the pattern is described qualitatively.
+// pattern, with the December–February row corrected following IPERÚ Cajamarca guidance.
 interface Props { lang: "es" | "en"; }
 const { lang } = Astro.props;
 const isSpanish = lang === "es";
@@ -9,10 +9,10 @@ const copy = isSpanish
       kicker: "Cuándo ir",
       title: "Estrategia de visita por temporada",
       intro: "Cajamarca tiene clima de sierra: días templados por la altura y noches frías, con una estación seca y otra lluviosa. La tabla resume el patrón general; confirma el parte local antes de salir.",
-      note: "Ideas de preparación, no promedios climáticos medidos ni condiciones del día. Consultá el pronóstico y los avisos oficiales.",
+      note: "Fuente del ajuste de diciembre a febrero: sugerencias de IPERÚ Cajamarca. Son orientaciones de preparación, no mediciones climáticas ni garantía de lluvia diaria. Consulte el pronóstico y los avisos oficiales.",
       cols: ["Temporada", "Cielo y lluvia", "Para caminar y fotografiar", "Lleva", "Precaución"],
       rows: [
-        ["Dic – Feb", "Verano austral con sol y algunas tardes lluvias; consultá la agenda de celebraciones.", "Buena luz y plaza viva; lleva impermeable para chubascos.", "Impermeable, calzado seco, una prenda de abrigo.", "Lluvia vespertina; pavimento resbalizo tras la lluvia."],
+        ["Dic – Feb", "Lluvias frecuentes: IPERÚ Cajamarca señala que en años recientes las mayores precipitaciones se han concentrado entre diciembre y febrero.", "Deje margen para la lluvia y ajuste el paseo al pronóstico; no presuponga mañanas despejadas.", "Impermeable, calzado seco, una prenda de abrigo.", "Pavimento resbalizo y posibles interrupciones del paseo por lluvia."],
         ["Mar – May", "Las lluvias bajan; campo verde y aire limpio.", "Paisaje fresco y cielos despejados para fotos.", "Capa ligera, protector solar.", "Tramos de tierra húmedos en los alrededores."],
         ["Jun – Sep", "Estación seca: sol, cielos claros y noches frías.", "Elija el horario y la duración según el pronóstico.", "Abrigo térmico, gorro y guantes livianos.", "Heladas nocturnas; mañanas muy frías al amanecer."],
         ["Oct – Nov", "Transición: la lluvia regresa de a poco.", "Buen equilibrio de sol y nubes.", "Impermeable plegable, ropa en capas.", "Cambios rápidos de tiempo en la tarde."]
@@ -22,10 +22,10 @@ const copy = isSpanish
       kicker: "When to go",
       title: "Seasonal visiting strategy",
       intro: "Cajamarca has a highland climate: mild days from the elevation and cold nights, with a dry season and a rainy season. The table summarises the general pattern; confirm the local forecast before you leave.",
-      note: "Preparation ideas, not measured climate averages or current conditions. Check the forecast and official alerts.",
+      note: "Source of the December–February correction: suggestions from IPERÚ Cajamarca. These are planning pointers, not climate measurements or a guarantee of daily rain. Check the forecast and official alerts.",
       cols: ["Season", "Sky & rain", "For walking & photos", "Bring", "Caution"],
       rows: [
-        ["Dec – Feb", "Austral summer with sun and some afternoon rain; check the celebration calendar.", "Good light and a lively square; carry rainwear for showers.", "Raincoat, dry footwear, a warm layer.", "Evening rain; paving is slippery after rain."],
+        ["Dec – Feb", "Frequent rain: IPERÚ Cajamarca says recent years’ heaviest rainfall has concentrated between December and February.", "Allow flexibility for rain and follow the forecast; do not assume clear mornings.", "Raincoat, dry footwear, a warm layer.", "Slippery paving and possible rain interruptions to your walk."],
         ["Mar – May", "Rain eases; green countryside and clear air.", "Fresh scenery and clear skies for photos.", "Light layer, sun protection.", "Damp dirt stretches on the outskirts."],
         ["Jun – Sep", "Dry season: sun, clear skies and cold nights.", "Best light and stability for photographing facades.", "Thermal wear, hat and light gloves.", "Night frosts; very cold dawns."],
         ["Oct – Nov", "Transition: rain returns gradually.", "A fair mix of sun and cloud.", "Packable raincoat, layered clothing.", "Quick afternoon changes in weather."]

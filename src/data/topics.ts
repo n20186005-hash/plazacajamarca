@@ -35,6 +35,8 @@ export const GROUPS = {
 export type GroupKey = keyof typeof GROUPS;
 
 export interface Topic {
+  sources?: { label: string; url: string }[];
+  editorialNote?: { es: string; en: string };
   slug: string;
   group: GroupKey;
   related: string[];
@@ -43,6 +45,141 @@ export interface Topic {
 }
 
 export const TOPICS: Topic[] = [
+  {
+    "slug": "museo-puga",
+    "group": "lugares",
+    "related": [
+      "conjunto-monumental-belen",
+      "plaza-de-armas",
+      "circuito-historico-3-horas"
+    ],
+    "editorialNote": {
+      "es": "Contenido revisado a partir de sugerencias de IPERÚ Cajamarca. Esta atribución identifica la procedencia de las recomendaciones; no implica aprobación, certificación ni gestión oficial de esta guía independiente.",
+      "en": "Content revised following suggestions from IPERÚ Cajamarca. This attribution identifies the source of the recommendations; it does not imply approval, certification or official management of this independent guide."
+    },
+    "sources": [
+      {
+        "label": "MINCETUR · Inventario 13963: Casa Museo Nicolas Puga",
+        "url": "https://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=13963"
+      },
+      {
+        "label": "Ministerio de Cultura · Guía de Museos e Instituciones Museales del Perú 2023, página 92",
+        "url": "https://museos.cultura.pe/sites/default/files/publicaciones/pdf/Gu%C3%ADa%20de%20Museos%202023%20%28preliminar%29_0.pdf"
+      }
+    ],
+    "es": {
+      "metaTitle": "Museo Puga en Cajamarca: casa museo y visita desde la plaza",
+      "metaDescription": "Identifique la Casa Museo Nicolás Puga, su relación con el centro de Cajamarca y qué confirmar antes de añadirla a un paseo desde la Plaza de Armas.",
+      "h1": "Museo Puga en Cajamarca: casa museo y visita desde la plaza",
+      "lead": "El Museo Puga recomendado por IPERÚ Cajamarca corresponde a la Casa Museo Nicolás Puga. Es una parada cultural distinta de Belén, útil para ampliar el recorrido del centro sin repetir la misma visita.",
+      "updated": "3 de noviembre de 2026",
+      "sections": [
+        {
+          "heading": "Identificar el museo correcto",
+          "paragraphs": [
+            "MINCETUR registra la Casa Museo Nicolás Puga en Jr. José Gálvez 634, barrio de San Pedro. La guía del Ministerio de Cultura de 2023 confirma esa dirección y su apertura en agosto de 2013.",
+            "Al consultar disponibilidad, use el nombre completo y la dirección: no basta con buscar «Museo Puga» sin Cajamarca. Guarde el punto de llegada antes de salir de la plaza."
+          ]
+        },
+        {
+          "heading": "Qué aporta frente a otros monumentos",
+          "paragraphs": [
+            "La guía del Ministerio de Cultura describe una casa histórica adaptada para exhibir bienes arqueológicos e histórico-artísticos de épocas prehispánica, virreinal y republicana, manteniendo la disposición del inmueble.",
+            "La visita ofrece otra escala para leer la ciudad: un espacio doméstico y una colección, en vez de una plaza o un templo. Observe cómo se presentan los objetos y pregunte por su contexto; no deduzca usos, fechas o procedencias solo por su aspecto."
+          ]
+        },
+        {
+          "heading": "Cómo incluirlo desde la Plaza de Armas",
+          "paragraphs": [
+            "La ficha de MINCETUR sitúa el museo a cinco cuadras de la plaza y registra un acceso peatonal de unos diez minutos, por Jr. del Comercio hacia José Gálvez. Es una referencia del inventario, no un tiempo garantizado: revise el mapa y ajuste el ritmo al clima y a sus necesidades.",
+            "Para un paseo concentrado, elija plaza y Museo Puga. Para comparar edificios y colecciones, añada Belén cuando haya confirmado ambos recintos. No imponga un circuito cerrado: el orden debe adaptarse a la disponibilidad del museo."
+          ]
+        },
+        {
+          "heading": "Qué confirmar antes de ir",
+          "paragraphs": [
+            "La guía de museos de 2023 menciona visita previa cita. La ficha más reciente de MINCETUR muestra otros horarios y tarifas; no son datos equivalentes ni una garantía de disponibilidad actual. Confirme directamente si necesita concertar la visita, la hora de ingreso y el precio aplicable.",
+            "Pregunte también qué salas pueden recorrerse, si se permite fotografiar, y qué condiciones de acceso existen para su grupo. No damos por comprobados ascensores, rampas ni servicios para visitantes con movilidad reducida.",
+            "Si no logra confirmar la visita, mantenga la plaza como punto de partida y deje el museo como opción pendiente, sin hacer un desplazamiento exclusivamente para encontrar una puerta cerrada."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "¿Dónde queda el Museo Puga?",
+          "answer": "La dirección registrada es Jr. José Gálvez 634, en el barrio de San Pedro de Cajamarca."
+        },
+        {
+          "question": "¿Se necesita cita?",
+          "answer": "La guía del Ministerio de Cultura de 2023 indica previa cita. Confirme con el museo si esa condición sigue vigente antes de ir."
+        },
+        {
+          "question": "¿Cuál es la entrada actual?",
+          "answer": "Las fuentes consultadas muestran tarifas diferentes. Verifique el importe y la categoría aplicable directamente antes de la visita; no publicamos un precio como vigente sin confirmación."
+        },
+        {
+          "question": "¿Lo puedo combinar con Belén?",
+          "answer": "Sí, como propuesta de recorrido del centro, pero son recintos distintos. Ajuste el orden a los horarios confirmados y no presuponga un boleto compartido."
+        }
+      ]
+    },
+    "en": {
+      "metaTitle": "Museo Puga in Cajamarca: visiting the house museum",
+      "metaDescription": "Find Casa Museo Nicolás Puga, understand how it differs from Belén, and plan a cultural walk from Plaza de Armas with the right visit checks.",
+      "h1": "Museo Puga in Cajamarca: visiting the house museum",
+      "lead": "The Museo Puga suggested by IPERÚ Cajamarca is Casa Museo Nicolás Puga. It adds a different cultural stop to a walk around the centre rather than duplicating the Belén visit.",
+      "updated": "November 3, 2026",
+      "sections": [
+        {
+          "heading": "Find the right museum",
+          "paragraphs": [
+            "MINCETUR lists Casa Museo Nicolás Puga at Jr. José Gálvez 634 in San Pedro. The Ministry of Culture’s 2023 guide confirms the address and an August 2013 opening.",
+            "Use the complete name and address when checking availability; a search for “Museo Puga” without Cajamarca is not enough. Save the arrival point before leaving the square."
+          ]
+        },
+        {
+          "heading": "Why add a house museum?",
+          "paragraphs": [
+            "The Ministry of Culture guide describes a historic house adapted to display archaeological and historical-artistic material from pre-Hispanic, colonial and republican periods while retaining the building’s arrangement.",
+            "This is a more domestic scale of city history than a square or a church. Look at how objects are presented and ask about their context instead of inferring dates, origins or uses from appearance alone."
+          ]
+        },
+        {
+          "heading": "A walking option from Plaza de Armas",
+          "paragraphs": [
+            "MINCETUR places it five blocks from the square and lists an approximately ten-minute walk via Jr. del Comercio towards José Gálvez. Treat that as an inventory reference, not a guaranteed journey time; check the map and adapt to weather and your pace.",
+            "For a focused outing, choose the square and Museo Puga. To compare buildings and collections, add Belén after confirming access to both. Let the museum’s availability determine the order rather than forcing a fixed circuit."
+          ]
+        },
+        {
+          "heading": "What to check before setting out",
+          "paragraphs": [
+            "The 2023 museum guide describes visits by appointment. The newer MINCETUR record gives different hours and prices; these are not interchangeable or a guarantee of present availability. Confirm whether an appointment is required, the arrival time and the applicable fee directly.",
+            "Ask which rooms are available, whether photography is allowed and what access arrangements your group needs. Lifts, ramps and step-free access have not been verified by this guide.",
+            "If you cannot confirm a visit, keep the square as your starting point and the museum as a possible addition rather than making a special journey with uncertain access."
+          ]
+        }
+      ],
+      "faqs": [
+        {
+          "question": "Where is Museo Puga?",
+          "answer": "Its listed address is Jr. José Gálvez 634, San Pedro, Cajamarca."
+        },
+        {
+          "question": "Do I need an appointment?",
+          "answer": "The Ministry of Culture’s 2023 guide says visits are by appointment. Confirm whether that remains the arrangement before going."
+        },
+        {
+          "question": "What is the current admission price?",
+          "answer": "The sources consulted give different prices. Check the amount and applicable visitor category directly; we do not present an unconfirmed price as current."
+        },
+        {
+          "question": "Can I combine it with Belén?",
+          "answer": "Yes, as a suggested historic-centre outing, but they are separate venues. Check both schedules and do not assume a shared ticket."
+        }
+      ]
+    }
+  },
   // 01 — Cómo llegar
   {
     slug: "como-llegar",
@@ -104,7 +241,7 @@ export const TOPICS: Topic[] = [
         {
           question: "¿Conviene rentar auto?",
           answer:
-            "Para recorrer solo el centro histórico no es necesario. Si planea excursiones a Baños del Inca, Cumbemayo o Granja Porcón, un vehículo o tour le da más flexibilidad.",
+            "Para recorrer solo el centro histórico no es necesario. Si planea excursiones a Complejo Turístico Baños del Inca, Cumbemayo o Granja Porcón, un vehículo o tour le da más flexibilidad.",
         },
         {
           question: "¿Cómo llego desde Lima?",
@@ -169,7 +306,7 @@ export const TOPICS: Topic[] = [
         {
           question: "Is it worth renting a car?",
           answer:
-            "For the historic centre alone it is not necessary. If you plan excursions to Baños del Inca, Cumbemayo or Granja Porcón, a vehicle or tour gives more flexibility.",
+            "For the historic centre alone it is not necessary. If you plan excursions to Complejo Turístico Baños del Inca, Cumbemayo or Granja Porcón, a vehicle or tour gives more flexibility.",
         },
         {
           question: "How do I get from Lima?",
@@ -318,7 +455,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Lo que tiene horario propio",
           paragraphs: [
-            "La Catedral, la Iglesia de San Francisco, el Cuarto del Rescate y el Conjunto Monumental Belén tienen sus propios horarios y, en algunos casos, costo de entrada.",
+            "La Catedral, la Iglesia San Antonio De Padua - San Francisco, el Cuarto del Rescate y el Conjunto Monumental Belén tienen sus propios horarios y, en algunos casos, costo de entrada.",
             "Estos sitios dependen de programación religiosa, de museo o de gestión cultural, por lo que pueden cerrar los lunes, en feriados o por mantenimiento.",
           ],
           bullets: ["Confirme horario y costo en la fuente oficial de cada sitio.", "El Cuarto del Rescate suele tener entrada administrada; verifíquela antes."],
@@ -443,7 +580,7 @@ export const TOPICS: Topic[] = [
           heading: "El periodo colonial",
           paragraphs: [
             "Tras el encuentro de 1532, la plaza se convirtió en el centro cívico y religioso de la ciudad que creció a su alrededor. Templos de los siglos XVII al XIX definen hoy su borde.",
-            "La Catedral de Cajamarca frente a la fuente, y la Iglesia de San Francisco con su acervo de arte religioso, son parte de ese borde construido.",
+            "La Iglesia Catedral de Cajamarca frente a la fuente, y la Iglesia San Antonio De Padua - San Francisco con su acervo de arte religioso, son parte de ese borde construido.",
           ],
         },
         {
@@ -681,14 +818,15 @@ export const TOPICS: Topic[] = [
   {
     slug: "catedral-de-cajamarca",
     group: "lugares",
+    editorialNote: { es: "Denominación ajustada siguiendo las sugerencias de IPERÚ Cajamarca; no implica aprobación oficial de esta guía independiente.", en: "Name revised following IPERÚ Cajamarca suggestions; this does not imply official approval of this independent guide." },
     related: ["iglesia-san-francisco", "plaza-de-armas", "circuito-historico-3-horas"],
     es: {
-      metaTitle: "Catedral de Cajamarca: historia, arquitectura y visita",
+      metaTitle: "Iglesia Catedral de Cajamarca: historia, arquitectura y visita",
       metaDescription:
-        "La Catedral de Cajamarca frente a la Plaza de Armas: historia, fachada y consejos de visita. Horario y entrada, confirme en la fuente oficial.",
-      h1: "Catedral de Cajamarca",
-      lead: "La Catedral de Cajamarca se alza frente a la pileta de la plaza, definiendo uno de los bordes más visibles del centro histórico.",
-      updated: "1 de noviembre de 2026",
+        "La Iglesia Catedral de Cajamarca frente a la Plaza de Armas: historia, fachada y consejos de visita. Horario y entrada, confirme en la fuente oficial.",
+      h1: "Iglesia Catedral de Cajamarca",
+      lead: "La Iglesia Catedral de Cajamarca se alza frente a la pileta de la plaza, definiendo uno de los bordes más visibles del centro histórico.",
+      updated: "3 de noviembre de 2026",
       sections: [
         {
           heading: "En el borde de la plaza",
@@ -714,7 +852,7 @@ export const TOPICS: Topic[] = [
       ],
       faqs: [
         {
-          question: "¿La Catedral de Cajamarca tiene entrada?",
+          question: "¿La Iglesia Catedral de Cajamarca tiene entrada?",
           answer:
             "El ingreso para culto y visita breve suele ser libre; el horario depende de la programación local. Confirme antes de ir.",
         },
@@ -736,9 +874,9 @@ export const TOPICS: Topic[] = [
       metaTitle: "Cajamarca Cathedral: history, architecture and visit",
       metaDescription:
         "Cajamarca Cathedral facing Plaza de Armas: history, façade and visiting tips. Hours and entry — confirm at the official source.",
-      h1: "Cajamarca Cathedral",
+      h1: "Iglesia Catedral de Cajamarca — Cathedral",
       lead: "Cajamarca Cathedral rises opposite the square's fountain, defining one of the most visible edges of the historic centre.",
-      updated: "November 1, 2026",
+      updated: "November 3, 2026",
       sections: [
         {
           heading: "On the edge of the square",
@@ -787,14 +925,15 @@ export const TOPICS: Topic[] = [
   {
     slug: "iglesia-san-francisco",
     group: "lugares",
+    editorialNote: { es: "Denominación ajustada siguiendo las sugerencias de IPERÚ Cajamarca; no implica aprobación oficial de esta guía independiente.", en: "Name revised following IPERÚ Cajamarca suggestions; this does not imply official approval of this independent guide." },
     related: ["catedral-de-cajamarca", "conjunto-monumental-belen", "circuito-historico-3-horas"],
     es: {
-      metaTitle: "Iglesia de San Francisco de Cajamarca: arte religioso y convento",
+      metaTitle: "Iglesia San Antonio De Padua - San Francisco: arte religioso y convento",
       metaDescription:
-        "La Iglesia de San Francisco de Cajamarca: arquitectura colonial, acervo de arte religioso y su relación con el Conjunto Monumental Belén. Visita y horarios.",
-      h1: "Iglesia de San Francisco de Cajamarca",
-      lead: "La Iglesia de San Francisco es uno de los templos que ayudan a leer el borde urbano de la Plaza de Armas, con un acervo de arte religioso colonial.",
-      updated: "1 de noviembre de 2026",
+        "La Iglesia San Antonio De Padua - San Francisco: arquitectura colonial, acervo de arte religioso y su relación con el Conjunto Monumental Belén. Visita y horarios.",
+      h1: "Iglesia San Antonio De Padua - San Francisco",
+      lead: "La Iglesia San Antonio De Padua - San Francisco es uno de los templos que ayudan a leer el borde urbano de la Plaza de Armas, con un acervo de arte religioso colonial.",
+      updated: "3 de noviembre de 2026",
       sections: [
         {
           heading: "Un templo del centro",
@@ -820,7 +959,7 @@ export const TOPICS: Topic[] = [
       ],
       faqs: [
         {
-          question: "¿La Iglesia de San Francisco tiene entrada?",
+          question: "¿La Iglesia San Antonio De Padua - San Francisco tiene entrada?",
           answer:
             "Depende del espacio: la iglesia suele permitir visita breve; las salas de arte pueden tener horario y costo propios. Confirme.",
         },
@@ -843,9 +982,9 @@ export const TOPICS: Topic[] = [
       metaTitle: "San Francisco Church Cajamarca: colonial art and convent",
       metaDescription:
         "San Francisco Church of Cajamarca: colonial architecture, religious art collection and its link to the Belén Monumental Complex. Visit and hours.",
-      h1: "San Francisco Church of Cajamarca",
+      h1: "Iglesia San Antonio De Padua - San Francisco",
       lead: "San Francisco Church is one of the temples that helps read the urban edge of Plaza de Armas, with a collection of colonial religious art.",
-      updated: "November 1, 2026",
+      updated: "November 3, 2026",
       sections: [
         {
           heading: "A church in the centre",
@@ -1003,121 +1142,136 @@ export const TOPICS: Topic[] = [
 
   // 19 — Conjunto Monumental Belén
   {
-    slug: "conjunto-monumental-belen",
-    group: "lugares",
-    related: ["iglesia-san-francisco", "cuarto-del-rescate", "circuito-historico-3-horas"],
-    es: {
-      metaTitle: "Conjunto Monumental Belén de Cajamarca: iglesia, hospital y museo",
-      metaDescription:
-        "El Conjunto Monumental Belén de Cajamarca: la iglesia, el antiguo hospital colonial y el Museo Arqueológico y Etnográfico. Cómo visitarlos en conjunto.",
-      h1: "Conjunto Monumental Belén de Cajamarca",
-      lead: "El Conjunto Monumental Belén reúne varios edificios del centro histórico: una iglesia, un antiguo hospital colonial y espacios de museo, a corta distancia de la plaza.",
-      updated: "1 de noviembre de 2026",
-      sections: [
+    "slug": "conjunto-monumental-belen",
+    "group": "lugares",
+    "related": [
+      "cuarto-del-rescate",
+      "museo-puga",
+      "circuito-historico-3-horas",
+      "iglesia-san-francisco"
+    ],
+    "es": {
+      "metaTitle": "Conjunto Monumental de Belén: visita desde la Plaza de Armas",
+      "metaDescription": "Qué ver en Belén, cómo enlazarlo con la Plaza de Armas de Cajamarca y qué confirmar sobre salas, entradas y horarios antes de salir.",
+      "h1": "Conjunto Monumental de Belén: visita desde la Plaza de Armas",
+      "lead": "Belén permite ampliar el paseo por la plaza con arquitectura y museos. IPERÚ Cajamarca recomendó incluirlo en esta guía del centro histórico.",
+      "updated": "3 de noviembre de 2026",
+      "sections": [
         {
-          heading: "Qué incluye",
-          paragraphs: [
-            "El conjunto agrupa la Iglesia de Belén, el que fue hospital colonial y el Museo Arqueológico y Etnográfico, entre otros espacios de gestión cultural.",
-            "No es un solo edificio, sino un conjunto que se recorre en orden; por eso conviene entenderlo como visita combinada.",
-          ],
+          "heading": "Qué incluye y por qué visitarlo",
+          "paragraphs": [
+            "El inventario de MINCETUR distingue la iglesia de Belén, el antiguo Hospital de Varones y el Hospital de Mujeres, separados por Jr. Junín. El conjunto corresponde al patrimonio virreinal del siglo XVIII.",
+            "No lo reduzca a una fotografía de la fachada: observe cómo se relacionan el templo y los antiguos espacios de atención hospitalaria. Esa lectura ofrece un contraste con la plaza abierta y sus edificios religiosos."
+          ]
         },
         {
-          heading: "La iglesia y el hospital",
-          paragraphs: [
-            "La Iglesia de Belén y el antiguo hospital forman un bloque de arquitectura colonial relevante en Cajamarca.",
-            "El hospital es citado en fuentes como uno de los recintos hospitalarios coloniales de la ciudad; su recorrido permite leer la historia de la salud y la religión juntas.",
-          ],
+          "heading": "Museo y arquitectura: dos motivos distintos",
+          "paragraphs": [
+            "El Ministerio de Cultura identifica dentro del conjunto un Museo Arqueológico y Etnográfico. Sus colecciones permiten acercarse a las culturas prehispánicas y a las prácticas regionales; no es la Casa Museo Nicolás Puga.",
+            "Elija su prioridad antes de entrar: arquitectura si quiere entender los edificios; salas de museo si prefiere objetos y contexto cultural. Pregunte qué ambientes están disponibles ese día, sin dar por hecho que todos se incluyen en cualquier entrada."
+          ]
         },
         {
-          heading: "El museo",
-          paragraphs: [
-            "El Museo Arqueológico y Etnográfico reúne piezas y contexto sobre la historia y las culturas de la región. Tiene su propio horario y, en algunos casos, costo de entrada.",
-            "Para su visita, verifique el horario vigente y considere combinarlo con San Francisco y el Cuarto del Rescate.",
-          ],
+          "heading": "Cómo enlazar Belén con la plaza",
+          "paragraphs": [
+            "Use Jr. Belén como referencia de llegada. La ficha del museo señala Jr. Belén 571. Desde la plaza, revise el recorrido peatonal en el mapa y confirme la entrada habilitada al llegar.",
+            "Como propuesta editorial, haga primero la plaza y luego Belén; añada el Cuarto del Rescate si los horarios lo permiten. No confunda esta secuencia sugerida con una visita guiada contratada. Si también desea Museo Puga, confirme antes su disponibilidad y deje margen para un traslado adicional."
+          ]
         },
         {
-          heading: "Cómo planear la visita",
-          paragraphs: [
-            "Ubíquelo a pocos minutos a pie de la plaza. Dados los horarios distintos de cada espacio, confirme en la fuente oficial qué salas están abiertas el día de su visita.",
-          ],
-          bullets: ["Empiece por la plaza y camine hacia Belén.", "Verifique horario y entrada del museo.", "Combínelo con San Francisco y el Cuarto del Rescate."],
-        },
+          "heading": "Horarios, boleto y planificación sin sorpresas",
+          "paragraphs": [
+            "Los portales oficiales consultados no muestran siempre el mismo detalle de horarios y tarifas para el conjunto y el museo. Por eso no presentamos una cifra única como precio vigente ni garantizamos acceso continuo.",
+            "El Ministerio de Cultura anunció la venta digital del Circuito Cultural Urbano, que integra Belén y el Cuarto del Rescate. Consulte la oferta actual en su plataforma de boletos antes de pagar y compruebe qué espacios, fecha y condiciones cubre.",
+            "Reserve un bloque flexible en su itinerario en lugar de encajar las salas entre dos compromisos. Consulte también normas de fotografía, escalones y necesidades de accesibilidad; esta guía no ha verificado un itinerario sin barreras."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "¿Qué es el Conjunto Monumental Belén?",
-          answer: "Un conjunto de edificios del centro histórico: iglesia, antiguo hospital colonial y museo, entre otros.",
+          "question": "¿Belén y Museo Puga son el mismo lugar?",
+          "answer": "No. Belén es un conjunto monumental con espacios museísticos; la Casa Museo Nicolás Puga es otro recinto del centro histórico."
         },
         {
-          question: "¿El museo tiene entrada?",
-          answer: "Suele tener su propio horario y, en algunos casos, costo. Confirme en la fuente oficial.",
+          "question": "¿Puedo usar el horario de la plaza para entrar?",
+          "answer": "No. El acceso al espacio público de la plaza no determina los horarios ni las entradas de Belén. Confirme las condiciones del recinto."
         },
         {
-          question: "¿Cuánto tiempo se necesita?",
-          answer: "Una visita al conjunto puede tomar de 1 a 2 horas si incluye el museo.",
-        },
-        {
-          question: "¿Está cerca de la plaza?",
-          answer: "Sí, a pocos minutos a pie de la Plaza de Armas.",
-        },
-      ],
+          "question": "¿Cómo organizarlo en un paseo corto?",
+          "answer": "Priorice plaza y Belén. Añada el Cuarto del Rescate o Museo Puga solo después de comprobar disponibilidad y el tiempo que desea dedicar a cada visita."
+        }
+      ]
     },
-    en: {
-      metaTitle: "Belén Monumental Complex Cajamarca: church, hospital and museum",
-      metaDescription:
-        "The Belén Monumental Complex of Cajamarca: the church, the former colonial hospital and the Archaeological and Ethnographic Museum. How to visit them together.",
-      h1: "Belén Monumental Complex of Cajamarca",
-      lead: "The Belén Monumental Complex brings together several buildings of the historic centre: a church, a former colonial hospital and museum spaces, a short walk from the square.",
-      updated: "November 1, 2026",
-      sections: [
+    "en": {
+      "metaTitle": "Conjunto Monumental de Belén: visiting from Plaza de Armas",
+      "metaDescription": "What to see at Belén, how to combine it with Cajamarca’s main square, and which museum, ticket and opening details to confirm.",
+      "h1": "Conjunto Monumental de Belén: visiting from Plaza de Armas",
+      "lead": "Belén adds historic buildings and museums to a walk around the square. IPERÚ Cajamarca suggested including it in this independent historic-centre guide.",
+      "updated": "November 3, 2026",
+      "sections": [
         {
-          heading: "What it includes",
-          paragraphs: [
-            "The complex groups the Belén Church, the former colonial hospital and the Archaeological and Ethnographic Museum, among other culturally managed spaces.",
-            "It is not a single building but a set visited in order; that is why it is best understood as a combined visit.",
-          ],
+          "heading": "What the complex includes",
+          "paragraphs": [
+            "MINCETUR lists Belén Church, the former men’s hospital and the women’s hospital, separated by Jr. Junín. The complex is part of the city’s eighteenth-century colonial heritage.",
+            "Look beyond the façade: consider the relationship between religious space and the former hospitals. This gives the visit a different focus from simply walking around the open square."
+          ]
         },
         {
-          heading: "The church and the hospital",
-          paragraphs: [
-            "Belén Church and the former hospital form a block of colonial architecture that matters in Cajamarca.",
-            "The hospital is cited in sources as one of the city's colonial hospital enclosures; its route lets you read the history of health and religion together.",
-          ],
+          "heading": "Architecture and museum collections",
+          "paragraphs": [
+            "The Ministry of Culture lists an Archaeological and Ethnographic Museum within the complex, with pre-Hispanic objects and material relating to regional traditions. It is not the Casa Museo Nicolás Puga.",
+            "Decide whether buildings or collections are your priority. Ask which rooms are accessible that day rather than assuming that every space is included in every ticket."
+          ]
         },
         {
-          heading: "The museum",
-          paragraphs: [
-            "The Archaeological and Ethnographic Museum gathers pieces and context about the region's history and cultures. It has its own schedule and, in some cases, entry cost.",
-            "For your visit, check the current schedule and consider combining it with San Francisco and the Ransom Room.",
-          ],
+          "heading": "Planning a walk from the square",
+          "paragraphs": [
+            "Jr. Belén is the arrival reference; the museum listing gives Jr. Belén 571. Check the walking route from the square and confirm the entrance in use.",
+            "Our editorial suggestion is to visit the square first and Belén next, adding the Ransom Room if opening arrangements allow. This is a suggested sequence, not a booked guided tour. If adding Museo Puga, confirm its availability beforehand and allow time for the extra journey."
+          ]
         },
         {
-          heading: "How to plan the visit",
-          paragraphs: [
-            "Locate it a few minutes' walk from the square. Given the different hours of each space, confirm at the official source which rooms are open on your visit day.",
-          ],
-          bullets: ["Start at the square and walk to Belén.", "Check the museum's schedule and entry.", "Combine it with San Francisco and the Ransom Room."],
-        },
+          "heading": "Tickets, opening details and visit checks",
+          "paragraphs": [
+            "Official listings do not always give matching hours and prices for the museum and the wider complex. We therefore do not present one amount as a guaranteed current price or promise uninterrupted access.",
+            "The Ministry of Culture announced online tickets for the Urban Cultural Circuit covering Belén and the Ransom Room. Check the current ticket platform before paying, including the date, spaces and conditions covered.",
+            "Keep a flexible visit window rather than squeezing the rooms between fixed appointments. Ask about photography rules, steps and access requirements: this guide has not verified a step-free route."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "What is the Belén Monumental Complex?",
-          answer: "A set of historic-centre buildings: church, former colonial hospital and museum, among others.",
+          "question": "Are Belén and Museo Puga the same place?",
+          "answer": "No. Belén is a monumental complex with museum spaces; Casa Museo Nicolás Puga is a separate historic-centre venue."
         },
         {
-          question: "Does the museum charge entry?",
-          answer: "It usually has its own schedule and, in some cases, a cost. Confirm at the official source.",
+          "question": "Do the square’s access hours apply here?",
+          "answer": "No. Access to the public square does not determine Belén’s opening or ticket arrangements."
         },
         {
-          question: "How much time do I need?",
-          answer: "A visit to the complex can take 1–2 hours if it includes the museum.",
-        },
-        {
-          question: "Is it near the square?",
-          answer: "Yes, a few minutes' walk from Plaza de Armas.",
-        },
-      ],
+          "question": "How should I fit it into a short walk?",
+          "answer": "Prioritise the square and Belén. Add the Ransom Room or Museo Puga only after checking availability and deciding how much time to spend at each."
+        }
+      ]
     },
+    "editorialNote": {
+      "es": "Contenido revisado a partir de sugerencias de IPERÚ Cajamarca. Esta atribución identifica la procedencia de las recomendaciones; no implica aprobación, certificación ni gestión oficial de esta guía independiente.",
+      "en": "Content revised following suggestions from IPERÚ Cajamarca. This attribution identifies the source of the recommendations; it does not imply approval, certification or official management of this independent guide."
+    },
+    "sources": [
+      {
+        "label": "MINCETUR · Inventario 638: Conjunto Monumental Belén",
+        "url": "https://consultasenlinea.mincetur.gob.pe/fichaInventario/index.aspx?cod_Ficha=638"
+      },
+      {
+        "label": "Ministerio de Cultura · Museo Arqueológico y Etnográfico",
+        "url": "https://museos.cultura.pe/node/309"
+      },
+      {
+        "label": "Ministerio de Cultura · Circuito Cultural Urbano y venta de boletos",
+        "url": "https://www.gob.pe/institucion/cultura/noticias/886433-cuarto-del-rescate-y-conjunto-monumental-belen-en-cajamarca-se-suman-a-la-plataforma-virtual-tuboleto-cultura-pe"
+      }
+    ]
   },
 
   // 24 — Restaurantes
@@ -1350,133 +1504,146 @@ export const TOPICS: Topic[] = [
 
   // 33 — Circuito histórico 3 horas
   {
-    slug: "circuito-historico-3-horas",
-    group: "rutas",
-    related: ["plaza-de-armas", "catedral-de-cajamarca", "cuarto-del-rescate", "atahualpa-y-1532"],
-    es: {
-      metaTitle: "Circuito histórico de 3 horas en Cajamarca desde la plaza",
-      metaDescription:
-        "Un recorrido de unas 3 horas por el centro histórico de Cajamarca: plaza, Catedral, San Francisco, Cuarto del Rescate y Belén. Orden y consejos.",
-      h1: "Circuito histórico de 3 horas",
-      lead: "Este recorrido parte de la Plaza de Armas y enlaza los hitos principales del centro histórico en unas tres horas, con ritmo pausado.",
-      updated: "1 de noviembre de 2026",
-      sections: [
+    "slug": "circuito-historico-3-horas",
+    "group": "rutas",
+    "related": [
+      "plaza-de-armas",
+      "catedral-de-cajamarca",
+      "cuarto-del-rescate",
+      "atahualpa-y-1532",
+      "conjunto-monumental-belen",
+      "museo-puga"
+    ],
+    "es": {
+      "metaTitle": "Circuito histórico de 3 horas en Cajamarca desde la plaza",
+      "metaDescription": "Un recorrido de unas 3 horas por el centro histórico de Cajamarca: plaza, Catedral, San Francisco, Cuarto del Rescate y Belén. Orden y consejos.",
+      "h1": "Circuito histórico de 3 horas",
+      "lead": "Este recorrido parte de la Plaza de Armas y enlaza los hitos principales del centro histórico en unas tres horas, con ritmo pausado.",
+      "updated": "1 de noviembre de 2026",
+      "sections": [
         {
-          heading: "El orden sugerido",
-          paragraphs: [
-            "Empiece en la plaza para ubicar la pileta y la Catedral. Luego visite la Iglesia de San Francisco y continúe al Cuarto del Rescate, a pocos minutos a pie.",
-            "Termine en el Conjunto Monumental Belén, que reúne iglesia, antiguo hospital y museo en un solo conjunto.",
+          "heading": "El orden sugerido",
+          "paragraphs": [
+            "Empiece en la plaza para ubicar la pileta y la Catedral. Luego visite la Iglesia San Antonio De Padua - San Francisco y continúe al Cuarto del Rescate, a pocos minutos a pie.",
+            "Termine en el Conjunto Monumental Belén, que reúne iglesia, antiguo hospital y museo en un solo conjunto."
           ],
-          bullets: [
+          "bullets": [
             "0:00 Plaza de Armas (contexto y pileta).",
-            "0:30 Catedral de Cajamarca.",
-            "1:00 Iglesia de San Francisco.",
+            "0:30 Iglesia Catedral de Cajamarca.",
+            "1:00 Iglesia San Antonio De Padua - San Francisco.",
             "1:45 Cuarto del Rescate.",
-            "2:30 Conjunto Monumental Belén.",
-          ],
+            "2:30 Conjunto Monumental Belén."
+          ]
         },
         {
-          heading: "Consejos de ritmo",
-          paragraphs: [
+          "heading": "Consejos de ritmo",
+          "paragraphs": [
             "A 2.722 m, camine despacio y considere una pausa de café entre medias. El sol de altura y el frío de tarde también influyen en el ritmo.",
-            "Deje margen para que los interiores tengan horario distinto al de la plaza; verifique antes.",
-          ],
+            "Deje margen para que los interiores tengan horario distinto al de la plaza; verifique antes."
+          ]
         },
         {
-          heading: "Antes de salir",
-          paragraphs: [
+          "heading": "Antes de salir",
+          "paragraphs": [
             "Confirme el horario y la entrada de los sitios de pago (Cuarto del Rescate, museo de Belén) el mismo día.",
-            "Lleve agua, ropa por capas y el mapa de esta guía a mano.",
-          ],
+            "Lleve agua, ropa por capas y el mapa de esta guía a mano."
+          ]
         },
+        {
+          "heading": "Una ampliación cultural, si dispone de más tiempo",
+          "paragraphs": [
+            "IPERÚ Cajamarca sugirió añadir Belén y Museo Puga al recorrido del centro. Consulte las guías enlazadas y confirme apertura o cita antes de incluirlos. Si entra a ambos, amplíe el tiempo del paseo o quite otra parada: no se garantiza completar todas las visitas en tres horas."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "¿Se hace en 3 horas?",
-          answer:
-            "Sí, con ritmo pausado y verificando horarios de interiores. Puede extenderse si entra a todos los museos.",
+          "question": "¿Se hace en 3 horas?",
+          "answer": "Sí, con ritmo pausado y verificando horarios de interiores. Puede extenderse si entra a todos los museos."
         },
         {
-          question: "¿Es apto para todos?",
-          answer:
-            "El recorrido es mayormente urbano y peatonal; para dudas de accesibilidad, vea la guía de accesibilidad cuando esté disponible.",
+          "question": "¿Es apto para todos?",
+          "answer": "El recorrido es mayormente urbano y peatonal; para dudas de accesibilidad, vea la guía de accesibilidad cuando esté disponible."
         },
         {
-          question: "¿Cuánto cuesta?",
-          answer: "Caminar la plaza es libre. Cuarto del Rescate y el museo de Belén pueden tener entrada; confirme montos.",
+          "question": "¿Cuánto cuesta?",
+          "answer": "Caminar la plaza es libre. Cuarto del Rescate y el museo de Belén pueden tener entrada; confirme montos."
         },
         {
-          question: "¿Se puede hacer solo?",
-          answer: "Sí. La ruta es autoguiada y parte de la plaza, un punto fácil de ubicar.",
+          "question": "¿Se puede hacer solo?",
+          "answer": "Sí. La ruta es autoguiada y parte de la plaza, un punto fácil de ubicar."
         },
         {
-          question: "¿Qué llevar?",
-          answer: "Agua, ropa por capas, calzado cómodo y el mapa. A 2.722 m, no se apure.",
-        },
-      ],
+          "question": "¿Qué llevar?",
+          "answer": "Agua, ropa por capas, calzado cómodo y el mapa. A 2.722 m, no se apure."
+        }
+      ]
     },
-    en: {
-      metaTitle: "3-hour historical circuit in Cajamarca from the square",
-      metaDescription:
-        "A roughly 3-hour walk through Cajamarca's historic centre: square, Cathedral, San Francisco, Ransom Room and Belén. Order and tips.",
-      h1: "3-hour historical circuit",
-      lead: "This route starts at Plaza de Armas and links the main landmarks of the historic centre in about three hours, at a relaxed pace.",
-      updated: "November 1, 2026",
-      sections: [
+    "en": {
+      "metaTitle": "3-hour historical circuit in Cajamarca from the square",
+      "metaDescription": "A roughly 3-hour walk through Cajamarca's historic centre: square, Cathedral, San Francisco, Ransom Room and Belén. Order and tips.",
+      "h1": "3-hour historical circuit",
+      "lead": "This route starts at Plaza de Armas and links the main landmarks of the historic centre in about three hours, at a relaxed pace.",
+      "updated": "November 1, 2026",
+      "sections": [
         {
-          heading: "The suggested order",
-          paragraphs: [
+          "heading": "The suggested order",
+          "paragraphs": [
             "Start at the square to locate the fountain and the Cathedral. Then visit San Francisco Church and continue to the Ransom Room, a few minutes' walk away.",
-            "End at the Belén Monumental Complex, which groups church, former hospital and museum in one set.",
+            "End at the Belén Monumental Complex, which groups church, former hospital and museum in one set."
           ],
-          bullets: [
+          "bullets": [
             "0:00 Plaza de Armas (context and fountain).",
             "0:30 Cajamarca Cathedral.",
             "1:00 San Francisco Church.",
             "1:45 Ransom Room.",
-            "2:30 Belén Monumental Complex.",
-          ],
+            "2:30 Belén Monumental Complex."
+          ]
         },
         {
-          heading: "Pace tips",
-          paragraphs: [
+          "heading": "Pace tips",
+          "paragraphs": [
             "At 2,722 m, walk slowly and consider a coffee break in between. High-altitude sun and afternoon cold also affect the pace.",
-            "Leave margin for interiors having different hours than the square; check beforehand.",
-          ],
+            "Leave margin for interiors having different hours than the square; check beforehand."
+          ]
         },
         {
-          heading: "Before you go",
-          paragraphs: [
+          "heading": "Before you go",
+          "paragraphs": [
             "Confirm the schedule and entry of paid sites (Ransom Room, Belén museum) on the day.",
-            "Bring water, layers and this guide's map at hand.",
-          ],
+            "Bring water, layers and this guide's map at hand."
+          ]
         },
+        {
+          "heading": "A cultural extension when you have more time",
+          "paragraphs": [
+            "IPERÚ Cajamarca suggested Belén and Museo Puga for the historic-centre itinerary. Read the linked guides and confirm opening or appointment arrangements first. Allow a longer outing or omit another stop if entering both: completing every visit within three hours is not guaranteed."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "Can it be done in 3 hours?",
-          answer:
-            "Yes, at a relaxed pace and checking interior hours. It can extend if you enter all museums.",
+          "question": "Can it be done in 3 hours?",
+          "answer": "Yes, at a relaxed pace and checking interior hours. It can extend if you enter all museums."
         },
         {
-          question: "Is it suitable for everyone?",
-          answer:
-            "The route is mostly urban and pedestrian; for accessibility questions, see the accessibility guide when available.",
+          "question": "Is it suitable for everyone?",
+          "answer": "The route is mostly urban and pedestrian; for accessibility questions, see the accessibility guide when available."
         },
         {
-          question: "How much does it cost?",
-          answer: "Walking the square is free. The Ransom Room and Belén museum may charge entry; confirm amounts.",
+          "question": "How much does it cost?",
+          "answer": "Walking the square is free. The Ransom Room and Belén museum may charge entry; confirm amounts."
         },
         {
-          question: "Can it be done alone?",
-          answer: "Yes. The route is self-guided and starts at the square, an easy point to locate.",
+          "question": "Can it be done alone?",
+          "answer": "Yes. The route is self-guided and starts at the square, an easy point to locate."
         },
         {
-          question: "What to bring?",
-          answer: "Water, layers, comfortable shoes and the map. At 2,722 m, don't rush.",
-        },
-      ],
-    },
+          "question": "What to bring?",
+          "answer": "Water, layers, comfortable shoes and the map. At 2,722 m, don't rush."
+        }
+      ]
+    }
   },
 
   // 13 — Estacionamiento cerca de la plaza
@@ -1503,7 +1670,7 @@ export const TOPICS: Topic[] = [
           heading: "En auto al centro",
           paragraphs: [
             "Desde el aeropuerto o la terminal, indicar «Plaza de Armas de Cajamarca» suele bastar para orientar al conductor. El acceso final es peatonal: conviene bajar en una calle cercana y caminar el tramo final.",
-            "Si alquila auto para excursiones (Baños del Inca, Cumbemayo, Granja Porcón), el estacionamiento del centro le sirve como base para salir y regresar el mismo día.",
+            "Si alquila auto para excursiones (Complejo Turístico Baños del Inca, Cumbemayo, Granja Porcón), el estacionamiento del centro le sirve como base para salir y regresar el mismo día.",
           ],
         },
         {
@@ -1555,7 +1722,7 @@ export const TOPICS: Topic[] = [
           heading: "Driving to the centre",
           paragraphs: [
             "From the airport or terminal, giving «Plaza de Armas de Cajamarca» is usually enough to orient the driver. The final access is pedestrian: drop off on a nearby street and walk the last stretch.",
-            "If you rent a car for excursions (Baños del Inca, Cumbemayo, Granja Porcón), centre parking works as a base to leave and return the same day.",
+            "If you rent a car for excursions (Complejo Turístico Baños del Inca, Cumbemayo, Granja Porcón), centre parking works as a base to leave and return the same day.",
           ],
         },
         {
@@ -1592,224 +1759,276 @@ export const TOPICS: Topic[] = [
 
   // 14 — Mejor época para visitar
   {
-    slug: "mejor-epoca-para-visitar",
-    group: "visita",
-    related: ["clima-en-cajamarca", "circuito-historico-3-horas", "banos-del-inca"],
-    es: {
-      metaTitle: "Mejor época para visitar Cajamarca y la Plaza de Armas",
-      metaDescription:
-        "Cuándo ir a Cajamarca: estación seca y de lluvias, clima de altura, festivales y consejos para elegir la mejor época según lo que quiera hacer.",
-      h1: "Mejor época para visitar Cajamarca",
-      lead: "Cajamarca, a 2.722 m, tiene clima de sierra: días soleados y noches frías, con una estación seca y otra de lluvias. La mejor época depende de lo que prefiera hacer.",
-      updated: "1 de noviembre de 2026",
-      sections: [
+    "slug": "mejor-epoca-para-visitar",
+    "group": "visita",
+    "related": [
+      "clima-en-cajamarca",
+      "circuito-historico-3-horas",
+      "banos-del-inca"
+    ],
+    "es": {
+      "metaTitle": "Mejor época para visitar Cajamarca y la Plaza de Armas",
+      "metaDescription": "Cuándo ir a Cajamarca: estación seca y de lluvias, clima de altura, festivales y consejos para elegir la mejor época según lo que quiera hacer.",
+      "h1": "Mejor época para visitar Cajamarca",
+      "lead": "Cajamarca, a 2.722 m, tiene clima de sierra: días soleados y noches frías, con una estación seca y otra de lluvias. La mejor época depende de lo que prefiera hacer.",
+      "updated": "3 de noviembre de 2026",
+      "sections": [
         {
-          heading: "Estación seca (mayo a septiembre)",
-          paragraphs: [
-            "Es la ventana más cómoda para caminar el centro y hacer excursiones: lluvia escasa, cielos despejados y mejores caminos hacia Cumbemayo o los miradores. Las noches siguen frías.",
+          "heading": "Estación seca (mayo a septiembre)",
+          "paragraphs": [
+            "Es la ventana más cómoda para caminar el centro y hacer excursiones: lluvia escasa, cielos despejados y mejores caminos hacia Cumbemayo o los miradores. Las noches siguen frías."
           ],
-          bullets: ["Ideal para rutas a pie y fotografía de exteriores.", "Lleve ropa de abrigo para la noche aunque haga sol de día."],
+          "bullets": [
+            "Ideal para rutas a pie y fotografía de exteriores.",
+            "Lleve ropa de abrigo para la noche aunque haga sol de día."
+          ]
         },
         {
-          heading: "Estación de lluvias (octubre a abril)",
-          paragraphs: [
-            "Hay chubascos, sobre todo por tardes, y los caminos de altura pueden estar húmedos. El paisaje se ve más verde y hay menos turismo.",
-            "Si viaja en estas fechas, apunte las visitas al centro y a sitios cubiertos a la mañana y deje margen por el clima.",
-          ],
+          "heading": "Estación de lluvias (octubre a abril)",
+          "paragraphs": [
+            "En la estación lluviosa deje margen para interrupciones y confirme las condiciones de los caminos; no presuponga tardes solamente lluviosas ni mañanas despejadas.",
+            "Si viaja en estas fechas, apunte las visitas al centro y a sitios cubiertos a la mañana y deje margen por el clima."
+          ]
         },
         {
-          heading: "Fechas y festivales",
-          paragraphs: [
-            "Cajamarca es conocida por la Semana Santa y las celebraciones de Carnaval, que llenan la ciudad. Confirme fechas y alojamiento con antelación si viaja en esos periodos.",
-          ],
+          "heading": "Fechas y festivales",
+          "paragraphs": [
+            "Cajamarca es conocida por la Semana Santa y las celebraciones de Carnaval, que llenan la ciudad. Confirme fechas y alojamiento con antelación si viaja en esos periodos."
+          ]
         },
+        {
+          "heading": "Diciembre a febrero: ajuste recomendado por IPERÚ Cajamarca",
+          "paragraphs": [
+            "IPERÚ Cajamarca señala lluvias frecuentes entre diciembre y febrero, periodo en el que indica que se han concentrado las mayores precipitaciones de los últimos años. Es una orientación local para planificar, no un registro meteorológico ni una garantía de lluvia diaria.",
+            "No limite la preparación a un chubasco de tarde: lleve impermeable y calzado con buen agarre, deje margen en la ruta y revise el pronóstico y los avisos oficiales antes de salir."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "¿Qué mes es mejor?",
-          answer: "Mayo a septiembre suele ser el tramo más seco y cómodo para caminar y excursiones.",
+          "question": "¿Qué mes es mejor?",
+          "answer": "Mayo a septiembre suele ser el tramo más seco y cómodo para caminar y excursiones."
         },
         {
-          question: "¿Hay nieve?",
-          answer: "No en la ciudad; la helada nocturna sí es posible en meses fríos, sobre todo a mayor altura.",
+          "question": "¿Hay nieve?",
+          "answer": "No en la ciudad; la helada nocturna sí es posible en meses fríos, sobre todo a mayor altura."
         },
         {
-          question: "¿Cuándo evitar?",
-          answer: "No hay mes que evitar, pero la lluvia de enero a marzo puede complicar caminos de altura.",
+          "question": "¿Cuándo evitar?",
+          "answer": "No hay mes que evitar, pero la lluvia de diciembre a febrero puede complicar caminos de altura."
         },
         {
-          question: "¿Y los festivales?",
-          answer: "Carnaval y Semana Santa son los grandes eventos; la ciudad se llena, confirme alojamiento.",
+          "question": "¿Y los festivales?",
+          "answer": "Carnaval y Semana Santa son los grandes eventos; la ciudad se llena, confirme alojamiento."
         },
         {
-          question: "¿Cuánto tiempo hacer?",
-          answer: "Dos o tres días cubren la plaza, los monumentos y una excursión cercana.",
-        },
-      ],
+          "question": "¿Cuánto tiempo hacer?",
+          "answer": "Dos o tres días cubren la plaza, los monumentos y una excursión cercana."
+        }
+      ]
     },
-    en: {
-      metaTitle: "Best time to visit Cajamarca & Plaza de Armas",
-      metaDescription:
-        "When to visit Cajamarca: dry and rainy seasons, highland climate, festivals and tips to choose the best time by activity.",
-      h1: "Best time to visit Cajamarca",
-      lead: "At 2,722 m, Cajamarca has a sierra climate: sunny days, cold nights, a dry season and a rainy one. The best time depends on what you want to do.",
-      updated: "November 1, 2026",
-      sections: [
+    "en": {
+      "metaTitle": "Best time to visit Cajamarca & Plaza de Armas",
+      "metaDescription": "When to visit Cajamarca: dry and rainy seasons, highland climate, festivals and tips to choose the best time by activity.",
+      "h1": "Best time to visit Cajamarca",
+      "lead": "At 2,722 m, Cajamarca has a sierra climate: sunny days, cold nights, a dry season and a rainy one. The best time depends on what you want to do.",
+      "updated": "November 3, 2026",
+      "sections": [
         {
-          heading: "Dry season (May to September)",
-          paragraphs: [
-            "This is the most comfortable window to walk the centre and take excursions: little rain, clear skies and better roads toward Cumbemayo or the viewpoints. Nights remain cold.",
+          "heading": "Dry season (May to September)",
+          "paragraphs": [
+            "This is the most comfortable window to walk the centre and take excursions: little rain, clear skies and better roads toward Cumbemayo or the viewpoints. Nights remain cold."
           ],
-          bullets: ["Great for walking routes and outdoor photography.", "Bring warm clothing for the evening even if it's sunny by day."],
+          "bullets": [
+            "Great for walking routes and outdoor photography.",
+            "Bring warm clothing for the evening even if it's sunny by day."
+          ]
         },
         {
-          heading: "Rainy season (October to April)",
-          paragraphs: [
-            "Showers, mostly in the afternoon, and highland paths can be damp. The landscape is greener and there are fewer tourists.",
-            "If you travel then, aim centre visits and covered sites in the morning and leave margin for weather.",
-          ],
+          "heading": "Rainy season (October to April)",
+          "paragraphs": [
+            "Allow for interruptions during the rainy season and check road conditions; do not assume rain is limited to afternoons or that mornings will be clear.",
+            "If you travel then, aim centre visits and covered sites in the morning and leave margin for weather."
+          ]
         },
         {
-          heading: "Dates and festivals",
-          paragraphs: [
-            "Cajamarca is known for Holy Week and Carnival celebrations that fill the city. Confirm dates and lodging ahead if you travel in those periods.",
-          ],
+          "heading": "Dates and festivals",
+          "paragraphs": [
+            "Cajamarca is known for Holy Week and Carnival celebrations that fill the city. Confirm dates and lodging ahead if you travel in those periods."
+          ]
         },
+        {
+          "heading": "December to February: guidance from IPERÚ Cajamarca",
+          "paragraphs": [
+            "IPERÚ Cajamarca reports frequent rain from December to February and says recent years’ heaviest rainfall has concentrated in that period. This is local planning guidance, not a meteorological dataset or a promise of rain every day.",
+            "Do not prepare only for an afternoon shower: bring rainwear and footwear with grip, allow flexibility in the walk, and check the forecast and official alerts before setting out."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "Which month is best?",
-          answer: "May to September is usually the driest, most comfortable stretch for walking and excursions.",
+          "question": "Which month is best?",
+          "answer": "May to September is usually the driest, most comfortable stretch for walking and excursions."
         },
         {
-          question: "Is there snow?",
-          answer: "Not in the city; nighttime frost is possible in cold months, especially at higher elevation.",
+          "question": "Is there snow?",
+          "answer": "Not in the city; nighttime frost is possible in cold months, especially at higher elevation."
         },
         {
-          question: "When to avoid?",
-          answer: "No month to avoid, but January–March rain can complicate highland roads.",
+          "question": "When to avoid?",
+          "answer": "No month to avoid, but December–February rain can complicate highland roads."
         },
         {
-          question: "What about festivals?",
-          answer: "Carnival and Holy Week are the big events; the city fills up, confirm lodging.",
+          "question": "What about festivals?",
+          "answer": "Carnival and Holy Week are the big events; the city fills up, confirm lodging."
         },
         {
-          question: "How long to stay?",
-          answer: "Two or three days cover the square, the monuments and a nearby excursion.",
-        },
-      ],
+          "question": "How long to stay?",
+          "answer": "Two or three days cover the square, the monuments and a nearby excursion."
+        }
+      ]
     },
+    "editorialNote": {
+      "es": "Contenido revisado a partir de sugerencias de IPERÚ Cajamarca. Esta atribución identifica la procedencia de las recomendaciones; no implica aprobación, certificación ni gestión oficial de esta guía independiente.",
+      "en": "Content revised following suggestions from IPERÚ Cajamarca. This attribution identifies the source of the recommendations; it does not imply approval, certification or official management of this independent guide."
+    }
   },
 
   // 15 — Clima en Cajamarca
   {
-    slug: "clima-en-cajamarca",
-    group: "visita",
-    related: ["mejor-epoca-para-visitar", "como-llegar", "circuito-historico-3-horas"],
-    es: {
-      metaTitle: "Clima en Cajamarca: temperatura, altura y qué llevar",
-      metaDescription:
-        "Cómo es el clima en Cajamarca a 2.722 m: temperaturas, sol fuerte, frío nocturno y qué ropa llevar para visitar la Plaza de Armas.",
-      h1: "Clima en Cajamarca",
-      lead: "Cajamarca está a 2.722 m, en la sierra norte del Perú. El clima es templado de altura: días con sol, noches frías y fuerte radiación solar.",
-      updated: "1 de noviembre de 2026",
-      sections: [
+    "slug": "clima-en-cajamarca",
+    "group": "visita",
+    "related": [
+      "mejor-epoca-para-visitar",
+      "como-llegar",
+      "circuito-historico-3-horas"
+    ],
+    "es": {
+      "metaTitle": "Clima en Cajamarca: temperatura, altura y qué llevar",
+      "metaDescription": "Cómo es el clima en Cajamarca a 2.722 m: temperaturas, sol fuerte, frío nocturno y qué ropa llevar para visitar la Plaza de Armas.",
+      "h1": "Clima en Cajamarca",
+      "lead": "Cajamarca está a 2.722 m, en la sierra norte del Perú. El clima es templado de altura: días con sol, noches frías y fuerte radiación solar.",
+      "updated": "3 de noviembre de 2026",
+      "sections": [
         {
-          heading: "Temperaturas y altura",
-          paragraphs: [
-            "Durante el día suele hacer un sol agradable, pero la temperatura baja mucho al anochecer por la altura. El cambio entre el día y la noche es marcado.",
+          "heading": "Temperaturas y altura",
+          "paragraphs": [
+            "Durante el día suele hacer un sol agradable, pero la temperatura baja mucho al anochecer por la altura. El cambio entre el día y la noche es marcado."
           ],
-          bullets: ["Lleve ropa por capas: una chaqueta ligera no basta para la noche.", "La altura puede notarse al caminar; vaya a paso calmado."],
+          "bullets": [
+            "Lleve ropa por capas: una chaqueta ligera no basta para la noche.",
+            "La altura puede notarse al caminar; vaya a paso calmado."
+          ]
         },
         {
-          heading: "Sol y lluvia",
-          paragraphs: [
-            "El sol de altura quema más de lo que parece, incluso en días frescos; usar protección solar ayuda. La lluvia se concentra en ciertos meses y suele caer por la tarde.",
-            "Un poncho o impermeable compacto cabe en cualquier mochila y sale a cuenta en temporada húmeda.",
-          ],
+          "heading": "Sol y lluvia",
+          "paragraphs": [
+            "El sol de altura quema más de lo que parece, incluso en días frescos; usar protección solar ayuda. IPERÚ Cajamarca destaca las lluvias frecuentes de diciembre a febrero.",
+            "Un poncho o impermeable compacto cabe en cualquier mochila y sale a cuenta en temporada húmeda."
+          ]
         },
         {
-          heading: "Qué llevar",
-          paragraphs: [
-            "Ropa de abrigo, calzado cómodo, sombrero o gorra, protector solar y una botella de agua. Así está listo para recorrer la plaza y los monumentos sin contratiempos.",
-          ],
+          "heading": "Qué llevar",
+          "paragraphs": [
+            "Ropa de abrigo, calzado cómodo, sombrero o gorra, protector solar y una botella de agua. Así está listo para recorrer la plaza y los monumentos sin contratiempos."
+          ]
         },
+        {
+          "heading": "Diciembre a febrero: ajuste recomendado por IPERÚ Cajamarca",
+          "paragraphs": [
+            "IPERÚ Cajamarca señala lluvias frecuentes entre diciembre y febrero, periodo en el que indica que se han concentrado las mayores precipitaciones de los últimos años. Es una orientación local para planificar, no un registro meteorológico ni una garantía de lluvia diaria.",
+            "No limite la preparación a un chubasco de tarde: lleve impermeable y calzado con buen agarre, deje margen en la ruta y revise el pronóstico y los avisos oficiales antes de salir."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "¿Hace frío?",
-          answer: "Las tardes-noches son frías; los días pueden ser soleados y templados. Lleve abrigo.",
+          "question": "¿Hace frío?",
+          "answer": "Las tardes-noches son frías; los días pueden ser soleados y templados. Lleve abrigo."
         },
         {
-          question: "¿Qué altura tiene Cajamarca?",
-          answer: "Unos 2.722 m sobre el nivel del mar.",
+          "question": "¿Qué altura tiene Cajamarca?",
+          "answer": "Unos 2.722 m sobre el nivel del mar."
         },
         {
-          question: "¿Necesito acclimatarme?",
-          answer: "Si viene de baja altura, camine despacio el primer día y manténgase hidratado.",
+          "question": "¿Necesito acclimatarme?",
+          "answer": "Si viene de baja altura, camine despacio el primer día y manténgase hidratado."
         },
         {
-          question: "¿Llueve mucho?",
-          answer: "Depende de la época; hay una estación más lluviosa con chubascos de tarde.",
+          "question": "¿Llueve mucho?",
+          "answer": "Depende de la época; hay una estación más lluviosa con lluvias frecuentes de diciembre a febrero."
         },
         {
-          question: "¿Qué ropa llevar?",
-          answer: "Capas, abrigo para la noche, calzado cómodo, sombrero y protector solar.",
-        },
-      ],
+          "question": "¿Qué ropa llevar?",
+          "answer": "Capas, abrigo para la noche, calzado cómodo, sombrero y protector solar."
+        }
+      ]
     },
-    en: {
-      metaTitle: "Cajamarca weather: temperature, altitude & what to pack",
-      metaDescription:
-        "How the weather in Cajamarca works at 2,722 m: temperatures, strong sun, cold nights and what to wear to visit Plaza de Armas.",
-      h1: "Cajamarca weather",
-      lead: "Cajamarca sits at 2,722 m in Peru's northern highlands. The climate is highland temperate: sunny days, cold nights and strong solar radiation.",
-      updated: "November 1, 2026",
-      sections: [
+    "en": {
+      "metaTitle": "Cajamarca weather: temperature, altitude & what to pack",
+      "metaDescription": "How the weather in Cajamarca works at 2,722 m: temperatures, strong sun, cold nights and what to wear to visit Plaza de Armas.",
+      "h1": "Cajamarca weather",
+      "lead": "Cajamarca sits at 2,722 m in Peru's northern highlands. The climate is highland temperate: sunny days, cold nights and strong solar radiation.",
+      "updated": "November 3, 2026",
+      "sections": [
         {
-          heading: "Temperatures and altitude",
-          paragraphs: [
-            "By day there is often pleasant sun, but the temperature drops sharply after dark because of the altitude. The day-to-night swing is marked.",
+          "heading": "Temperatures and altitude",
+          "paragraphs": [
+            "By day there is often pleasant sun, but the temperature drops sharply after dark because of the altitude. The day-to-night swing is marked."
           ],
-          bullets: ["Dress in layers: a light jacket isn't enough for the night.", "The altitude may be felt when walking; go at a calm pace."],
+          "bullets": [
+            "Dress in layers: a light jacket isn't enough for the night.",
+            "The altitude may be felt when walking; go at a calm pace."
+          ]
         },
         {
-          heading: "Sun and rain",
-          paragraphs: [
-            "High-altitude sun burns more than it seems, even on cool days; sun protection helps. Rain concentrates in certain months and usually falls in the afternoon.",
-            "A compact poncho or rain shell fits any backpack and pays off in the wet season.",
-          ],
+          "heading": "Sun and rain",
+          "paragraphs": [
+            "High-altitude sun burns more than it seems, even on cool days; sun protection helps. IPERÚ Cajamarca highlights frequent rain from December to February.",
+            "A compact poncho or rain shell fits any backpack and pays off in the wet season."
+          ]
         },
         {
-          heading: "What to pack",
-          paragraphs: [
-            "Warm clothing, comfortable shoes, a hat, sunscreen and a water bottle. That keeps you ready to walk the square and monuments without hassle.",
-          ],
+          "heading": "What to pack",
+          "paragraphs": [
+            "Warm clothing, comfortable shoes, a hat, sunscreen and a water bottle. That keeps you ready to walk the square and monuments without hassle."
+          ]
         },
+        {
+          "heading": "December to February: guidance from IPERÚ Cajamarca",
+          "paragraphs": [
+            "IPERÚ Cajamarca reports frequent rain from December to February and says recent years’ heaviest rainfall has concentrated in that period. This is local planning guidance, not a meteorological dataset or a promise of rain every day.",
+            "Do not prepare only for an afternoon shower: bring rainwear and footwear with grip, allow flexibility in the walk, and check the forecast and official alerts before setting out."
+          ]
+        }
       ],
-      faqs: [
+      "faqs": [
         {
-          question: "Is it cold?",
-          answer: "Evenings and nights are cold; days can be sunny and mild. Bring warm layers.",
+          "question": "Is it cold?",
+          "answer": "Evenings and nights are cold; days can be sunny and mild. Bring warm layers."
         },
         {
-          question: "What's the altitude?",
-          answer: "About 2,722 m above sea level.",
+          "question": "What's the altitude?",
+          "answer": "About 2,722 m above sea level."
         },
         {
-          question: "Do I need to acclimatise?",
-          answer: "Coming from low elevation, walk slowly the first day and stay hydrated.",
+          "question": "Do I need to acclimatise?",
+          "answer": "Coming from low elevation, walk slowly the first day and stay hydrated."
         },
         {
-          question: "Does it rain a lot?",
-          answer: "It depends on the season; there is a rainier period with afternoon showers.",
+          "question": "Does it rain a lot?",
+          "answer": "It depends on the season; there is a rainier period with frequent rain from December to February."
         },
         {
-          question: "What to wear?",
-          answer: "Layers, warmth for the night, comfortable shoes, a hat and sunscreen.",
-        },
-      ],
+          "question": "What to wear?",
+          "answer": "Layers, warmth for the night, comfortable shoes, a hat and sunscreen."
+        }
+      ]
     },
+    "editorialNote": {
+      "es": "Contenido revisado a partir de sugerencias de IPERÚ Cajamarca. Esta atribución identifica la procedencia de las recomendaciones; no implica aprobación, certificación ni gestión oficial de esta guía independiente.",
+      "en": "Content revised following suggestions from IPERÚ Cajamarca. This attribution identifies the source of the recommendations; it does not imply approval, certification or official management of this independent guide."
+    }
   },
 
   // 16 — Cajamarca en el incanato
@@ -2034,18 +2253,19 @@ export const TOPICS: Topic[] = [
     },
   },
 
-  // 18 — Baños del Inca
+  // 18 — Complejo Turístico Baños del Inca
   {
     slug: "banos-del-inca",
     group: "lugares",
+    editorialNote: { es: "Denominación ajustada siguiendo las sugerencias de IPERÚ Cajamarca; no implica aprobación oficial de esta guía independiente.", en: "Name revised following IPERÚ Cajamarca suggestions; this does not imply official approval of this independent guide." },
     related: ["cumbe-mayo", "mejor-epoca-para-visitar", "como-llegar"],
     es: {
-      metaTitle: "Baños del Inca en Cajamarca: termas, historia y cómo llegar",
+      metaTitle: "Complejo Turístico Baños del Inca en Cajamarca: termas, historia y cómo llegar",
       metaDescription:
-        "Baños del Inca en Cajamarca: las aguas termales donde bañó Atahualpa, distancia desde la plaza, consejos de visita y transporte.",
-      h1: "Baños del Inca",
-      lead: "Baños del Inca es el balneario termal a las afueras de Cajamarca, ligado a la leyenda de Atahualpa. Está a pocos kilómetros del centro y es una de las excursiones más cercanas.",
-      updated: "1 de noviembre de 2026",
+        "Complejo Turístico Baños del Inca en Cajamarca: las aguas termales donde bañó Atahualpa, distancia desde la plaza, consejos de visita y transporte.",
+      h1: "Complejo Turístico Baños del Inca",
+      lead: "Complejo Turístico Baños del Inca es el balneario termal a las afueras de Cajamarca, ligado a la leyenda de Atahualpa. Está a pocos kilómetros del centro y es una de las excursiones más cercanas.",
+      updated: "3 de noviembre de 2026",
       sections: [
         {
           heading: "Las aguas termales",
@@ -2093,12 +2313,12 @@ export const TOPICS: Topic[] = [
       ],
     },
     en: {
-      metaTitle: "Baños del Inca, Cajamarca: hot springs, history & how to get there",
+      metaTitle: "Complejo Turístico Baños del Inca, Cajamarca: hot springs, history & how to get there",
       metaDescription:
-        "Baños del Inca in Cajamarca: the thermal waters where Atahualpa bathed, distance from the square, visit tips and transport.",
-      h1: "Baños del Inca",
-      lead: "Baños del Inca is the thermal spa on the outskirts of Cajamarca, tied to the Atahualpa legend. It is a few kilometres from the centre and one of the closest excursions.",
-      updated: "November 1, 2026",
+        "Complejo Turístico Baños del Inca in Cajamarca: the thermal waters where Atahualpa bathed, distance from the square, visit tips and transport.",
+      h1: "Complejo Turístico Baños del Inca",
+      lead: "Complejo Turístico Baños del Inca is the thermal spa on the outskirts of Cajamarca, tied to the Atahualpa legend. It is a few kilometres from the centre and one of the closest excursions.",
+      updated: "November 3, 2026",
       sections: [
         {
           heading: "The thermal waters",
@@ -2395,7 +2615,7 @@ export const TOPICS: Topic[] = [
           heading: "A mayor altura",
           paragraphs: [
             "Porcón está por encima de Cajamarca, así que hace más frío que en la ciudad. Lleve abrigo aunque vaya de día y confirme las condiciones antes de salir.",
-            "Es apta para una escapada de medio día o noche, combinada con Baños del Inca o Cumbemayo.",
+            "Es apta para una escapada de medio día o noche, combinada con Complejo Turístico Baños del Inca o Cumbemayo.",
           ],
         },
         {
@@ -2447,7 +2667,7 @@ export const TOPICS: Topic[] = [
           heading: "At higher elevation",
           paragraphs: [
             "Porcón is above Cajamarca, so it is colder than the city. Bring warm clothing even by day and confirm conditions before leaving.",
-            "It suits a half-day or overnight escape, combined with Baños del Inca or Cumbemayo.",
+            "It suits a half-day or overnight escape, combined with Complejo Turístico Baños del Inca or Cumbemayo.",
           ],
         },
         {
@@ -2727,7 +2947,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Combinar con termas y arqueología",
           paragraphs: [
-            "Una escapada puede unir Baños del Inca por la mañana, un sitio arqueológico al mediodía y campo por la tarde. Así aprovecha el día sin recorrer la ciudad de nuevo.",
+            "Una escapada puede unir Complejo Turístico Baños del Inca por la mañana, un sitio arqueológico al mediodía y campo por la tarde. Así aprovecha el día sin recorrer la ciudad de nuevo.",
             "Para el circuito arqueológico completo, véase la guía dedicada.",
           ],
         },
@@ -2752,7 +2972,7 @@ export const TOPICS: Topic[] = [
           answer: "Depende de la ruta; consulte nivel y altura antes de elegir.",
         },
         {
-          question: "¿Cómo combinar con Baños del Inca?",
+          question: "¿Cómo combinar con Complejo Turístico Baños del Inca?",
           answer: "Termas por la mañana y campo o arqueología después, en un mismo día.",
         },
         {
@@ -2779,7 +2999,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Combine with springs and archaeology",
           paragraphs: [
-            "An escape can join Baños del Inca in the morning, an archaeological site at midday and countryside in the afternoon. That makes the day without revisiting the city.",
+            "An escape can join Complejo Turístico Baños del Inca in the morning, an archaeological site at midday and countryside in the afternoon. That makes the day without revisiting the city.",
             "For the full archaeological circuit, see the dedicated guide.",
           ],
         },
@@ -2804,7 +3024,7 @@ export const TOPICS: Topic[] = [
           answer: "Depends on the route; check level and altitude before choosing.",
         },
         {
-          question: "How to combine with Baños del Inca?",
+          question: "How to combine with Complejo Turístico Baños del Inca?",
           answer: "Springs in the morning and countryside or archaeology after, in one day.",
         },
         {
@@ -2823,9 +3043,9 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Dónde dormir en Cajamarca: zonas y consejos para alojarse",
       metaDescription:
-        "Dónde dormir en Cajamarca: el centro cerca de la Plaza de Armas, el área de Baños del Inca y el turismo rural, con consejos de altura y temporada.",
+        "Dónde dormir en Cajamarca: el centro cerca de la Plaza de Armas, el área de Complejo Turístico Baños del Inca y el turismo rural, con consejos de altura y temporada.",
       h1: "Dónde dormir en Cajamarca",
-      lead: "Cajamarca ofrece alojamiento en el centro histórico, en el área de las termas de Baños del Inca y en zonas rurales. Elegir bien la zona facilita moverse sin recorrer la ciudad de nuevo.",
+      lead: "Cajamarca ofrece alojamiento en el centro histórico, en el área de las termas de Complejo Turístico Baños del Inca y en zonas rurales. Elegir bien la zona facilita moverse sin recorrer la ciudad de nuevo.",
       updated: "1 de noviembre de 2026",
       sections: [
         {
@@ -2836,7 +3056,7 @@ export const TOPICS: Topic[] = [
           bullets: ["Salga caminando a casi todo el centro.", "Reserve con antelación en fechas de Carnaval."],
         },
         {
-          heading: "Baños del Inca y alrededores",
+          heading: "Complejo Turístico Baños del Inca y alrededores",
           paragraphs: [
             "A unos kilómetros de la plaza, el área de las termas suma hospedajes cerca de las aguas termales. Conviene si su plan gira en torno a las bañeras.",
           ],
@@ -2853,7 +3073,7 @@ export const TOPICS: Topic[] = [
       faqs: [
         {
           question: "¿Dónde es mejor quedarse?",
-          answer: "El centro, si quiere caminar; Baños del Inca, si prioriza las termas; el campo, para naturaleza.",
+          answer: "El centro, si quiere caminar; Complejo Turístico Baños del Inca, si prioriza las termas; el campo, para naturaleza.",
         },
         {
           question: "¿Afecta la altura?",
@@ -2876,9 +3096,9 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Where to stay in Cajamarca: areas & tips",
       metaDescription:
-        "Where to stay in Cajamarca: the historic centre near the Plaza de Armas, the Baños del Inca hot-springs area and rural stays, with altitude and season tips.",
+        "Where to stay in Cajamarca: the historic centre near the Plaza de Armas, the Complejo Turístico Baños del Inca hot-springs area and rural stays, with altitude and season tips.",
       h1: "Where to stay in Cajamarca",
-      lead: "Cajamarca offers lodging in the historic centre, around the Baños del Inca hot springs and in rural areas. Picking the right area makes getting around easier.",
+      lead: "Cajamarca offers lodging in the historic centre, around the Complejo Turístico Baños del Inca hot springs and in rural areas. Picking the right area makes getting around easier.",
       updated: "November 1, 2026",
       sections: [
         {
@@ -2889,7 +3109,7 @@ export const TOPICS: Topic[] = [
           bullets: ["Walk to almost everything in the centre.", "Book ahead for Carnival dates."],
         },
         {
-          heading: "Baños del Inca and around",
+          heading: "Complejo Turístico Baños del Inca and around",
           paragraphs: [
             "A few kilometres from the square, the hot-springs area adds lodgings near the thermal baths. Handy if your plan centres on the baths.",
           ],
@@ -2906,7 +3126,7 @@ export const TOPICS: Topic[] = [
       faqs: [
         {
           question: "Where is it best to stay?",
-          answer: "The centre if you want to walk; Baños del Inca if you prioritise the baths; the countryside for nature.",
+          answer: "The centre if you want to walk; Complejo Turístico Baños del Inca if you prioritise the baths; the countryside for nature.",
         },
         {
           question: "Does altitude matter?",
@@ -2936,7 +3156,7 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Cajamarca con niños: qué hacer en familia",
       metaDescription:
-        "Cajamarca con niños: la Plaza de Armas a pie, las termas de Baños del Inca, Granja Porcón y consejos de altura y sol para la familia.",
+        "Cajamarca con niños: la Plaza de Armas a pie, las termas de Complejo Turístico Baños del Inca, Granja Porcón y consejos de altura y sol para la familia.",
       h1: "Cajamarca con niños",
       lead: "La ciudad es apta para familias: una plaza peatonal para caminar, termas templadas y zonas rurales con animales y campo. Con pocos cuidados, los niños disfrutan el viaje.",
       updated: "1 de noviembre de 2026",
@@ -2951,7 +3171,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Termas y campo",
           paragraphs: [
-            "Baños del Inca tiene bañeras de agua templada donde los niños suelen divertirse. Granja Porcón ofrece contacto con animales, senderos y actividades al aire libre.",
+            "Complejo Turístico Baños del Inca tiene bañeras de agua templada donde los niños suelen divertirse. Granja Porcón ofrece contacto con animales, senderos y actividades al aire libre.",
           ],
           bullets: ["Vigile a los niños en el agua en todo momento.", "Lleve ropa de cambio y toalla."],
         },
@@ -2989,7 +3209,7 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Cajamarca with kids: family things to do",
       metaDescription:
-        "Cajamarca with kids: the pedestrian Plaza de Armas, the Baños del Inca hot springs, Granja Porcón and altitude-and-sun tips for families.",
+        "Cajamarca with kids: the pedestrian Plaza de Armas, the Complejo Turístico Baños del Inca hot springs, Granja Porcón and altitude-and-sun tips for families.",
       h1: "Cajamarca with kids",
       lead: "The city suits families: a pedestrian square to walk, warm thermal baths and rural areas with animals and countryside. With a few precautions, children enjoy the trip.",
       updated: "November 1, 2026",
@@ -3004,7 +3224,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Springs and countryside",
           paragraphs: [
-            "Baños del Inca has warm-water baths where kids usually have fun. Granja Porcón offers animal contact, trails and outdoor activities.",
+            "Complejo Turístico Baños del Inca has warm-water baths where kids usually have fun. Granja Porcón offers animal contact, trails and outdoor activities.",
           ],
           bullets: ["Watch children in the water at all times.", "Bring a change of clothes and a towel."],
         },
@@ -3071,7 +3291,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Entradas y tours",
           paragraphs: [
-            "Cada sitio (Baños del Inca, Cumbemayo, Ventanillas de Otuzco, museos) cobra por separado. Confirme los montos vigentes el día de su visita, pues cambian.",
+            "Cada sitio (Complejo Turístico Baños del Inca, Cumbemayo, Ventanillas de Otuzco, museos) cobra por separado. Confirme los montos vigentes el día de su visita, pues cambian.",
           ],
           bullets: ["Pregunte precios antes de entrar.", "Los tours incluyen transporte y guía."],
         },
@@ -3124,7 +3344,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Fees and tours",
           paragraphs: [
-            "Each site (Baños del Inca, Cumbemayo, Ventanillas de Otuzco, museums) charges separately. Confirm current amounts on your visit day, as they change.",
+            "Each site (Complejo Turístico Baños del Inca, Cumbemayo, Ventanillas de Otuzco, museums) charges separately. Confirm current amounts on your visit day, as they change.",
           ],
           bullets: ["Ask prices before entering.", "Tours include transport and a guide."],
         },
@@ -3267,18 +3487,19 @@ export const TOPICS: Topic[] = [
     },
   },
 
-  // 29 — Cerro Santa Apolonia
+  // 29 — Mirador del Cerro Santa Apolonia
   {
     slug: "cerro-santa-apolonia",
     group: "lugares",
+    editorialNote: { es: "Denominación ajustada siguiendo las sugerencias de IPERÚ Cajamarca; no implica aprobación oficial de esta guía independiente.", en: "Name revised following IPERÚ Cajamarca suggestions; this does not imply official approval of this independent guide." },
     related: ["plaza-de-armas", "cumbe-mayo", "circuito-historico-3-horas"],
     es: {
-      metaTitle: "Cerro Santa Apolonia: mirador e Inca de Cajamarca",
+      metaTitle: "Mirador del Cerro Santa Apolonia: vistas de Cajamarca",
       metaDescription:
-        "Cerro Santa Apolonia: el mirador sobre Cajamarca, la Silla del Inca y restos prehispánicos, a pocos pasos del centro.",
-      h1: "Cerro Santa Apolonia",
-      lead: "El Cerro Santa Apolonia es el mirador clásico de Cajamarca: desde sus escalinatas se ve toda la ciudad, y guarda la Silla del Inca y restos prehispánicos tallados en roca.",
-      updated: "1 de noviembre de 2026",
+        "Mirador del Cerro Santa Apolonia: el mirador sobre Cajamarca, la Silla del Inca y restos prehispánicos, a pocos pasos del centro.",
+      h1: "Mirador del Cerro Santa Apolonia",
+      lead: "El Mirador del Cerro Santa Apolonia es el mirador clásico de Cajamarca: desde sus escalinatas se ve toda la ciudad, y guarda la Silla del Inca y restos prehispánicos tallados en roca.",
+      updated: "3 de noviembre de 2026",
       sections: [
         {
           heading: "El mirador",
@@ -3326,12 +3547,12 @@ export const TOPICS: Topic[] = [
       ],
     },
     en: {
-      metaTitle: "Cerro Santa Apolonia: viewpoint & Inca site of Cajamarca",
+      metaTitle: "Mirador del Cerro Santa Apolonia: viewpoint & Inca site of Cajamarca",
       metaDescription:
-        "Cerro Santa Apolonia: the viewpoint over Cajamarca, the Inca's Throne and pre-Hispanic remains, a short walk from the centre.",
-      h1: "Cerro Santa Apolonia",
-      lead: "Cerro Santa Apolonia is Cajamarca's classic viewpoint: from its stairways you see the whole city, and it holds the Inca's Throne and pre-Hispanic rock carvings.",
-      updated: "November 1, 2026",
+        "Mirador del Cerro Santa Apolonia: the viewpoint over Cajamarca, the Inca's Throne and pre-Hispanic remains, a short walk from the centre.",
+      h1: "Mirador del Cerro Santa Apolonia",
+      lead: "Mirador del Cerro Santa Apolonia is Cajamarca's classic viewpoint: from its stairways you see the whole city, and it holds the Inca's Throne and pre-Hispanic rock carvings.",
+      updated: "November 3, 2026",
       sections: [
         {
           heading: "The viewpoint",
@@ -3503,7 +3724,7 @@ export const TOPICS: Topic[] = [
       metaDescription:
         "Tres Molinos: zona de campo en las afueras de Cajamarca para caminar, descansar y combinar con termas y arqueología.",
       h1: "Tres Molinos",
-      lead: "Tres Molinos es una zona de campo en las afueras de Cajamarca, valorada por sus áreas verdes y el aire tranquilo. Se visita en combinación con Baños del Inca y los sitios arqueológicos.",
+      lead: "Tres Molinos es una zona de campo en las afueras de Cajamarca, valorada por sus áreas verdes y el aire tranquilo. Se visita en combinación con Complejo Turístico Baños del Inca y los sitios arqueológicos.",
       updated: "1 de noviembre de 2026",
       sections: [
         {
@@ -3516,7 +3737,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Combinar con termas y arqueología",
           paragraphs: [
-            "Queda en ruta hacia Baños del Inca y sitios como Cumbemayo. Una misma salida puede unir campo, termas y arqueología.",
+            "Queda en ruta hacia Complejo Turístico Baños del Inca y sitios como Cumbemayo. Una misma salida puede unir campo, termas y arqueología.",
           ],
           bullets: ["Arme el día con tiempo de traslado.", "Lleve efectivo para entradas y buses."],
         },
@@ -3538,7 +3759,7 @@ export const TOPICS: Topic[] = [
           answer: "Está en las afueras; en vehículo o tour es práctico.",
         },
         {
-          question: "¿Se combina con Baños del Inca?",
+          question: "¿Se combina con Complejo Turístico Baños del Inca?",
           answer: "Sí, quedan en ruta y se unen en un mismo día.",
         },
         {
@@ -3556,7 +3777,7 @@ export const TOPICS: Topic[] = [
       metaDescription:
         "Tres Molinos: a countryside area on Cajamarca's outskirts to walk, rest and combine with springs and archaeology.",
       h1: "Tres Molinos",
-      lead: "Tres Molinos is a countryside area on Cajamarca's outskirts, valued for its green spaces and calm air. It is visited together with Baños del Inca and the archaeological sites.",
+      lead: "Tres Molinos is a countryside area on Cajamarca's outskirts, valued for its green spaces and calm air. It is visited together with Complejo Turístico Baños del Inca and the archaeological sites.",
       updated: "November 1, 2026",
       sections: [
         {
@@ -3569,7 +3790,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Combine with springs and archaeology",
           paragraphs: [
-            "It lies on the route to Baños del Inca and sites like Cumbemayo. One outing can join countryside, springs and archaeology.",
+            "It lies on the route to Complejo Turístico Baños del Inca and sites like Cumbemayo. One outing can join countryside, springs and archaeology.",
           ],
           bullets: ["Plan the day with transfer time.", "Carry cash for fees and buses."],
         },
@@ -3591,7 +3812,7 @@ export const TOPICS: Topic[] = [
           answer: "It is on the outskirts; vehicle or tour is practical.",
         },
         {
-          question: "Combine with Baños del Inca?",
+          question: "Combine with Complejo Turístico Baños del Inca?",
           answer: "Yes, they are on route and join in one day.",
         },
         {
@@ -4292,7 +4513,7 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Cajamarca en un día: itinerario exprés",
       metaDescription:
-        "Cajamarca en un día: la Plaza de Armas, el Cuarto del Rescate, Belén y Baños del Inca o Santa Apolonia en una sola jornada.",
+        "Cajamarca en un día: la Plaza de Armas, el Cuarto del Rescate, Belén y Complejo Turístico Baños del Inca o Santa Apolonia en una sola jornada.",
       h1: "Cajamarca en un día",
       lead: "Si tiene solo un día, puede recorrer el centro histórico por la mañana y salir a las afueras por la tarde. Aquí un itinerario sencillo y realista.",
       updated: "1 de noviembre de 2026",
@@ -4307,7 +4528,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Tarde fuera del centro",
           paragraphs: [
-            "Dedique la tarde a Baños del Inca (termas) o al Cerro Santa Apolonia (mirador). Ambos están a pocos minutos del centro en vehículo.",
+            "Dedique la tarde a Complejo Turístico Baños del Inca (termas) o al Mirador del Cerro Santa Apolonia (mirador). Ambos están a pocos minutos del centro en vehículo.",
           ],
           bullets: ["Elija uno para no apurarse.", "Confirme el acceso a las termas."],
         },
@@ -4345,7 +4566,7 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Cajamarca in one day: express itinerary",
       metaDescription:
-        "Cajamarca in one day: the Plaza de Armas, the Ransom Room, Belén and Baños del Inca or Santa Apolonia in a single day.",
+        "Cajamarca in one day: the Plaza de Armas, the Ransom Room, Belén and Complejo Turístico Baños del Inca or Santa Apolonia in a single day.",
       h1: "Cajamarca in one day",
       lead: "With only one day, you can tour the historic centre in the morning and head to the outskirts in the afternoon. Here is a simple, realistic plan.",
       updated: "November 1, 2026",
@@ -4360,7 +4581,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Afternoon outside the centre",
           paragraphs: [
-            "Spend the afternoon at Baños del Inca (springs) or Cerro Santa Apolonia (viewpoint). Both are minutes from the centre by vehicle.",
+            "Spend the afternoon at Complejo Turístico Baños del Inca (springs) or Mirador del Cerro Santa Apolonia (viewpoint). Both are minutes from the centre by vehicle.",
           ],
           bullets: ["Pick one to avoid rushing.", "Confirm spring access."],
         },
@@ -4413,7 +4634,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Día 1 — El centro",
           paragraphs: [
-            "Plaza de Armas, Catedral, Cuarto del Rescate, Belén y un paseo al Cerro Santa Apolonia al atardecer. Todo a pie.",
+            "Plaza de Armas, Catedral, Cuarto del Rescate, Belén y un paseo al Mirador del Cerro Santa Apolonia al atardecer. Todo a pie.",
           ],
           bullets: ["Descanse por la altura.", "Cene cerca de la plaza."],
         },
@@ -4466,7 +4687,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Day 1 — The centre",
           paragraphs: [
-            "Plaza de Armas, cathedral, Ransom Room, Belén and a sunset walk up Cerro Santa Apolonia. All on foot.",
+            "Plaza de Armas, cathedral, Ransom Room, Belén and a sunset walk up Mirador del Cerro Santa Apolonia. All on foot.",
           ],
           bullets: ["Rest for the altitude.", "Dine near the square."],
         },
@@ -4540,7 +4761,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "A las afueras",
           paragraphs: [
-            "Para Baños del Inca, Cumbemayo o la ruta del queso, lo práctico es tour, vehículo de alquiler o colectivos desde las terminales. Confirme horarios.",
+            "Para Complejo Turístico Baños del Inca, Cumbemayo o la ruta del queso, lo práctico es tour, vehículo de alquiler o colectivos desde las terminales. Confirme horarios.",
           ],
           bullets: ["Los sitios alejados no tienen transporte frecuente.", "Vuelva al centro antes de anochecer."],
         },
@@ -4593,7 +4814,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "To the outskirts",
           paragraphs: [
-            "For Baños del Inca, Cumbemayo or the cheese route, a tour, rental vehicle or shared vans from the terminals works. Confirm schedules.",
+            "For Complejo Turístico Baños del Inca, Cumbemayo or the cheese route, a tour, rental vehicle or shared vans from the terminals works. Confirm schedules.",
           ],
           bullets: ["Remote sites lack frequent transport.", "Return to the centre before dark."],
         },
@@ -5648,7 +5869,7 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Dónde fotografiar en Cajamarca: miradores y rincones",
       metaDescription:
-        "Dónde fotografiar en Cajamarca: la Plaza de Armas, el Cerro Santa Apolonia, Cumbemayo y rincones del centro histórico.",
+        "Dónde fotografiar en Cajamarca: la Plaza de Armas, el Mirador del Cerro Santa Apolonia, Cumbemayo y rincones del centro histórico.",
       h1: "Dónde fotografiar en Cajamarca",
       lead: "La ciudad mezcla arquitectura colonial, miradores y paisaje de sierra, ideal para fotos. Aquí los rincones con mejor luz y ángulo.",
       updated: "1 de noviembre de 2026",
@@ -5663,7 +5884,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Miradores y alrededores",
           paragraphs: [
-            "El Cerro Santa Apolonia entrega la vista panorámica de la ciudad y el valle. Cumbemayo suma el acueducto, los petroglifos y Los Frailones.",
+            "El Mirador del Cerro Santa Apolonia entrega la vista panorámica de la ciudad y el valle. Cumbemayo suma el acueducto, los petroglifos y Los Frailones.",
           ],
           bullets: ["Suba al cerro al atardecer.", "Lleve abrigo, sopla viento."],
         },
@@ -5701,7 +5922,7 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Where to photograph in Cajamarca: viewpoints & spots",
       metaDescription:
-        "Where to photograph in Cajamarca: the Plaza de Armas, Cerro Santa Apolonia, Cumbemayo and corners of the historic centre.",
+        "Where to photograph in Cajamarca: the Plaza de Armas, Mirador del Cerro Santa Apolonia, Cumbemayo and corners of the historic centre.",
       h1: "Where to photograph in Cajamarca",
       lead: "The city blends colonial architecture, viewpoints and highland scenery, great for photos. Here are the corners with the best light and angle.",
       updated: "November 1, 2026",
@@ -5716,7 +5937,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Viewpoints and surroundings",
           paragraphs: [
-            "Cerro Santa Apolonia gives the panorama of the city and valley. Cumbemayo adds the aqueduct, petroglyphs and the Frailones.",
+            "Mirador del Cerro Santa Apolonia gives the panorama of the city and valley. Cumbemayo adds the aqueduct, petroglyphs and the Frailones.",
           ],
           bullets: ["Climb the hill at sunset.", "Bring warm clothing, it is windy."],
         },
@@ -5761,7 +5982,7 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Pueblos cercanos a Cajamarca: excursiones rurales",
       metaDescription:
-        "Pueblos cercanos a Cajamarca: comunidades y zonas rurales como Porcón, el distrito de Baños del Inca y pueblos de la periferia.",
+        "Pueblos cercanos a Cajamarca: comunidades y zonas rurales como Porcón, el distrito de Complejo Turístico Baños del Inca y pueblos de la periferia.",
       h1: "Pueblos cercanos a Cajamarca",
       lead: "Además de la ciudad, la provincia ofrece comunidades y pueblos rurales para una salida de medio día o un día. Se visitan en vehículo o tour desde el centro.",
       updated: "1 de noviembre de 2026",
@@ -5774,9 +5995,9 @@ export const TOPICS: Topic[] = [
           bullets: ["Vaya en vehículo o tour.", "Confirme distancias y caminos."],
         },
         {
-          heading: "Baños del Inca y alrededores",
+          heading: "Complejo Turístico Baños del Inca y alrededores",
           paragraphs: [
-            "El distrito de Baños del Inca, a pocos kilómetros, combina termas y pueblos de valle. Es una base común para recorrer la zona.",
+            "El distrito de Complejo Turístico Baños del Inca, a pocos kilómetros, combina termas y pueblos de valle. Es una base común para recorrer la zona.",
           ],
           bullets: ["Suma termas al paseo.", "Lleve abrigo en la tarde."],
         },
@@ -5791,7 +6012,7 @@ export const TOPICS: Topic[] = [
       faqs: [
         {
           question: "¿Qué pueblos visitar?",
-          answer: "Porcón y las zonas rurales cerca de Baños del Inca son las más accesibles.",
+          answer: "Porcón y las zonas rurales cerca de Complejo Turístico Baños del Inca son las más accesibles.",
         },
         {
           question: "¿Se llega en transporte público?",
@@ -5814,7 +6035,7 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Towns near Cajamarca: rural day trips",
       metaDescription:
-        "Towns near Cajamarca: communities and rural areas like Porcón, the Baños del Inca district and peripheral villages.",
+        "Towns near Cajamarca: communities and rural areas like Porcón, the Complejo Turístico Baños del Inca district and peripheral villages.",
       h1: "Towns near Cajamarca",
       lead: "Beyond the city, the province offers communities and rural villages for a half-day or full-day outing. They are visited by vehicle or tour from the centre.",
       updated: "November 1, 2026",
@@ -5827,9 +6048,9 @@ export const TOPICS: Topic[] = [
           bullets: ["Go by vehicle or tour.", "Confirm distances and roads."],
         },
         {
-          heading: "Baños del Inca and around",
+          heading: "Complejo Turístico Baños del Inca and around",
           paragraphs: [
-            "The Baños del Inca district, a few kilometres away, mixes hot springs and valley villages. It is a common base to tour the area.",
+            "The Complejo Turístico Baños del Inca district, a few kilometres away, mixes hot springs and valley villages. It is a common base to tour the area.",
           ],
           bullets: ["Add springs to the outing.", "Bring warm clothing in the afternoon."],
         },
@@ -5844,7 +6065,7 @@ export const TOPICS: Topic[] = [
       faqs: [
         {
           question: "Which towns to visit?",
-          answer: "Porcón and the rural areas near Baños del Inca are the most accessible.",
+          answer: "Porcón and the rural areas near Complejo Turístico Baños del Inca are the most accessible.",
         },
         {
           question: "Reachable by public transport?",
@@ -5874,7 +6095,7 @@ export const TOPICS: Topic[] = [
     es: {
       metaTitle: "Qué hacer gratis en Cajamarca: planes sin costo",
       metaDescription:
-        "Qué hacer gratis en Cajamarca: caminar la Plaza de Armas, el Cerro Santa Apolonia y el centro histórico sin gastar en entradas.",
+        "Qué hacer gratis en Cajamarca: caminar la Plaza de Armas, el Mirador del Cerro Santa Apolonia y el centro histórico sin gastar en entradas.",
       h1: "Qué hacer gratis en Cajamarca",
       lead: "Varias experiencias de la ciudad no cobran entrada: pasear el centro, la plaza y los miradores públicos se disfrutan sin gastar. Aquí los planes de costo cero.",
       updated: "1 de noviembre de 2026",
@@ -5889,7 +6110,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Miradores públicos",
           paragraphs: [
-            "El Cerro Santa Apolonia es de acceso público y entrega la mejor vista de la ciudad. Confirmado el acceso, la caminata no tiene costo de entrada.",
+            "El Mirador del Cerro Santa Apolonia es de acceso público y entrega la mejor vista de la ciudad. Confirmado el acceso, la caminata no tiene costo de entrada.",
           ],
           bullets: ["Vaya temprano o al atardecer.", "Lleve abrigo, hace frío arriba."],
         },
@@ -5927,7 +6148,7 @@ export const TOPICS: Topic[] = [
     en: {
       metaTitle: "Free things to do in Cajamarca",
       metaDescription:
-        "Free things to do in Cajamarca: walk the Plaza de Armas, Cerro Santa Apolonia and the historic centre without paying entry.",
+        "Free things to do in Cajamarca: walk the Plaza de Armas, Mirador del Cerro Santa Apolonia and the historic centre without paying entry.",
       h1: "Free things to do in Cajamarca",
       lead: "Several city experiences charge no entry: walking the centre, the square and public viewpoints costs nothing. Here are the zero-cost plans.",
       updated: "November 1, 2026",
@@ -5942,7 +6163,7 @@ export const TOPICS: Topic[] = [
         {
           heading: "Public viewpoints",
           paragraphs: [
-            "Cerro Santa Apolonia is public access and gives the best city view. Once access is confirmed, the walk has no entry cost.",
+            "Mirador del Cerro Santa Apolonia is public access and gives the best city view. Once access is confirmed, the walk has no entry cost.",
           ],
           bullets: ["Go early or at sunset.", "Bring warm clothing, it is cold up top."],
         },
